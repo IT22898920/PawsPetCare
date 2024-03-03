@@ -1,0 +1,21 @@
+.add-product-page {
+  /* Assuming you want the whole page centered */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Updated for better cross-browser support */
+  padding: 20px; /* Adjust padding as needed */
+}
+
+.add-product-title {
+  width: 100%; /* Full width to align text properly */
+  text-align: center; /* Centers the text within its container */
+  margin: 20px 0; /* Adds some top and bottom margin for spacing */
+  
+  h3 {
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    font-size: 2rem; /* Adjust the size as needed */
+    font-weight: bold; /* Makes the font bold */
+  }
+}

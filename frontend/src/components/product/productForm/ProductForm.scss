@@ -1,0 +1,109 @@
+.add-product {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+
+  .card {
+    width: 100%;
+    max-width: 700px; // Increased max-width for a better layout
+    margin: 2rem; // Added margin for spacing
+    padding: 2rem; // Increased padding for a spacious look
+    background: #fff; // White background for the card
+    border-radius: 10px; // Rounded corners
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Soft shadow for depth
+    transition: box-shadow 0.3s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); // Shadow effect on hover
+    }
+  }
+
+  form {
+    label {
+      display: block;
+      font-size: 1.6rem; // Increased font size
+      font-weight: 700; // Bold font weight
+      color: #333; // Darker color for better readability
+      margin-bottom: 0.5rem; // Spacing below the label
+    }
+
+    input,
+    select,
+    .quill {
+      display: block;
+      font-size: 1rem; // Standard font size for inputs
+      padding: 0.75rem; // Comfortable padding
+      margin-bottom: 1rem; // Consistent margin
+      width: 100%; // Full width for inputs
+      border: 1px solid #ccc; // Subtle border color
+      border-radius: 5px; // Smoothed corners
+      outline: none;
+
+      &:focus {
+        border-color: #3498db; // Highlight focus with a blue border
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2); // Glowing effect on focus
+      }
+    }
+
+    .quill {
+      background: #f7f7f7; // Light background for the editor
+    }
+
+    .group {
+      border: none; // Removing the border for a cleaner look
+      margin-bottom: 2rem; // Adding more space between groups
+      code.--color-dark {
+        font-size: 1.2rem; // Increased font size for the formats note
+        font-weight: 600; // Slightly less bold than the label for hierarchy
+        display: block; // Ensure it's on its own line
+        color: #3498db; // Use the theme color for emphasis
+        margin-bottom: 1rem; // Spacing below the note before the input
+      }
+    }
+
+    .image-preview {
+      background: #eceff1; // Neutral background for the image preview
+      margin-bottom: 1rem; // Space before the next field
+
+      img {
+        width: 100%; // Ensuring the image takes the full width
+        height: auto; // Auto-height to maintain aspect ratio
+        display: block; // Display block to remove bottom space
+        border-radius: 5px; // Rounded corners for the image
+      }
+    }
+  }
+
+  .--btn-primary {
+    background-color: #3498db; // Primary button color
+    color: #fff; // White text for contrast
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #2980b9; // Darker shade on hover
+    }
+  }
+
+  // React Quill specific styling
+  .ql-toolbar {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .ql-container {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .add-product {
+    .card {
+      margin: 1rem;
+      padding: 1rem;
+    }
+  }
+}

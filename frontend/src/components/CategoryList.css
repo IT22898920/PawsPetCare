@@ -1,0 +1,44 @@
+/* CategoryList.css */
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px; /* Adjust the gap to your liking */
+  margin: 20px; /* Adjust the margin to your liking */
+}
+
+.category-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px; /* Rounded corners for each item */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* A subtle shadow */
+}
+
+.category-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.category-name {
+  position: absolute;
+  bottom: 10px; /* Distance from the bottom */
+  left: 10px; /* Distance from the left */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: #fff; /* White text color */
+  padding: 5px 10px; /* Padding inside the label */
+  border-radius: 5px; /* Rounded corners for the label */
+}
+
+.category-button {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%); /* Center the button */
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Green background color */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 5px; /* Rounded corners for the button */
+  cursor: pointer;
+  text-decoration: none; /* Remove underline from links */
+}

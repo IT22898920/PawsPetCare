@@ -1,0 +1,95 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+}
+
+.card {
+  max-width: 600px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-15px);
+  }
+
+  .profile-photo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 4rem;
+
+    img {
+      width: auto;
+      max-width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #3498db;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .profile-data {
+    width: 100%; /* Adjusted to 100% */
+    padding: 2rem;
+  
+    p {
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Updated for better cross-browser support */
+      font-size: 1.2rem;
+      color: #333;
+  
+      label, b {
+        font-weight: 700;
+      }
+  
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      textarea {
+        width: 100%; /* Set width to 100% to maximize length */
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+  
+        &:focus {
+          outline: none;
+          border-color: #3498db;
+        }
+      }
+  
+      input[type="file"] {
+        width: auto; /* File inputs are usually best left at auto width */
+      }
+  
+      button {
+        background-color: #3498db;
+        color: white;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #2980b9;
+        }
+      }
+    }
+  }
+  
+}

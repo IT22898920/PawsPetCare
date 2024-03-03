@@ -1,0 +1,89 @@
+.product-list {
+  --primary-color: #007bff; // Example primary color
+  --secondary-color: #6c757d; // Secondary color
+  --background-color: #f8f9fa; // Light background color
+  --text-color: #343a40; // Text color
+  --border-color: #dee2e6; // Border color
+
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .table {
+    padding: 10px;
+    background-color: var(--background-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 1rem; // Increased base font size
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      font-size: 0.9rem;
+
+      thead {
+        tr {
+          background-color: var(--primary-color);
+          color: #ffffff;
+          th {
+            text-align: left;
+            padding: 12px 15px;
+            font-size: 1.3rem; // Increased for table headers
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          background-color: #ffffff;
+          transition: background-color 0.3s ease;
+          font-size: 1.3rem; // Increased for table headers
+          &:hover {
+            background-color: var(--border-color);
+          }
+
+          td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+
+            &.icons span {
+              margin: 0 5px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              height: 30px;
+              width: 30px;
+              border-radius: 15px;
+              &:hover {
+                background-color: var(--primary-color);
+                color: #ffffff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+
+    .page-num {
+      padding: 8px 12px; // Slightly larger for better interaction
+      font-size: 1rem; // Increased for pagination numbers
+      margin: 0 5px;
+      border-radius: 5px;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      cursor: pointer;
+
+      &:hover, &.activePage {
+        background-color: var(--primary-color);
+        color: #ffffff;
+      }
+    }
+  }
+}

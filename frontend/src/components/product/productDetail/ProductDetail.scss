@@ -1,0 +1,98 @@
+.product-detail {
+  margin: auto;
+  margin-bottom: 5rem;
+  padding: 20px;
+  width: 100%;
+  max-width: 760px; // Adjusted for better layout
+  background-color: #f9f9f9; // Light background for the detail view
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); // Soft shadow for depth
+  border-radius: 8px; // Rounded corners for modern look
+  color: #333; // Default font color for overall detail view, adjust as needed
+
+  .card {
+    padding: 2rem;
+    background-color: #ffffff; // Ensure card background stands out
+    border-radius: 5px; // Consistent rounded corners
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); // Subtle shadow for inner cards
+  }
+
+  .detail {
+    img {
+      max-width: 100%; // Ensure image does not exceed the card width
+      height: auto; // Maintain aspect ratio
+      border-radius: 4px; // Slightly rounded corners for images
+      margin-bottom: 1rem;
+    }
+
+    h3, h4 {
+      color: #0056b3; // Primary headings color, adjust to match your theme
+      margin-bottom: 1rem; // Increase as needed for more space below headings
+    }
+
+    .badge {
+      background-color: var(--color-primary); // Adjusted for consistency
+      color: #ffffff; // Keeps text white for badges for readability
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em; // Slightly smaller badge for subtlety
+      margin-right: 0.5rem; // Adds space to the right of the badge if next to other elements
+      margin-bottom: 1rem; // Adds space below the badge
+    }
+
+    p {
+      margin-bottom: 1rem; // Adds more space after each paragraph
+      color: #444; // Slightly darker than the general text for emphasis
+      line-height: 1.6; // Improved line spacing for readability
+      b {
+        color: #444; // Slightly darker than the general text for emphasis
+      }
+    }
+    // If the SKU, Category, Price, etc., are within their own elements, add margins
+    .sku, .category, .price, .quantity, .total-value {
+      margin-bottom: 0.5rem; // Adjust this value as needed
+    }
+    .--color-success, .--color-danger {
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: bold;
+      display: inline-block; // Makes sure the span behaves like a block for margin to take effect
+      margin-bottom: 1rem; // Adds space below the stock status
+    }
+    ul, ol {
+      padding-left: 20px; // Give some space inside the list
+      margin-bottom: 1rem; // Space after the list
+    }
+    li {
+      margin-bottom: 0.5rem; // Space between list items
+    }
+    .--color-success {
+      background-color: #28a745; // Green for success/in stock
+    }
+
+    .--color-danger {
+      background-color: #dc3545; // Red for danger/out of stock
+    }
+
+    code {
+      display: block; // Ensure code elements are block level for spacing
+      background-color: #e9ecef; // Light background for contrast
+      color: #232323; // Dark color for code blocks ensures readability
+      padding: 0.5rem;
+      margin-top: 1rem;
+      border-radius: 4px; // Consistent border-radius
+      margin-bottom: 1rem; // Adds space below the code block
+
+      .additional-info {
+        margin-bottom: 1rem; // Space after each additional info section
+      }
+    }
+  }
+}
+
+.group {
+  border: 1px solid #dee2e6; // Slightly lighter border for inner group
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px; // Rounded corners
+}

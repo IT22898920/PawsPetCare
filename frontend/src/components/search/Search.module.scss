@@ -1,0 +1,26 @@
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+
+  .icon {
+    position: absolute;
+    left: 10px;
+    color: var(--secondary-color);
+  }
+
+  input[type="text"] {
+    font-size: 1rem;
+    padding: 8px 8px 8px 40px; // Make room for the search icon
+    width: 100%;
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+
+    &:focus {
+      border-color: var(--primary-color);
+    }
+  }
+}
