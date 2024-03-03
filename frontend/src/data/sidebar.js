@@ -32,6 +32,11 @@ const menu = [
     icon: <FaCommentAlt />,
     path: "/contact-us",
   },
+  {
+    title: "Chart",
+    icon: <FaCommentAlt />,
+    path: "/chart",
+  },
 ];
 
 export default menu;
