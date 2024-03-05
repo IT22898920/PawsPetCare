@@ -1,5 +1,6 @@
 import { FaTh, FaRegChartBar, FaCommentAlt } from "react-icons/fa";
 import { BiImageAdd } from "react-icons/bi";
+import { FaChartBar } from "react-icons/fa";
 
 const menu = [
   {
@@ -34,7 +35,7 @@ const menu = [
   },
   {
     title: "Chart",
-    icon: <FaCommentAlt />,
+    icon: <FaChartBar />,
     path: "/chart",
   },
 ];

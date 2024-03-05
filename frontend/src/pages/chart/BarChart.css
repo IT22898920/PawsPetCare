@@ -1,0 +1,48 @@
+/* BarChart.css */
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background to make charts stand out */
+    border-radius: 8px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    margin: 20px auto;
+    max-width: 80%;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .chart-container {
+      max-width: 95%;
+      padding: 10px;
+    }
+  }
+  
+  .chart {
+    width: 100%;
+    padding: 15px;
+    background-color: #ffffff; /* White background for each chart */
+    border: 1px solid #dee2e6; /* Slight border for definition */
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Additional shadow for each chart */
+  }
+  
+  /* Enhances readability and aesthetics of the chart titles */
+  .chart-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #495057; /* Dark gray for contrast and readability */
+    text-align: center;
+  }
+  
+  /* Customizes the tooltips for more visibility */
+  .chart-tooltip {
+    background-color: #212529 !important; /* Ensure visibility against light backgrounds */
+    color: #f8f9fa !important; /* Light text for contrast */
+    border-radius: 4px !important;
+    padding: 10px !important;
+  }
+  
