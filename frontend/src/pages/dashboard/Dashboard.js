@@ -10,7 +10,7 @@ const Dashboard = () => {
   useRedirectLoggedOutUser("/login");
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(selectIsLoggedIn); 
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const { products, isLoading, isError, message } = useSelector(
     (state) => state.product
   );
@@ -19,7 +19,6 @@ const Dashboard = () => {
     if (isLoggedIn === true) {
       dispatch(getProducts());
     }
-    //console.log(products);
     if (isError) {
       console.log(message);
     }
@@ -27,8 +26,8 @@ const Dashboard = () => {
 
   return (
     <div>
-       <ProductSummary products={products} />
-      <ProductList products={products} isLoading={isLoading} /> 
+      <ProductSummary products={products} />
+      <ProductList products={products} isLoading={isLoading} />
     </div>
   );
 };

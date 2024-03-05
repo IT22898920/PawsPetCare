@@ -1,10 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const name = JSON.parse(localStorage.getItem("name"));
+// Use the safeParseJSON function to safely parse the "name" from localStorage
+const safeParseJSON = (key) => {
+  const item = localStorage.getItem(key);
+  try {
+    return item ? JSON.parse(item) : null;
+  } catch (error) {
+    console.error(`Error parsing ${key} from localStorage:`, error);
+    return null;  // Fallback value if parsing fails
+  }
+};
+
+const name = safeParseJSON("name");
 
 const initialState = {
   isLoggedIn: false,
-  name: name ? name : "",
+  name: name || "", // Fallback to an empty string if name is null
   user: {
     name: "",
     email: "",
