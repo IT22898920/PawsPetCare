@@ -1,48 +1,99 @@
-/* BarChart.css */
+/* Container holding all charts, providing an overall padding and enabling flex layout for responsive design */
 .chart-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px; /* Ensures sufficient spacing between charts for clarity */
+  padding: 40px;
+  background-color: #f8f9fa; /* A light grey background for slight contrast */
+}
+
+/* Style for individual chart containers */
+.chart {
+  width: 100%; /* Ensures chart takes full width of its container */
+  max-width: 960px; /* Optimal max-width for readability */
+  background-color: #ffffff; /* White background for clean look */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1); /* Soft shadow for depth */
+  padding: 40px; /* Generous padding for aesthetic spacing */
+  border-radius: 16px; /* Rounded corners for a modern look */
+  margin: 0 auto; /* Center charts within their container */
+}
+
+/* Styling chart titles for prominence */
+.chart-title {
+  font-size: 24px; /* Larger font size for importance */
+  color: #343a40; /* Dark grey for strong contrast */
+  margin-bottom: 30px; /* Spacing below the title */
+  text-align: center; /* Center-align titles */
+}
+
+/* Flex container for buttons, centered below charts */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px; /* Spacing between buttons */
+  flex-wrap: wrap; /* Wrap buttons to next line on small screens */
+  margin-top: 20px; /* Space from chart to buttons */
+}
+
+/* Unified button styling with transition for interactive states */
+.button-container button {
+  background-color: #007bff; /* Primary blue color for initial state */
+  color: #ffffff; /* White text for contrast */
+  border: none;
+  border-radius: 8px; /* Rounded edges for modern look */
+  padding: 10px 20px; /* Adequate padding for clickable area */
+  font-size: 14px; /* Comfortable reading size for text */
+  cursor: pointer; /* Cursor indicates interactivity */
+  transition: transform 0.1s ease; /* Smooth transform transition */
+}
+
+/* Hover state increases scale slightly for button feedback */
+.button-container button:hover {
+  transform: scale(1.05); /* Slight enlargement on hover */
+}
+
+/* Active state slightly darkens the button */
+.button-container button:active {
+  background-color: #0056b3; /* Darker shade of button color */
+}
+
+/* Adjusting styles for specific button functions */
+.download-csv-button {
+  background-color: #28a745; /* Green color for CSV downloads */
+}
+
+/* Media query for responsive adjustments on smaller screens */
+@media (max-width: 768px) {
+  .chart-container {
     padding: 20px;
-    background-color: #f8f9fa; /* Light background to make charts stand out */
-    border-radius: 8px;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    margin: 20px auto;
-    max-width: 80%;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .chart-container {
-      max-width: 95%;
-      padding: 10px;
-    }
   }
   
   .chart {
-    width: 100%;
-    padding: 15px;
-    background-color: #ffffff; /* White background for each chart */
-    border: 1px solid #dee2e6; /* Slight border for definition */
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Additional shadow for each chart */
+    padding: 20px;
   }
-  
-  /* Enhances readability and aesthetics of the chart titles */
+
   .chart-title {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    color: #495057; /* Dark gray for contrast and readability */
-    text-align: center;
+    font-size: 20px; /* Slightly smaller font size */
   }
   
-  /* Customizes the tooltips for more visibility */
-  .chart-tooltip {
-    background-color: #212529 !important; /* Ensure visibility against light backgrounds */
-    color: #f8f9fa !important; /* Light text for contrast */
-    border-radius: 4px !important;
-    padding: 10px !important;
+  .button-container button {
+    padding: 8px 16px; /* Slightly reduced padding */
+    font-size: 12px; /* Slightly reduced font size for space */
   }
-  
+}
+.icon-button {
+  background-color: #17a2b8; /* Example background color */
+  color: white; /* Icon color */
+  border: none;
+  cursor: pointer;
+  padding: 8px; /* Adjust padding as needed */
+  border-radius: 50%; /* Circular buttons for icons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button:hover {
+  background-color: #138496; /* Darker shade on hover */
+}
