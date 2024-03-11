@@ -1,0 +1,67 @@
+.out-of-stock-container {
+  --primary-color: #007bff; // Example primary color
+  --secondary-color: #6c757d; // Secondary color
+  --background-color: #f8f9fa; // Light background color
+  --text-color: #343a40; // Text color
+  --border-color: #dee2e6; // Border color
+  --font-size: 2.5rem; // Larger base font size for the table
+
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  h2 {
+    background-color: #ffffff; // White background for the header
+    color: var(--primary-color); // Primary color for the header text
+    margin-bottom: 20px;
+    font-size: 4rem; // Larger font size for the header
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--background-color);
+    border-radius: 5px;
+    overflow: hidden;
+
+    thead {
+      tr {
+        background-color: var(--primary-color); // Primary color background for table headers
+        color: #ffffff; // White text for table headers
+
+        th {
+          text-align: left;
+          padding: 12px 15px;
+          font-size: 1.5rem; // Slightly larger font size for table headers
+          border-bottom: 2px solid var(--border-color); // Border color for separation
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background-color: #ffffff; // White background for odd rows
+        }
+
+        &:nth-child(even) {
+          background-color: var(--background-color); // Background color for even rows
+        }
+
+        &:hover {
+          background-color: var(--border-color); // Border color on hover for rows
+        }
+
+        td {
+          padding: 10px 15px;
+          border-bottom: 1px solid var(--border-color); // Border color for separation between rows
+          font-size: 1.2rem; // Larger font size for table data
+        }
+      }
+    }
+  }
+}

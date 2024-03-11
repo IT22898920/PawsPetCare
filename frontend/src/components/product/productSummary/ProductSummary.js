@@ -13,6 +13,10 @@ import {
   selectOutOfStock,
   selectTotalStoreValue,
 } from "../../../redux/features/product/productSlice";
+import { Link } from "react-router-dom";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 // Icons
 const earningIcon = <AiFillDollarCircle size={40} color="#fff" />;
@@ -41,30 +45,50 @@ const ProductSummary = ({ products }) => {
     <div className="product-summary">
       <h3 className="--mt">Inventory Stats</h3>
       <div className="info-summary">
-        <InfoBox
+        <Row>
+          <Col>
+          <InfoBox
           icon={productIcon}
           title={"Total Products"}
           count={products.length}
           bgColor="card1"
         />
-        <InfoBox
+          </Col>
+          <Col>
+          <InfoBox
           icon={earningIcon}
           title={"Total Store Value"}
           count={`LKR ${formatNumbers(totalStoreValue.toFixed(2))}  `}
           bgColor="card2"
         />
+          </Col>
+          <Col>
+          <Link to="/out">
         <InfoBox
+        
           icon={outOfStockIcon}
           title={"Out of Stock"}
           count={outOfStock}
           bgColor="card3"
-        />
+         
+        /> </Link>
+          </Col>
+          <Col>
+          
         <InfoBox
           icon={categoryIcon}
           title={"All Categories"}
           count={category.length}
           bgColor="card4"
         />
+          </Col>
+        </Row>
+       
+       
+        
+       
+
+    
       </div>
     </div>
   );
