@@ -23,6 +23,7 @@ import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
 import Contact from "./pages/contact/Contact";
 import Chart from "./pages/chart/Chart";
+import OutOfStock from "./components/OutOfStock";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -133,6 +134,7 @@ function App() {
             <AllProductList />
           }
         />
+      <Route path="/out" element={<OutOfStock/>}/>
       </Routes>
     </BrowserRouter>
   );

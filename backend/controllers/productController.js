@@ -164,6 +164,12 @@ const updateProduct = asyncHandler(async (req, res) => {
 
   });
 
+  // Get Out-of-Stock Products
+const getOutOfStockProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({ user: req.user.id, quantity: { $lte: 0 } }).sort("-createdAt");
+  res.status(200).json(products);
+});
+
   module.exports = {
     createProduct,
     getProducts,
@@ -171,7 +177,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     deleteProduct,
     updateProduct,
     getcategory, // Now it's defined, so you can export it
-
+    getOutOfStockProducts,
   };
 
   
