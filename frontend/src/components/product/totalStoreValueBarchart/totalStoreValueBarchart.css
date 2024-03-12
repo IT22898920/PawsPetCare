@@ -1,0 +1,30 @@
+/* TotalStoreValueBarchart.css adjustments for better styling and centering */
+
+.ravindu.piechart h2 {
+    text-align: center;
+    width: 100%;
+    margin: 20px 0; /* Adjust top and bottom margin as needed */
+  }
+  
+  .ravindu.piechart h2 {
+    text-align: center; /* Centers the text horizontally */
+    width: 100%; /* Ensures the title takes up the full width for proper centering */
+    color: #333;
+    margin: 0; /* Resets margin to remove default spacing */
+    padding: 20px 0; /* Adds vertical padding but no horizontal padding */
+    font-size: 24px; /* Adjust font size as needed */
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .ravindu.piechart {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    .ravindu.piechart h2 {
+      font-size: 20px; /* Slightly smaller font size for smaller screens */
+      padding: 15px 0; /* Adjust padding for better spacing on smaller screens */
+    }
+  }
+  

@@ -54,27 +54,28 @@ const ProductSummary = ({ products }) => {
           bgColor="card1"
         />
           </Col>
+
           <Col>
+          <Link to="/total">
           <InfoBox
           icon={earningIcon}
           title={"Total Store Value"}
           count={`LKR ${formatNumbers(totalStoreValue.toFixed(2))}  `}
           bgColor="card2"
-        />
+        /></Link>
           </Col>
+          
           <Col>
           <Link to="/out">
         <InfoBox
-        
           icon={outOfStockIcon}
           title={"Out of Stock"}
           count={outOfStock}
           bgColor="card3"
-         
         /> </Link>
           </Col>
+
           <Col>
-          
         <InfoBox
           icon={categoryIcon}
           title={"All Categories"}
@@ -83,11 +84,6 @@ const ProductSummary = ({ products }) => {
         />
           </Col>
         </Row>
-       
-       
-        
-       
-
     
       </div>
     </div>
