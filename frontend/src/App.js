@@ -24,7 +24,7 @@ import EditProfile from "./pages/profile/EditProfile";
 import Contact from "./pages/contact/Contact";
 import Chart from "./pages/chart/Chart";
 import OutOfStock from "./components/OutOfStock";
-import TotalStoreValueBarchart from './components/product/totalStoreValueBarchart/TotalStoreValueBarchart';
+import ChartPage from "./components/product/totalStoreValueBarchart/ChartPage";
 
 axios.defaults.withCredentials = true;
 
@@ -137,8 +137,7 @@ function App() {
           }
         />
       <Route path="/out" element={<OutOfStock/>}/>
-      <Route path="/total" element={
-              <TotalStoreValueBarchart />}/>
+      <Route path="/total" element={<ChartPage />}/>
       </Routes>
     </BrowserRouter>
   );
