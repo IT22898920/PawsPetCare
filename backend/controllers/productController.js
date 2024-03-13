@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Product = require("../models/productModel");
 const { fileSizeFormatter } = require("../utils/fileUpload");
 const cloudinary = require("cloudinary").v2;
+const sendEmail = require("../utils/sendEmail");
 
 // Create Prouct
 const createProduct = asyncHandler(async (req, res) => {
@@ -169,6 +170,35 @@ const getOutOfStockProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({ user: req.user.id, quantity: { $lte: 0 } }).sort("-createdAt");
   res.status(200).json(products);
 });
+// Reorder product and send an email notification
+const reorderProduct = asyncHandler(async (req, res) => {
+  const { productId, quantity } = req.body;
+
+  // Find the product by ID
+  const product = await Product.findById(productId);
+  if (!product) {
+    res.status(404).json({ message: "Product not found" });
+    return;
+  }
+
+  // Construct the email message here
+  const emailBody = `<p>The product <b>${product.name}</b> has been reordered. Quantity: ${quantity}.</p>`;
+
+  try {
+    // Now pass emailBody to the sendEmail function
+    await sendEmail(
+      "Product Reorder Notification", // Subject
+      emailBody,                      // Message (HTML)
+      "ravindupasanjith22@outlook.com", // Send to (change this to your recipient's email address)
+      process.env.EMAIL_USER,            // Sent from (your EMAIL_USER env variable)
+      "ravindupasanjith22@outlook.com"  // Reply to (change this as needed)
+    );
+    res.json({ message: "Reorder processed and email sent." });
+  } catch (error) {
+    console.error("Failed to send reorder email", error);
+    res.status(500).json({ message: "Reorder processed, but email sending failed.", error: error.message });
+  }
+});
 
   module.exports = {
     createProduct,
@@ -178,6 +208,8 @@ const getOutOfStockProducts = asyncHandler(async (req, res) => {
     updateProduct,
     getcategory, // Now it's defined, so you can export it
     getOutOfStockProducts,
+    reorderProduct, // Add this line
+
   };
 
   
