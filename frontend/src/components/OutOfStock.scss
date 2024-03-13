@@ -1,5 +1,7 @@
+$out-of-stock-primary-color: #EF4040; // Red color defined as a Sass variable
+
 .out-of-stock-container {
-  --primary-color: #007bff; // Example primary color
+  --primary-color: #{$out-of-stock-primary-color}; // Use Sass variable to set the CSS custom property
   --secondary-color: #6c757d; // Secondary color
   --background-color: #f8f9fa; // Light background color
   --text-color: #343a40; // Text color
@@ -9,9 +11,15 @@
   color: var(--text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
+  .pending-message {
+    color: #ffa500; // Example: orange color for pending messages
+    font-weight: bold;
+    // Additional styles...
+  }
+  
   h2 {
     background-color: #ffffff; // White background for the header
-    color: var(--primary-color); // Primary color for the header text
+    color: var(--primary-color); // Primary color (now red) for the header text
     margin-bottom: 20px;
     font-size: 4rem; // Larger font size for the header
     padding: 10px;
@@ -30,7 +38,7 @@
 
     thead {
       tr {
-        background-color: var(--primary-color); // Primary color background for table headers
+        background-color: var(--primary-color); // Primary color (now red) background for table headers
         color: #ffffff; // White text for table headers
 
         th {
@@ -60,6 +68,20 @@
           padding: 10px 15px;
           border-bottom: 1px solid var(--border-color); // Border color for separation between rows
           font-size: 1.2rem; // Larger font size for table data
+        }
+
+        button {
+          background-color: #F57D1F; // Updated to use #FFC700 for button background
+          color: #ffffff; // White text color for buttons
+          border: none;
+          padding: 8px 12px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: darken(#FFC700, 10%); // Darken the yellow color on hover by 10%
+          }
         }
       }
     }
