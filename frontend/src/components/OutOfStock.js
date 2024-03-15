@@ -10,7 +10,7 @@ const OutOfStock = () => {
     const [error, setError] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentProductId, setCurrentProductId] = useState('');
-    const [setIsReordering] = useState(false);
+    const [isReordering, setIsReordering] = useState(false);
     const [reorderedProducts, setReorderedProducts] = useState([]);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const OutOfStock = () => {
   
     const handleReorderConfirm = async (quantity) => {
         setIsModalOpen(false);
-        setIsReordering(true);
+        setIsReordering(true); // Indicate reordering starts
         try {
             await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/products/reorder`, {
                 productId: currentProductId,
@@ -45,9 +45,10 @@ const OutOfStock = () => {
             toast.error('Error reordering product');
             console.error('Error reordering product:', error);
         } finally {
-            setIsReordering(false);
+            setIsReordering(false); // Indicate reordering is done
         }
     };
+    
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
