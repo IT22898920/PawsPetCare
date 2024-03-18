@@ -7,13 +7,12 @@ const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 
 // Generate Token
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
-
 const registerUser = asyncHandler ( async (req, res, next) => {
-    const { name, email, password } = req.body;
-    try {
+  const { name, email, password, role } = req.body; // Make sure to include 'role' if it's being sent from the front end
+  try {
           // Validation
         if (!name || !email || !password) {
             res.status(400);
@@ -35,10 +34,12 @@ const registerUser = asyncHandler ( async (req, res, next) => {
             name,
             email,
             password,
+            role: role || 'user', // Assign 'user' as default role if none provided
+
         });
 
         //   Generate Token
-        const token = generateToken(user._id);
+        const token = generateToken(user._id, user.role); // Include the user role here
 
         // Send HTTP-only cookie
         res.cookie("token", token, {
@@ -55,6 +56,7 @@ const registerUser = asyncHandler ( async (req, res, next) => {
               _id,
               name,
               email,
+              role,
               photo,
               phone,
               bio,
@@ -106,21 +108,20 @@ const loginUser = asyncHandler(async (req, res) => {
       secure: true,
         });
     }
-    if (user && passwordIsCorrect) {
-      const { _id, name, email, photo, phone, bio } = user;
-      res.status(200).json({
-        _id,
-        name,
-        email,
-        photo,
-        phone,
-        bio,
-        token,
-      });
-    } else {
-      res.status(400);
-      throw new Error("Invalid email or password");
-    }
+    // Modify the part in your loginUser function that sends the response
+if (user && passwordIsCorrect) {
+  const { _id, name, email, role } = user; // Include role here
+  res.status(200).json({
+    _id,
+    name,
+    email,
+    role, // Send role to the frontend
+    token,
+  });
+} else {
+  res.status(400);
+  throw new Error("Invalid email or password");
+}
 });
 
 // Logout User
@@ -176,18 +177,22 @@ const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
   
     if (user) {
-      const { name, email, photo, phone, bio } = user;
+      const { name, email, photo, phone, bio ,role} = user;
       user.email = email;
       user.name = req.body.name || name;
       user.phone = req.body.phone || phone;
       user.bio = req.body.bio || bio;
       user.photo = req.body.photo || photo;
-  
+      if(req.user.role === 'admin') {
+        user.role = req.body.role || user.role;
+    }
+
       const updatedUser = await user.save();
       res.status(200).json({
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        role: updatedUser.role,
         photo: updatedUser.photo,
         phone: updatedUser.phone,
         bio: updatedUser.bio,

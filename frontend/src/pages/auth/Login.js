@@ -6,13 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { loginUser, validateEmail } from "../../services/authService";
-import { SET_LOGIN, SET_NAME } from "../../redux/features/auth/authSlice";
+import { SET_LOGIN, SET_NAME, SET_ROLE } from "../../redux/features/auth/authSlice"; // Import SET_ROLE if you decide to use Redux for role
 import Loader from "../../components/loader/Loader";
 
 const initialState = {
   email: "",
   password: "",
 };
+
+
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -47,10 +49,18 @@ const Login = () => {
       console.log(data);
       await dispatch(SET_LOGIN(true));
       await dispatch(SET_NAME(data.name));
-      navigate("/dashboard");
+      dispatch(SET_ROLE(data.role)); // Add this action to your authSlice.js
+
+      // Redirect based on role
+      if (data.role === 'admin') {
+        navigate("/dashboard");
+      } else {
+        navigate("/userDashboard");
+      }
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
+      toast.error("Login failed. Please check your credentials.");
     }
   };
 

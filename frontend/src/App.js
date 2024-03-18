@@ -25,6 +25,7 @@ import Contact from "./pages/contact/Contact";
 import Chart from "./pages/chart/Chart";
 import OutOfStock from "./components/OutOfStock";
 import ChartPage from "./components/product/totalStoreValueBarchart/ChartPage";
+import UserDashboard from "./pages/dashboard/UserDashboard";
 
 axios.defaults.withCredentials = true;
 
@@ -48,6 +49,13 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/resetpassword/:resetToken" element={<Reset />} />
+
+        <Route
+          path="/userdashboard"
+          element={
+            <UserDashboard />
+          }
+        />
 
         <Route
           path="/dashboard"

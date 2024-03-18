@@ -44,13 +44,17 @@ const authSlice = createSlice({
       state.user.bio = profile.bio;
       state.user.photo = profile.photo;
     },
+    SET_ROLE(state, action) {
+      state.role = action.payload;
+    },
   },
 });
 
-export const { SET_LOGIN, SET_NAME, SET_USER } = authSlice.actions;
+export const { SET_LOGIN, SET_NAME, SET_USER, SET_ROLE } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;
 export const selectUser = (state) => state.auth.user;
+export const selectRole = (state) => state.auth.role; // Export a selector for the role
 
 export default authSlice.reducer;
