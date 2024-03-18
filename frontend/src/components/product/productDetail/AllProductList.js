@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../../redux/features/product/productSlice";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../../../redux/features/cart/cartSlice"; // Adjust the path as necessary
 
 import "./AllProductList.css";
 import image1 from './image/1.jpg';
@@ -39,6 +40,10 @@ const AllProductList = () => {
       const result = products.filter(curData => curData.category === catItem);
       setData(result);
     }
+  };
+  const handleAddToCart = (productId) => {
+    // Dispatch action to add product to cart
+    dispatch(addToCart({ productId, quantity: 1 })); // Assuming a default quantity of 1 for simplicity
   };
 
   return (
@@ -109,8 +114,9 @@ const AllProductList = () => {
                       </div>
                       <p className="card-text product-description">{product.description ? product.description : "No description available."}</p>
                     </div>
-                    <div className="card-footer bg-transparent border-0">
+                    <div className="card-footer bg-transparent border-0 d-flex justify-content-between">
                       <button className="btn btn-primary" onClick={(e) => { e.stopPropagation(); navigateToProductDetail(product.id); }}>View Details</button>
+                      <button className="btn btn-success" onClick={(e) => { e.stopPropagation(); handleAddToCart(product.id); }}>Add to Cart</button>
                     </div>
                   </div>
                 </div>

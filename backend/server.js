@@ -10,6 +10,7 @@ const contactRoute = require("./routes/contactRoute");
 const errorHandler = require("./middleWare/errorMiddleware");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const cartRoute = require("./routes/cartRoute");
 
 
 const app = express();
@@ -39,6 +40,7 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/contactus", contactRoute);
 app.use("/api/petAdoption",petRoute)
+app.use("/api/cart", cartRoute);
 
 // Error Middleware
 app.use(errorHandler);
