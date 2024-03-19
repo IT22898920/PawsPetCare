@@ -8,6 +8,7 @@ const eventRoute = require("./routes/eventRoute");
 const petRoute = require("./routes/petRoute");
 const productRoute = require("./routes/productRoute");
 const contactRoute = require("./routes/contactRoute");
+const blogRoute = require("./routes/blogRoute");
 const errorHandler = require("./middleWare/errorMiddleware");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -41,6 +42,7 @@ app.use("/api/products", productRoute);
 app.use("/api/contactus", contactRoute);
 app.use("/api/petAdoption",petRoute);
 app.use("/api/events",eventRoute);
+app.use("/api/Blog",blogRoute);
 
 // Error Middleware
 app.use(errorHandler);
