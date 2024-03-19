@@ -64,10 +64,12 @@ const createProduct = asyncHandler(async (req, res) => {
     
   /////////////////////////
 // Get all Products
-    const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({ user: req.user.id }).sort("-createdAt");
-    res.status(200).json(products);
-  });
+const getProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort("-createdAt"); // Fetch all products without filtering by user ID
+  res.status(200).json(products);
+});
+
+
 
 // Get single product
 const getProduct = asyncHandler(async (req, res) => {
