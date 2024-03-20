@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRoute = require("./routes/userRoute");
+const eventRoute = require("./routes/eventRoute");
 const petRoute = require("./routes/petRoute");
 const productRoute = require("./routes/productRoute");
 const contactRoute = require("./routes/contactRoute");
@@ -40,6 +41,7 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/contactus", contactRoute);
 app.use("/api/petAdoption",petRoute);
+app.use("/api/events",eventRoute);
 app.use("/api/Blog",blogRoute);
 
 // Error Middleware
