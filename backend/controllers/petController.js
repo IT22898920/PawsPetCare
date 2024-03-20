@@ -4,7 +4,6 @@ const { fileSizeFormatter } = require("../utils/fileUpload");
 const petAdoption = require("../models/PetModel");
 const cloudinary = require("cloudinary").v2;
 
-
 const createPet = asyncHandler(async (req, res) => {
   const { name, category, price, description } = req.body;
 
@@ -163,4 +162,3 @@ module.exports = {
   deletePet,
   updatePet
 };
-

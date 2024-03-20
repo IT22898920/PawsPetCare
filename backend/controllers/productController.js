@@ -165,7 +165,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     );
     res.status(200).json(updatedProduct);
 
-  });
+});
 
   // Get Out-of-Stock Products
 const getOutOfStockProducts = asyncHandler(async (req, res) => {
