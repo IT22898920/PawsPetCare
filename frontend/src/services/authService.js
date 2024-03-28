@@ -110,6 +110,7 @@ export const getLoginStatus = async () => {
     toast.error(message);
   }
 };
+
 // Get User Profile
 export const getUser = async () => {
   try {

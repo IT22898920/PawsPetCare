@@ -8,12 +8,15 @@ import authReducer from './features/auth/authSlice';
 import productReducer from './features/product/productSlice';
 import petReducer from './features/Pets/petsSlice';
 import filterReducer from './features/product/filterSlice';
+import userReducer from './features/auth/userSlice'; // Importing userReducer
 
 const rootReducer = combineReducers({
   auth: authReducer,
   product: productReducer,
   pet: petReducer,
   filter: filterReducer,
+  users: userReducer, // Adding the userReducer
+
 });
 
 const persistConfig = {
@@ -26,6 +29,11 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST'],
+      },
+    }),
 });
-
 export const persistor = persistStore(store);
