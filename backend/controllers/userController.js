@@ -172,6 +172,21 @@ const loginStatus = asyncHandler(async (req, res) => {
     return res.json(false);
 });
 
+const getAllUsers = asyncHandler(async (req, res) => {
+  try {
+        // Fetch all users from the database without their passwords
+        const users = await User.find({}).select('-password');
+
+      // Send the users as a response
+      res.status(200).json(users);
+  } catch (error) {
+      // If an error occurs, send a 500 status code and the error message
+      res.status(500).json({ message: error.message });
+  }
+});
+
+
+
 // Update User
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
@@ -331,6 +346,7 @@ module.exports = {
     logout,
     getUser,
     loginStatus,
+    getAllUsers,
     updateUser,
     changePassword,
     forgotPassword,
