@@ -4,6 +4,11 @@ import { FaChartBar } from "react-icons/fa";
 
 const menu = [
   {
+    title: "All Users",
+    icon: <FaTh />,
+    path: "/allusers",
+  },
+  {
     title: "Dashboard",
     icon: <FaTh />,
     path: "/dashboard",

@@ -1,0 +1,75 @@
+.user-dashboard {
+    --primary-color: #007bff; // Blue
+    --secondary-color: #6c757d; // Gray
+    --background-color: #f8f9fa; // Light Gray
+    --text-color: #343a40; // Dark Gray
+    --border-color: #dee2e6; // Lighter Gray
+  
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+  
+    .table-container {
+      padding: 10px;
+      background-color: var(--background-color);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      overflow-x: auto;
+      margin-top: 20px;
+  
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+  
+        thead {
+          tr {
+            background-color: var(--primary-color);
+            color: white;
+  
+            th {
+              text-align: left;
+              padding: 12px 15px;
+              border-bottom: 1px solid var(--border-color);
+            }
+          }
+        }
+  
+        tbody {
+          tr {
+            background-color: white;
+            transition: background-color 0.3s ease;
+  
+            &:nth-child(even) {
+              background-color: var(--background-color);
+            }
+  
+            &:hover {
+              background-color: var(--secondary-color);
+              color: white;
+            }
+  
+            td {
+              padding: 10px 15px;
+              border-bottom: 1px solid var(--border-color);
+            }
+          }
+        }
+      }
+    }
+  
+    .loading-container,
+    .error-message {
+      text-align: center;
+      padding: 20px 0;
+    }
+  
+    .error-message {
+      color: red;
+    }
+  }
+  
