@@ -22,6 +22,22 @@ const Header = () => {
           <span className="--fw-thin">Welcome, </span>
           <span className="--color-danger">{name}</span>
         </h3>
+        <button 
+  onClick={() => navigate('/AllProductList')} 
+  style={{
+    backgroundColor: '#b624ff', // Updated background color
+    color: 'white', // Text color
+    padding: '10px 20px', // Padding: 10px top and bottom, 20px left and right
+    border: 'none', // No border
+    borderRadius: '5px', // Rounded corners
+    cursor: 'pointer', // Pointer cursor on hover
+    // Add any additional styles here
+  }}
+  className="--btn --btn-AllProductList">
+  AllProductList
+</button>
+
+
         <button onClick={logout} className="--btn --btn-danger">
           Logout
         </button>

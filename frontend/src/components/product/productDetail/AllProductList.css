@@ -1,137 +1,339 @@
-:root {
-  --primary-color: #5a189a;
-  --secondary-color: #007bff;
-  --background-color: #f8f9fa;
-  --text-color: #212529;
-  --border-radius: 10px;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --hover-box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
-  --font-family: 'Poppins', sans-serif;
+/* Style for the container holding the image */
+.flex.justify-center.mt-8 {
+  /* If you need any additional styling for the container, add here */
 }
 
-body {
-  font-family: var(--font-family);
-  background-color: var(--background-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
+/* Style specifically for the image */
+.flex.justify-center.mt-8 img {
+  max-width: 100%; /* Ensures the image is responsive and does not overflow its container */
+  height: auto; /* Maintains the aspect ratio of the image */
+  border-radius: 8px; /* Optional: Adds rounded corners to the image */
+  /* Add any additional styling you need for the image */
+}
+
+
+
+
+/* Main container style */
+.product-list-container {
+  width: 100%;
+  margin: auto;
+  padding: 20px;
   box-sizing: border-box;
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
+/* Popup notification styles */
+.all-products-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
   padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
 }
 
-.carousel-inner img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: #000;
-  border-radius: 50%;
-  padding: 10px;
-}
-
-.products-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
-  padding: 40px 20px;
-}
-
-.product-card {
-  background-color: #fff;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: var(--box-shadow);
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: var(--hover-box-shadow);
-}
-
-.product-card img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.product-card-body {
-  padding: 15px;
-  color: var(--text-color);
-}
-
-.product-card-title {
+.all-products-popup-message {
+  margin: 0;
+  text-align: center;
   font-size: 18px;
-  margin-bottom: 5px;
-  font-weight: 600;
-  color: var(--primary-color);
 }
 
-.product-card-text {
-  font-size: 14px;
-  color: #666;
+/* Product list and categories */
+.all-products-list,
+.all-products-categories {
+  margin-bottom: 20px;
 }
 
-.stock-status {
-  padding: 5px 15px;
-  font-size: 12px;
-  font-weight: 500;
-  border-radius: 5px;
-  color: #fff;
-  margin: 0 15px 15px;
-  display: inline-block;
+.all-products-categories-title {
+  font-size: 1.5rem; /* Larger font size for visibility */
+  font-weight: bold; /* Bold for emphasis */
+  color: #333; /* A darker shade for contrast */
+  padding-bottom: 0.5rem; /* Spacing between title and category buttons */
+  border-bottom: 2px solid #007bff; /* A line to distinguish the section */
+  margin-bottom: 1rem; /* Space below the title */
+  text-align: center; /* Centering the title text */
 }
 
-.in-stock {
-  background-color: #28a745;
+
+.all-products-carousel-indicators {
+  display: flex; /* Use flexbox for alignment */
+  flex-wrap: wrap; /* Wrap buttons if they exceed the container width */
+  justify-content: center; /* Center buttons in the container */
+  gap: 20px; /* Space between buttons */
+  padding: 1rem 0; /* Padding around the button container */
 }
 
-.out-of-stock {
-  background-color: #dc3545;
+.all-products-category-btn,
+.products-category-btn {
+  background-color: #007bff; /* Primary color for buttons */
+  color: white; /* Text color for buttons */
+  padding: 10px 20px; /* Increase padding for a larger button */
+  font-size: 16px; /* Larger font size for clarity */
+  font-weight: 600; /* Make the font bolder */
+  letter-spacing: 0.05em; /* Add some spacing between letters for legibility */
+  margin: 10px 5px; /* Add some margin around the buttons for spacing */
+  border-radius: 25px; /* More pronounced rounded corners */
+  transition: all 0.3s ease; /* Smooth transition for interactive effects */
+  border: none; /* No border */
+  cursor: pointer; /* Cursor to pointer to indicate clickable */
+  display: inline-flex; /* Display as inline-flex to center text and icons vertically */
+  align-items: center; /* Align items in the center vertically */
+  justify-content: center; /* Center content horizontally */
+  text-transform: uppercase; /* UPPERCASE text for a consistent look */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
-.filter-btn {
-  background-color: var(--secondary-color);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 0 10px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+.all-products-category-btn:hover,
+.products-category-btn:hover {
+  background-color: #0056b3; /* Darker shade on hover for a more interactive feel */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for a "lifted" effect */
+  transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
-.filter-btn:hover {
-  background-color: darken(var(--secondary-color), 10%);
-  transform: scale(1.05);
+.active-category {
+  background-color: #ffc107; /* Different background for active state to make it stand out */
+  color: #000; /* Dark text color for contrast */
 }
+
+
 
 @media (max-width: 768px) {
-  .products-container {
-    grid-template-columns: 1fr;
-  }
-
-  .filter-btns {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  .all-products-category-btn,
+  .products-category-btn {
+    padding: 8px 15px; /* Adjusted padding */
+    font-size: 16px; /* Adjusted font size */
   }
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 10px;
+  .all-products-category-btn,
+  .products-category-btn {
+    padding: 6px 12px; /* Smaller padding for mobile */
+    font-size: 14px; /* Smaller font size for readability on small screens */
   }
 }
+
+
+
+
+/* Products grid - using grid layout */
+.all-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px; /* Adjust the gap to control space between items */
+}
+
+.all-products-item {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Push the footer to the bottom */
+  /* Removed the height and min-height properties */
+  /* If you want to control the height, set a min-height that works for your content */
+  margin-bottom: 20px; /* Adjust the bottom margin to control vertical spacing between grid rows */
+}
+
+
+
+
+.all-products-item-image img {
+  width: 100%; /* This ensures the image takes up the full width of its container */
+  height: 250px; /* Specify a fixed height for the images */
+  object-fit: cover; /* This will ensure the image covers the area, cropping it if necessary */
+  display: block;
+  object-fit: contain; /* Adjusts image to fit without cropping */
+
+}
+@media (max-width: 768px) {
+  .all-products-item {
+    min-height: 150px; /* Smaller min-height for tablet and mobile */
+    margin-bottom: 15px; /* Smaller margin for tighter spacing on small screens */
+    /* Other responsive adjustments... */
+  }
+  
+  .all-products-item-info,
+  .all-products-item-action {
+    /* Adjust padding and margins for smaller screens */
+    margin: 3px 0;
+    padding: 5px;
+    /* Other responsive adjustments... */
+  }
+}
+.all-products-item-action {
+  margin-top: auto; /* Pushes the action section to the bottom */
+}
+
+
+.all-products-item-info {
+  padding: 15px;
+}
+
+.all-products-item-name {
+  font-size: 16px; /* Larger font size */
+  font-weight: 600; /* Increased weight for emphasis */
+  color: #333; /* Darker color for better readability */
+  margin: 10px 0; /* Added margin for spacing */
+  text-transform: uppercase; /* Optional: capitalize all letters */
+  text-overflow: ellipsis; /* Ensures the text doesn't overflow its container */
+  white-space: nowrap; /* Keeps the text on a single line */
+  overflow: hidden; /* Hides overflow */
+  display: block; /* Block display to fill the width of its container */
+  max-width: 100%; /* Ensures the name doesn't exceed its container's width */
+}
+
+
+.all-products-item-details {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.badge-success,
+.badge-danger {
+  padding: 5px 10px; /* Adjust padding for optimal appearance */
+  font-size: 12px; /* Adjusted font size for better visibility */
+  border-radius: 15px; /* Rounded corners for a pill-like appearance */
+  color: white;
+  display: inline-flex; /* Use inline-flex to keep badges in line with text */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  margin: 5px 0; /* Add margin for spacing */
+  text-transform: uppercase; /* Capitalize the text for emphasis */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for interaction */
+  cursor: pointer; /* Indicate that the badge is clickable */
+}
+
+.badge-success {
+  background-color: #28a745; /* Green background indicates availability */
+}
+
+.badge-danger {
+  background-color: #dc3545; /* Red background indicates unavailability */
+}
+
+.badge-success:hover,
+.badge-danger:hover {
+  transform: scale(1.05); /* Enlarge badge on hover for interaction feedback */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increase shadow on hover for a "lifted" effect */
+}
+
+
+
+.all-products-item-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.all-products-item-price i {
+  margin-right: 5px;
+  color: #ffbf00;
+}
+
+.all-products-item:hover .all-products-item-price {
+  transform: scale(1.1);
+  color: #dc3545;
+}
+
+
+.all-products-item-description {
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0;
+  line-height: 1.6;
+  text-align: justify;
+  padding: 0 15px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments for the description on smaller screens */
+@media (max-width: 768px) {
+  .all-products-item-description {
+    font-size: 14px; /* Smaller font size on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .all-products-item-description {
+    font-size: 13px; /* Even smaller font size on mobile phones */
+  }
+}
+
+
+.all-products-item-action {
+  text-align: center;
+  padding: 10px;
+}
+
+.all-products-add-to-cart-btn {
+  padding: 8px 16px; /* Reduced padding for a smaller button */
+  font-size: 0.85rem; /* Smaller font size for compactness */
+  font-weight: bold; 
+  color: white; 
+  background-color: #007bff; 
+  border: none; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Lighter shadow for subtlety */
+  cursor: pointer; 
+  transition: all 0.2s ease-in-out; 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px; /* Slightly reduced letter spacing */
+  display: inline-block; 
+  margin-top: 10px; 
+}
+
+.all-products-add-to-cart-btn:hover {
+  background-color: #218838; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+  transform: translateY(-2px); /* Slight upward lift on hover for dynamism */
+}
+
+.all-products-add-to-cart-btn:active {
+  background-color: #1e7e34; 
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Inner shadow for a pressed effect */
+  transform: translateY(1px); /* Slight downward push to simulate a button press */
+}
+
+@media (max-width: 768px) {
+  .all-products-add-to-cart-btn {
+    padding: 8px 20px; /* Adjusted padding on tablets */
+    font-size: 0.85rem; 
+    margin-top: 5px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .all-products-add-to-cart-btn {
+    padding: 7px 18px; /* Even smaller padding on mobile phones */
+    font-size: 0.8rem; /* Slightly smaller font size for mobile devices */
+    margin-top: 5px; 
+  }
+}
+
+
+.all-products-item-description,
+.all-products-item-price {
+  font-size: 1.2rem; /* Smaller font size */
+  margin: 5px 0; /* Less margin */
+}
+
+.scrollable-description {
+  max-height: 100px; 
+  overflow-y: auto; 
+  padding-right: 5px;
+}
+
