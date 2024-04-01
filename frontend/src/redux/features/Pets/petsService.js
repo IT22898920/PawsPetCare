@@ -8,7 +8,7 @@ import axios from "axios";
  //Create new Pets
   const createPets = async (formData) =>{
     const response = await axios.post(API_URl,formData)
-    return response.data
+    return response.data;
  
  };
 
