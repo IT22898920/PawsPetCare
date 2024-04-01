@@ -26,6 +26,8 @@ import Chart from "./pages/chart/Chart";
 import OutOfStock from "./components/OutOfStock";
 import ChartPage from "./components/product/totalStoreValueBarchart/ChartPage";
 import UserDashboard from "./pages/userDashboard/UserDashboard";
+import ViewCartItems from "./pages/cart/ViewCartItems";
+import ViewOrders from "./pages/cart/ViewOrders";
 
 axios.defaults.withCredentials = true;
 
@@ -146,6 +148,26 @@ function App() {
           path="/AllProductList"
           element={
             <AllProductList />
+          }
+        />
+        <Route
+          path="/viewcart"
+          element={
+           
+              <Layout>
+                <ViewCartItems />
+              </Layout>
+            
+          }
+        />
+        <Route
+          path="/vieworders"
+          element={
+           
+              <Layout>
+                <ViewOrders />
+              </Layout>
+            
           }
         />
       <Route path="/out" element={<OutOfStock/>}/>
