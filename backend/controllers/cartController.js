@@ -1,5 +1,5 @@
 const Cart = require("../models/Cart.model.js") ;
-const Items = require("../models/productModel.js");
+const Product = require("../models/productModel.js");
 const CheckD = require("../models/Checkout.model.js");
 // const { errorHandle } = require("../utils/error.js");
 
@@ -102,10 +102,9 @@ const deleteItemss = async (req, res, next) => {
 
 
 const CheckOutcrete = async (req, res, next) => {
-  const { Name, email, Address, PNumber, Currentuser, totalPrice } = req.body;
+  const { Name, email, Address, PNumber, Currentuser, totalPrice, items } = req.body;
 
   try {
-    // Create a new instance of the Checkout model with the received data
     const newCheckout = new CheckD({
       Name,
       email,
@@ -115,15 +114,36 @@ const CheckOutcrete = async (req, res, next) => {
       totalPrice
     });
 
-    // Save the new checkout instance to the database
-    const savedCheckout = await newCheckout.save();
+    await newCheckout.save();
 
-    res.status(201).json(savedCheckout); // Send a success response with the saved checkout details
+    for (const item of items) {
+      const product = await Product.findById(item.ItemId);
+      if (!product) {
+        return res.status(404).json({ message: `Product with ID ${item.ItemId} not found` });
+      }
+      if (product.quantity < item.quantity) {
+        return res.status(400).json({ message: `Not enough stock for product ${product.name}` });
+      }
+
+      console.log(`Before deduction: ${product.name} has ${product.quantity} in stock.`);
+      product.quantity -= item.quantity;
+      await product.save();
+      console.log(`After deduction: ${product.name} now has ${product.quantity} in stock.`);
+    }
+
+    await Cart.deleteMany({ Currentuser: email });
+
+    console.log("Checkout process complete. Cart cleared.");
+    res.status(201).json({ message: "Checkout successful", checkoutId: newCheckout._id });
   } catch (error) {
-    console.error('Error inserting checkout details:', error);
-    res.status(500).json({ error: 'Failed to insert checkout details' }); // Send an error response if inserting checkout details fails
+    console.error('Error processing checkout:', error);
+    res.status(500).json({ error: error.message || 'Failed to process checkout' });
   }
 };
+
+
+
+
 
 //view orders
 const viewCheckoutsByEmail = async (req, res, next) => {
@@ -158,17 +178,3 @@ module.exports = {
 };
 
 
-
-
-
-
-
-
-
-  
-
-
-
-  
-  
-  

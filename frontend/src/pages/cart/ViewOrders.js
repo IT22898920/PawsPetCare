@@ -48,18 +48,17 @@ const ViewOrders = () => {
         <p>No checkouts found</p>
       ) : (
         <ul>
-          {checkouts.map((checkout, index) => (
-            <div className='card'>
-                <li key={index}>
-              <p>Name: {checkout.Name}</p>
-              <p>Email: {checkout.email}</p>
-              <p>Address: {checkout.Address}</p>
-              <p>Phone Number: {checkout.PNumber}</p>
-              <p>Total Price: {checkout.totalPrice}</p>
-              {/* Add additional checkout details as needed */}
-            </li>
+          {checkouts.map((checkout) => (
+            <div className='card' key={checkout._id}> {/* Use unique identifier here */}
+              <li>
+                <p>Name: {checkout.Name}</p>
+                <p>Email: {checkout.email}</p>
+                <p>Address: {checkout.Address}</p>
+                <p>Phone Number: {checkout.PNumber}</p>
+                <p>Total Price: {checkout.totalPrice}</p>
+                {/* Add additional checkout details as needed */}
+              </li>
             </div>
-            
           ))}
         </ul>
       )}

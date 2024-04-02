@@ -11,7 +11,8 @@ import Dog from "../../../img/dog.jpg";
 
 import "./AllProductList.css";
 import DOMPurify from 'dompurify'; // Make sure to install DOMPurify using npm or yarn
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -56,46 +57,41 @@ const AllProductList = () => {
   };
 
   const handleAddToCart = async (productID) => {
-    
     try {
-
       const selectItem = products.find(products => products._id === productID);
-
       if (!selectItem) {
         throw new Error("Item not found");
       }
       const data = await getUser();
-      console.log(data.email);
-      // console.log(dataemail);
-      const response = await fetch("http://localhost:5000/api/products/Cart",
-      {
-        
+      const response = await fetch("http://localhost:5000/api/products/Cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-
           ItemId: selectItem._id,
           Currentuser: data.email,
           ItemsN: selectItem.name,
           price: selectItem.price,
           quantity: 1,
           image: selectItem.image,
-          Description: selectItem.Description
+          Description: selectItem.description, // Make sure this matches your backend model
         }),
-        
       });
-
+  
       if (!response.ok) {
-        setNotification("Out of stock")
+        toast.error("Out of stock");
       } else {
-        setNotification("Item added");
+        toast.success("Item added to cart");
       }
     } catch (error) {
       console.log(error);
+      toast.error("Failed to add item to cart");
     }
   };
+  
+
+
   const handleCart = () => {
     if (user) {
       handleAddToCart();
@@ -142,9 +138,9 @@ const AllProductList = () => {
             ) : isError ? (
               <p className="all-products-error">Error: {message}</p>
               ) : (
-            <div className="all-products-grid">
-              {data.map(product => (
-                <div className="all-products-item" key={product.id}  style={{ cursor: "pointer" }}> 
+                <div className="all-products-grid">
+                  {data.map(product => (
+                    <div className="all-products-item" key={product._id} style={{ cursor: "pointer" }}>
                   <div className="">
                     <div className="all-products-item-image">
                       <img src={product.image ? product.image.filePath : "/default-product-image.jpg"} className="" alt={product.name} />
