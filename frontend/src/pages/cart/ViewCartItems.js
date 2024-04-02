@@ -110,26 +110,27 @@ const ViewCartItems = () => {
   const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   return (
-    <div className="cart-items-container">
-      <h2>Cart Items</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        cartItems.length > 0 ? (
-          <div>
-            {cartItems.map(item => (
-              <div className='card'>
-              <div key={item._id} className="cart-item">
-              <button onClick={() => handleDeleteCartItem(item._id)}>X</button>
-              <img src={item.image ? item.image.filePath : "/default-product-image.jpg"} className="card-img-top" alt={item.name} />
-                <h3>{item.ItemsN}</h3>
-                <p>Price: {item.price}</p>
-                <p>Quantity: {item.quantity}</p>
-              </div>
+  <div className="cart-items-container">
+    <h2>Cart Items</h2>
+    {loading ? (
+      <p>Loading...</p>
+    ) : (
+      cartItems.length > 0 ? (
+        <div>
+          {cartItems.map(item => (
+            // The key should be here on the outermost div of the map
+            <div key={item._id} className='card'>
+              <div className="cart-item">
+                <button onClick={() => handleDeleteCartItem(item._id)}>X</button>
+                <img src={item.image ? item.image.filePath : "/default-product-image.jpg"} className="card-img-top" alt={item.name} />
+                  <h3>{item.ItemsN}</h3>
+                  <p>Price: {item.price}</p>
+                  <p>Quantity: {item.quantity}</p>
+                </div>
               </div>
             ))}
-            <h1>Total Price: {totalPrice}</h1>
-            <button onClick={() => setShowModal(true)}>Checkout</button>
+          <h1>Total Price: {totalPrice}</h1>
+          <button onClick={() => setShowModal(true)}>Checkout</button>
             {showModal && (
               <div className="modal">
                 <div className="modal-content">
