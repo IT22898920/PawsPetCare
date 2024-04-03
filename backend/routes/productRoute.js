@@ -7,7 +7,8 @@ const {
     updateProduct,
     getcategory,
     getOutOfStockProducts,
-    reorderProduct, // Assuming you have this controller for handling reorders
+    reorderProduct,
+    AdminreorderProduct, // Assuming you have this controller for handling reorders
 } = require('../controllers/productController');
 const protect = require("../middleWare/authMiddleware");
 const router = express.Router();
@@ -32,5 +33,6 @@ router.get('/checkouts/:email', viewCheckoutsByEmail); //view orders
 
 // Adding a route for product reorders that might trigger an email notification
 router.post("/reorder", protect, reorderProduct);
+router.post("/adminreorder", protect, AdminreorderProduct);
 
 module.exports = router;

@@ -28,6 +28,7 @@ import ChartPage from "./components/product/totalStoreValueBarchart/ChartPage";
 import UserDashboard from "./pages/userDashboard/UserDashboard";
 import ViewCartItems from "./pages/cart/ViewCartItems";
 import ViewOrders from "./pages/cart/ViewOrders";
+import ClintOutOfStock from "./components/ClintOutOfStock";
 
 axios.defaults.withCredentials = true;
 
@@ -170,6 +171,7 @@ function App() {
             
           }
         />
+      <Route path="/cout" element={<ClintOutOfStock/>}/>
       <Route path="/out" element={<OutOfStock/>}/>
       <Route path="/total" element={<ChartPage />}/>
       </Routes>

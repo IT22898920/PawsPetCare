@@ -44,7 +44,7 @@ const AllProductList = () => {
 
 
   const stockStatus = (quantity) => {
-    return quantity > 0 ? "In Stock" : "Out Of Stock";
+    return quantity > 4 ? "In Stock" : "Out Of Stock";
   };
 
   const filterResult = (catItem) => {
@@ -148,7 +148,7 @@ const AllProductList = () => {
                     <div className="all-products-item-info">
                       <h5 className="all-products-item-name">{product.name}</h5>
                       <div className="all-products-item-details">
-                        <span className={`badge ${product.quantity > 0 ? "badge-success" : "badge-danger"}`}>{stockStatus(product.quantity)}</span>
+                        <span className={`badge ${product.quantity > 3 ? "badge-success" : "badge-danger"}`}>{stockStatus(product.quantity)}</span>
                         <span className="all-products-item-price">LKR {product.price}</span>
                       </div>
                       <p 
@@ -160,9 +160,13 @@ const AllProductList = () => {
                     </div>
                     <div className="all-products-item-action">
                       {user ? (
-                        <button className="all-products-add-to-cart-btn" onClick={() => handleAddToCart(product._id)}>
-                          Add to Cart
-                        </button>
+                        <button 
+                        disabled={product.quantity <= 3}
+                        className="all-products-add-to-cart-btn" 
+                        onClick={() => handleAddToCart(product._id)}
+                      >
+                        {product.quantity > 3 ? "Add to Cart" : "Out of Stock"}
+                      </button>
                       ) : (
                         <button className="all-products-add-to-cart-btn" onClick={handleCart} >
                           Add to Cart
