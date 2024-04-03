@@ -16,6 +16,7 @@ const name = safeParseJSON("name");
 const initialState = {
   isLoggedIn: false,
   name: name || "", // Fallback to an empty string if name is null
+  email: "", // New field for storing email directly in the auth state
   user: {
     name: "",
     email: "",
@@ -54,6 +55,7 @@ export const { SET_LOGIN, SET_NAME, SET_USER, SET_ROLE } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;
+export const selectEmail = (state) => state.auth.email; // Selector for directly accessing email from auth state
 export const selectUser = (state) => state.auth.user;
 export const selectRole = (state) => state.auth.role; // Export a selector for the role
 
