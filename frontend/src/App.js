@@ -28,7 +28,9 @@ import ChartPage from "./components/product/totalStoreValueBarchart/ChartPage";
 import UserDashboard from "./pages/userDashboard/UserDashboard";
 import ViewCartItems from "./pages/cart/ViewCartItems";
 import ViewOrders from "./pages/cart/ViewOrders";
+import AddPets from "./pages/addPets/AddPets";
 import ClintOutOfStock from "./components/ClintOutOfStock";
+
 
 axios.defaults.withCredentials = true;
 
@@ -74,6 +76,17 @@ function App() {
             </Sidebar>
           }
         />
+        <Route
+          path="/add-pet"
+          element={
+            <Sidebar>
+              <Layout>
+               <AddPets/>
+              </Layout>
+            </Sidebar>
+          }
+        />
+       
 
         <Route
           path="/add-product"

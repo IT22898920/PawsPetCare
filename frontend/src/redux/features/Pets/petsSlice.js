@@ -12,7 +12,7 @@ const initialState = {
 };
 
 // Create new Pets
-const createPets = createAsyncThunk(
+ export const createPets = createAsyncThunk(
    "pets/create",
    async (formData, thunkAPI) => {
       try {
@@ -57,4 +57,5 @@ const petsSlice = createSlice({
 
 export const { CALC_STORE_VALUE } = petsSlice.actions;
 
+export const selectIsLoading = (state) => state.pet.isLoading;
 export default petsSlice.reducer;
