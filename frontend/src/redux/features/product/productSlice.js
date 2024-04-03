@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import productService from "./productService";
 import { toast } from "react-toastify";
+import axios from 'axios';
 
 const initialState = {
   product: null,
@@ -12,7 +13,9 @@ const initialState = {
   totalStoreValue: 0,
   outOfStock: 0,
   category: [],
+  reorderedProducts: [], // Ensure this is an array
 };
+const API_URL = process.env.REACT_APP_BACKEND_URL + '/api/products/';
 
 // Create New Product
 export const createProduct = createAsyncThunk(
@@ -108,6 +111,50 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
+// Update addReorderedProduct async thunk
+export const addReorderedProduct = createAsyncThunk(
+  "products/reorderProduct",
+  async ({ productId, quantity }, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}reorder`, { productId, quantity });
+      dispatch(getProducts()); // Refresh the products list to reflect the updated quantity
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+// Add a parameter to control the quantity update
+export const AdminaddReorderedProduct = createAsyncThunk(
+  "products/reorderProducts",
+  async ({ productId, quantity, updateQuantity }, { dispatch, rejectWithValue }) => {
+    try {
+      // Send updateQuantity in the request to control behavior in the backend
+      const response = await axios.post(`${API_URL}reorder`, { productId, quantity, updateQuantity });
+      dispatch(getProducts()); // Refresh the products list
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+// Update fetchReorderedProducts async thunk
+export const fetchReorderedProducts = createAsyncThunk(
+  "products/fetchReordered",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await productService.fetchReorderedProducts();
+      return response.data || []; // Ensure an array is returned even if data is undefined
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+
 const productSlice = createSlice({
   name: "product",
   initialState,
@@ -127,20 +174,19 @@ const productSlice = createSlice({
     },
     CALC_OUTOFSTOCK(state, action) {
       const products = action.payload;
-      const array = [];
-      products.map((item) => {
-        const { quantity } = item;
-
-        return array.push(quantity);
-      });
       let count = 0;
-      array.forEach((number) => {
-        if (number === 0 || number === "0") {
+      products.forEach((item) => {
+        // Ensure quantity is treated as a number for comparison.
+        const quantity = Number(item.quantity);
+        
+        // Consider product out of stock if quantity is 3 or less.
+        if (quantity <= 3) {
           count += 1;
         }
       });
       state.outOfStock = count;
     },
+    
     CALC_CATEGORY(state, action) {
       const products = action.payload;
       const array = [];
@@ -232,7 +278,21 @@ const productSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         toast.error(action.payload);
+      })
+      .addCase(addReorderedProduct.fulfilled, (state, action) => {
+        // Ensure that reorderedProducts is an array before pushing
+        if (!Array.isArray(state.reorderedProducts)) {
+          console.error("Expected 'reorderedProducts' to be an array, but found:", state.reorderedProducts);
+          state.reorderedProducts = []; // Initialize to empty array if not already an array
+        }
+        state.reorderedProducts.push(action.payload);
+        toast.success("Added to reordered products");
+      })
+      .addCase(fetchReorderedProducts.fulfilled, (state, action) => {
+        state.reorderedProducts = action.payload; // Ensure action.payload is an array
       });
+      
+
   },
 });
 

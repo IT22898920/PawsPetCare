@@ -105,6 +105,19 @@ const CheckOutcrete = async (req, res, next) => {
   const { Name, email, Address, PNumber, Currentuser, totalPrice, items } = req.body;
 
   try {
+    // Validate stock availability for each item
+    for (const item of items) {
+      const product = await Product.findById(item.ItemId);
+      if (!product) {
+        return res.status(404).json({ message: `Product with ID ${item.ItemId} not found` });
+      }
+      if (product.quantity < item.quantity) {
+        // Stock is insufficient for at least one item; return error response
+        return res.status(400).json({ message: `Not enough stock for product ${product.name}. Available: ${product.quantity}, requested: ${item.quantity}` });
+      }
+    }
+
+    // If all items pass the stock check, proceed to create the checkout document
     const newCheckout = new CheckD({
       Name,
       email,
@@ -116,24 +129,16 @@ const CheckOutcrete = async (req, res, next) => {
 
     await newCheckout.save();
 
+    // Deduct the purchased quantity from the stock
     for (const item of items) {
       const product = await Product.findById(item.ItemId);
-      if (!product) {
-        return res.status(404).json({ message: `Product with ID ${item.ItemId} not found` });
-      }
-      if (product.quantity < item.quantity) {
-        return res.status(400).json({ message: `Not enough stock for product ${product.name}` });
-      }
-
-      console.log(`Before deduction: ${product.name} has ${product.quantity} in stock.`);
       product.quantity -= item.quantity;
       await product.save();
-      console.log(`After deduction: ${product.name} now has ${product.quantity} in stock.`);
     }
 
+    // Clear the user's cart after successful checkout
     await Cart.deleteMany({ Currentuser: email });
 
-    console.log("Checkout process complete. Cart cleared.");
     res.status(201).json({ message: "Checkout successful", checkoutId: newCheckout._id });
   } catch (error) {
     console.error('Error processing checkout:', error);

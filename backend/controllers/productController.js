@@ -168,12 +168,33 @@ const updateProduct = asyncHandler(async (req, res) => {
   });
 
   // Get Out-of-Stock Products
-const getOutOfStockProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({ user: req.user.id, quantity: { $lte: 0 } }).sort("-createdAt");
-  res.status(200).json(products);
-});
+  const getOutOfStockProducts = asyncHandler(async (req, res) => {
+    try {
+      console.log("User ID:", req.user.id); // Check the user ID
+      const products = await Product.find({ user: req.user.id, quantity: { $lt: 4 } }).sort("-createdAt");
+      console.log("Fetched products:", products); // Should output the fetched products
+      res.status(200).json(products);
+    } catch (error) {
+      console.error("Error fetching out-of-stock products:", error); // This will log any errors that occur
+      res.status(500).json({ message: "An error occurred fetching out-of-stock products", error: error.message });
+    }
+  });
+  
 // Reorder product and send an email notification
 const reorderProduct = asyncHandler(async (req, res) => {
+  const { productId, quantity } = req.body;
+  // Find the product by ID
+  const product = await Product.findById(productId);
+  if (!product) {
+    res.status(404).json({ message: "Product not found" });
+    return;
+  }
+    // Update product quantity
+    product.quantity = quantity; // Assuming quantity is the new total quantity after restocking
+    await product.save(); 
+});
+
+const AdminreorderProduct = asyncHandler(async (req, res) => {
   const { productId, quantity } = req.body;
 
   // Find the product by ID
@@ -202,6 +223,8 @@ const reorderProduct = asyncHandler(async (req, res) => {
   }
 });
 
+
+
   module.exports = {
     createProduct,
     getProducts,
@@ -211,7 +234,5 @@ const reorderProduct = asyncHandler(async (req, res) => {
     getcategory, // Now it's defined, so you can export it
     getOutOfStockProducts,
     reorderProduct, // Add this line
-
+    AdminreorderProduct,
   };
-
-  
