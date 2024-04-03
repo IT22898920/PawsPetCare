@@ -12,7 +12,7 @@ const initialState = {
 };
 
 // Create new Pets
-const createPets = createAsyncThunk(
+ export const createPets = createAsyncThunk(
    "pets/create",
    async (formData, thunkAPI) => {
       try {

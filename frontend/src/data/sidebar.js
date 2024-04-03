@@ -18,6 +18,12 @@ const menu = [
     icon: <BiImageAdd />,
     path: "/add-product",
   },
+  {
+    title: "Add Pets",
+    icon: <BiImageAdd />,
+    path: "/add-pet",
+  },
+  
   
   {
     title: "Account",
