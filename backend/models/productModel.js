@@ -23,11 +23,16 @@ const productSchema = mongoose.Schema(
       required: [true, "Please add a category"],
       trim: true,
     },
-    quantity: {
-      type: String,
-      required: [true, "Please add a quantity"],
-      trim: true,
-    },
+    // Other fields remain unchanged
+
+quantity: {
+  type: Number, // Update this line, change from String to Number
+  required: [true, "Please add a quantity"],
+  trim: true,
+},
+
+// Other fields remain unchanged
+
     price: {
       type: String,
       required: [true, "Please add a price"],
@@ -41,6 +46,10 @@ const productSchema = mongoose.Schema(
     image: {
       type: Object,
       default: {},
+    },
+    reorderedQuantity: {
+      type: Number,
+      default: 0,
     },
   },
   {

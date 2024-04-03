@@ -26,7 +26,7 @@ const OutOfStock = () => {
             });
     }, []);
 
-    const reorderProduct = (productId) => {
+    const reorderProducts = (productId) => {
         setCurrentProductId(productId);
         setIsModalOpen(true);
     };
@@ -35,9 +35,11 @@ const OutOfStock = () => {
         setIsModalOpen(false);
         setIsReordering(true); // Indicate reordering starts
         try {
-            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/products/reorder`, {
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/products/adminreorder`, {
                 productId: currentProductId,
-                quantity
+                quantity,
+                updateQuantity: false
+
             });
             toast.success("Product reordered successfully");
             setReorderedProducts(prev => [...prev, currentProductId]);
@@ -74,28 +76,34 @@ const OutOfStock = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {outOfStockProducts.length > 0 ? (
-                            outOfStockProducts.map(product => (
-                                <tr key={product._id}>
-                                    <td>{product.name}</td>
-                                    <td>{product.sku}</td>
-                                    <td>{product.category}</td>
-                                    <td>{product.price}</td>
-                                    <td>
-                                        {reorderedProducts.includes(product._id) ? (
-                                            <p className="pending-message">Reorder Pending...</p>
-                                        ) : (
-                                            <button onClick={() => reorderProduct(product._id)}>Re-order</button>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="5">No out-of-stock products found.</td>
-                            </tr>
-                        )}
-                    </tbody>
+  {outOfStockProducts.length > 0 ? (
+    outOfStockProducts.map(product => (
+      <tr key={product._id}>
+        <td>{product.name}</td>
+        <td>{product.sku}</td>
+        <td>{product.category}</td>
+        <td>{product.price}</td>
+        <td>
+          {product.quantity < 4  ? (
+            <p className="low-stock-message">Low Stock ({product.quantity} left)</p>
+          ) : (
+            <p className="out-of-stock-message">Out of Stock</p>
+          )}
+          {reorderedProducts.includes(product._id) ? (
+            <p className="pending-message">Reorder Pending...</p>
+          ) : (
+            <button onClick={() => reorderProducts(product._id)}>Reorder for Client</button>
+          )}
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="5">No low-stock or out-of-stock products found.</td>
+    </tr>
+  )}
+</tbody>
+
                 </table>
             </div>
             <ReorderModal
