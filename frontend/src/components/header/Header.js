@@ -1,50 +1,64 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { selectName, SET_LOGIN } from "../../redux/features/auth/authSlice";
-import { logoutUser } from "../../services/authService";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { FaMoon, FaSun } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react';
 
-const Header = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const name = useSelector(selectName);
-
-  const logout = async () => {
-    await logoutUser();
-    await dispatch(SET_LOGIN(false));
-    navigate("/login");
-  };
+export default function UserHeader() {
+  const path = useLocation().pathname;
+  const { theme } = useSelector(state => state.theme);
 
   return (
-    <div className="--pad header">
-      <div className="--flex-between">
-        <h3>
-          <span className="--fw-thin">Welcome, </span>
-          <span className="--color-danger">{name}</span>
-        </h3>
-        <button 
-  onClick={() => navigate('/AllProductList')} 
-  style={{
-    backgroundColor: '#b624ff', // Updated background color
-    color: 'white', // Text color
-    padding: '10px 20px', // Padding: 10px top and bottom, 20px left and right
-    border: 'none', // No border
-    borderRadius: '5px', // Rounded corners
-    cursor: 'pointer', // Pointer cursor on hover
-    // Add any additional styles here
-  }}
-  className="--btn --btn-AllProductList">
-  AllProductList
-</button>
-
-
-        <button onClick={logout} className="--btn --btn-danger">
-          Logout
-        </button>
+    <Navbar className="border-b-2 flex justify-between items-center py-4 px-6">
+      <div className="flex items-center">
+        <Link to="/" className="whitespace-nowrap text-lg font-semibold dark:text-white flex items-center">
+          <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white mr-2">PawsPet</span>
+          <span>Care</span>
+        </Link>
+        <form className="ml-4 hidden lg:block">
+          <TextInput type="text" placeholder="Search..." rightIcon={AiOutlineSearch} className="w-64" />
+        </form>
+        <Button className="w-12 h-10 ml-4 lg:hidden" color="gray" pill>
+          <AiOutlineSearch />
+        </Button>
       </div>
-      <hr />
-    </div>
-  );
-};
 
-export default Header;
+      <div className="flex items-center">
+        <Button className="w-12 h-10 hidden sm:inline mr-4" color="gray" onClick={() => console.log("Theme toggled")}>
+          {theme === 'light' ? <FaSun /> : <FaMoon />}
+        </Button>
+        <Dropdown arrowIcon={false} inline label={<Avatar alt='' rounded />} className="mr-4">
+          <Link to="/dashboard">
+            <Dropdown.Item>Profile</Dropdown.Item>
+          </Link>
+          <Dropdown.Divider />
+          <Dropdown.Item>Sign Out</Dropdown.Item>
+          <Dropdown.Divider />
+          <Link to="/create-post">
+            <Dropdown.Item>Create Post</Dropdown.Item>
+          </Link>
+        </Dropdown>
+        <Link to="/sign-in">
+          <Button gradientDuoTone="purpleToBlue" outline>
+            Sign In
+          </Button>
+        </Link>
+      </div>
+
+      <Navbar.Toggle />
+
+      <Navbar.Collapse className="mt-4 lg:mt-0">
+        <Navbar.Link active={path === '/'} as="div">
+          <Link to="/">Home</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === '/about'} as="div">
+          <Link to="/about">About</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === '/projects'} as="div">
+          <Link to="/projects">Projects</Link>
+        </Navbar.Link>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+}

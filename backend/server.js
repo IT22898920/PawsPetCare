@@ -28,7 +28,8 @@ app.use(
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-
+// Serve static files from the React app build directory
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // Routes
 app.get("/", (req, res) => {
@@ -45,7 +46,10 @@ app.use("/api/Blog",blogRoute);
 
 // Error Middleware
 app.use(errorHandler);
-
+// All other GET requests not handled before will return the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../frontend', 'build', 'index.html'));
+});
 // Connect to DB and start server
 const PORT = process.env.PORT || 5000;
 mongoose

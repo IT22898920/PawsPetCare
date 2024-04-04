@@ -2,6 +2,7 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
+import themeReducer from '../redux/Theme/themeSlice';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
 import authReducer from './features/auth/authSlice';
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   product: productReducer,
   pet: petReducer,
+  theme : themeReducer,
   filter: filterReducer,
   users: userReducer, // Adding the userReducer
 

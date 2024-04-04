@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
@@ -20,6 +26,11 @@
   --color-primary: #007bff;
   --color-success: #28a745;
   --color-danger: orangered;
+  --text-color-light: #000; /* Black text for light background */
+  --bg-color-light: #fff;   /* White background for light theme */
+
+  --text-color-dark: #fff;  /* White text for dark background */
+  --bg-color-dark: #121212; /* Darker background for dark theme */
 }
 
 * {
@@ -36,6 +47,46 @@ html {
 body {
   font-family: var(--font-family);
   background: #eee;
+  background-color: var(--bg-color-light);
+  color: var(--text-color-light);
+}
+.dark {
+  background-color: #333;
+  color: white;
+}
+
+.dark a {
+  color: white;
+}
+body.dark {
+  background-color: var(--bg-color-dark);
+  color: var(--text-color-dark);
+}
+
+/* Make sure that all elements follow the theme */
+body.dark a, body.dark p, body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark h5, body.dark h6 {
+  color: var(--text-color-dark);
+}
+
+/* Further adjustments for inputs, buttons, or any other elements as needed */
+body.dark input, body.dark button {
+  background-color: #1a1a1a; /* Slightly lighter than the background for visibility */
+  color: var(--text-color-dark);
+  border-color: var(--text-color-dark);
+}
+.sidebar-item {
+  color: var(--color-dark); /* Assuming this is dark color for light mode */
+  /* ... other styles ... */
+}
+body.dark .sidebar-item {
+  color: var(--text-color-dark); /* This should be a light color for visibility */
+  /* ... other styles for dark mode ... */
+}
+body.dark .sidebar-item a {
+  color: var(--text-color-dark); /* Light color for links */
+}
+body.dark .sidebar-item .icon {
+  fill: var(--text-color-dark); /* Light color for SVG icons */
 }
 
 section {

@@ -7,14 +7,15 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
+import ThemeWrapper from './ThemeWrapper';
+import 'flowbite';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <ThemeWrapper>
         <App />
-      </PersistGate>
+      </ThemeWrapper>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

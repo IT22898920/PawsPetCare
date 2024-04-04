@@ -1,20 +1,19 @@
-import { useEffect } from "react";
-import React from 'react';
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_LOGIN } from "./redux/features/auth/authSlice";
+import { getLoginStatus } from "./services/authService";
+import Sidebar from "./components/sidebar/Sidebar";
+import Layout from "./components/layout/Layout";
 import Home from "./pages/Home/Home";
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Forgot from './pages/auth/Forgot';
 import Reset from './pages/auth/Reset';
 import Dashboard from "./pages/dashboard/Dashboard";
-import Sidebar from "./components/sidebar/Sidebar";
-import Layout from "./components/layout/Layout";
-import axios from "axios";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
-import { getLoginStatus } from "./services/authService";
-import { SET_LOGIN } from "./redux/features/auth/authSlice";
 import AddProduct from "./pages/addProduct/AddProduct";
 import ProductDetail from "./components/product/productDetail/ProductDetail";
 import AllProductList from "./components/product/productDetail/AllProductList";
@@ -30,24 +29,35 @@ import ViewCartItems from "./pages/cart/ViewCartItems";
 import ViewOrders from "./pages/cart/ViewOrders";
 import AddPets from "./pages/addPets/AddPets";
 import ClintOutOfStock from "./components/ClintOutOfStock";
+import UserHome from "./pages/userHome/UserHome";
 
 
 axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
+  const theme = useSelector(state => state.theme);
 
   useEffect(() => {
-    async function loginStatus() {
-      const status = await getLoginStatus();
-      dispatch(SET_LOGIN(status));
+    // Apply the theme class to the body element
+    document.body.className = theme;
+  }, [theme]);
+
+  useEffect(() => {
+    async function checkLoginStatus() {
+      try {
+        const status = await getLoginStatus();
+        dispatch(SET_LOGIN(status));
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      }
     }
-    loginStatus();
+    checkLoginStatus();
   }, [dispatch]);
 
   return (
     <BrowserRouter>
-    <ToastContainer />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -76,17 +86,17 @@ function App() {
             </Sidebar>
           }
         />
+
         <Route
           path="/add-pet"
           element={
             <Sidebar>
               <Layout>
-               <AddPets/>
+                <AddPets />
               </Layout>
             </Sidebar>
           }
         />
-       
 
         <Route
           path="/add-product"
@@ -98,6 +108,7 @@ function App() {
             </Sidebar>
           }
         />
+
         <Route
           path="/product-detail/:id"
           element={
@@ -108,6 +119,7 @@ function App() {
             </Sidebar>
           }
         />
+
         <Route
           path="/edit-product/:id"
           element={
@@ -118,6 +130,7 @@ function App() {
             </Sidebar>
           }
         />
+
         <Route
           path="/profile"
           element={
@@ -128,6 +141,7 @@ function App() {
             </Sidebar>
           }
         />
+
         <Route
           path="/edit-profile"
           element={
@@ -138,6 +152,7 @@ function App() {
             </Sidebar>
           }
         />
+
         <Route
           path="/contact-us"
           element={
@@ -148,6 +163,7 @@ function App() {
             </Sidebar>
           }
         />
+
         <Route
           path="/chart"
           element={
@@ -158,39 +174,31 @@ function App() {
             </Sidebar>
           }
         />
+
         <Route
           path="/AllProductList"
-          element={
-            <AllProductList />
-          }
+          element={<AllProductList />}
         />
+
         <Route
           path="/viewcart"
-          element={
-           
-              <Layout>
-                <ViewCartItems />
-              </Layout>
-            
-          }
+          element={<Layout><ViewCartItems /></Layout>}
         />
+
         <Route
           path="/vieworders"
-          element={
-           
-              <Layout>
-                <ViewOrders />
-              </Layout>
-            
-          }
+          element={<Layout><ViewOrders /></Layout>}
         />
-      <Route path="/cout" element={<ClintOutOfStock/>}/>
-      <Route path="/out" element={<OutOfStock/>}/>
-      <Route path="/total" element={<ChartPage />}/>
+
+        <Route path="/userhome" element={<UserHome />} />
+        <Route path="/cout" element={<ClintOutOfStock />} />
+        <Route path="/out" element={<OutOfStock />} />
+        <Route path="/total" element={<ChartPage />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+
 

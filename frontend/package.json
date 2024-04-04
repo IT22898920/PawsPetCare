@@ -11,6 +11,8 @@
     "chart.js": "^4.4.2",
     "chartjs-plugin-zoom": "^2.0.1",
     "dompurify": "^3.0.8",
+    "flowbite": "^2.3.0",
+    "flowbite-react": "^0.7.8",
     "i": "^0.3.7",
     "npm": "^10.4.0",
     "react": "^18.2.0",
@@ -27,6 +29,7 @@
     "react-toastify": "^10.0.4",
     "redux-persist": "^6.0.0",
     "sweetalert2": "^11.10.5",
+    "vite": "^5.2.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -54,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "sass": "^1.70.0"
   }
 }
