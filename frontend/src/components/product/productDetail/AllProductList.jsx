@@ -14,18 +14,15 @@ import DOMPurify from 'dompurify'; // Make sure to install DOMPurify using npm o
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 const AllProductList = () => {
-
   const { user } = useSelector((state) => state.auth);
   const email = useSelector(selectEmail);
-  // console.log("Logged in user's email:", user.email); // Console log the logged-in user's email
   const name = useSelector(selectName);
-
   const [showMore, setShowMore] = useState(false);
   const [notification, setNotification] = useState(null);
-
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1); // State to manage quantity
+  const [showModal, setShowModal] = useState(false); // State to control the modal
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,7 +39,6 @@ const AllProductList = () => {
     }
   }, [products]);
 
-
   const stockStatus = (quantity) => {
     return quantity > 4 ? "In Stock" : "Out Of Stock";
   };
@@ -56,13 +52,16 @@ const AllProductList = () => {
     }
   };
 
-  const handleAddToCart = async (productID) => {
+  const handleAddToCart = async () => {
+    if (!selectedProduct) return; // If no product is selected, return
+
     try {
-      const selectItem = products.find(products => products._id === productID);
+      const selectItem = products.find(products => products._id === selectedProduct._id);
       if (!selectItem) {
         throw new Error("Item not found");
       }
-      const data = await getUser();
+if(quantity<selectItem.quantity-2){
+  const data = await getUser();
       const response = await fetch("http://localhost:5000/api/products/Cart", {
         method: "POST",
         headers: {
@@ -73,46 +72,40 @@ const AllProductList = () => {
           Currentuser: data.email,
           ItemsN: selectItem.name,
           price: selectItem.price,
-          quantity: 1,
+          quantity: quantity, 
           image: selectItem.image,
-          Description: selectItem.description, // Make sure this matches your backend model
+          Description: selectItem.description,
         }),
       });
-  
-      if (!response.ok) {
-        toast.error("Out of stock");
-      } else {
-        toast.success("Item added to cart");
-      }
+      toast.success("Item added to cart");
+        setShowModal(false); // Hide the modal after adding to cart
+}else {
+  toast.error("The requested amount is out of stock");
+}
+      
+      // if (!response.ok) {
+      //   toast.error("Out of stock");
+      // } else {
+      //   toast.success("Item added to cart");
+      //   setShowModal(false); // Hide the modal after adding to cart
+      // }
     } catch (error) {
       console.log(error);
       toast.error("Failed to add item to cart");
     }
   };
-  
 
-
-  const handleCart = () => {
+  const handleCart = (product) => {
     if (user) {
-      handleAddToCart();
+      setSelectedProduct(product);
+      setShowModal(true); // Show the modal when adding to cart
     } else {
       window.scrollTo(0, 0);
       navigate('/login');
     }
   };
 
-  const PopupNotification = ({ notification }) => {
-    return (
-      <div className="all-products-popup">
-        <div className="all-products-popup-content">
-          <h1 className="all-products-popup-message">{notification}</h1>
-        </div>
-      </div>
-    );
-  };
-
   return (
-    
     <div className="product-list-container">
       <div className="flex justify-center mt-8">
         <img src={Dog} alt="Dog" />
@@ -120,8 +113,8 @@ const AllProductList = () => {
 
       <div className="all-products-list">
         <div className="all-products-categories">
-        <h3 className="all-products-categories-title">Categories</h3>
-        <div className="all-products-carousel-indicators">
+          <h3 className="all-products-categories-title">Categories</h3>
+          <div className="all-products-carousel-indicators">
             <button className="all-products-category-btn" onClick={() => filterResult('all')}>All</button>
             <button className="products-category-btn" onClick={() => filterResult('Cards and Stationery')}>Cards and Stationery</button>
             <button className="products-category-btn" onClick={() => filterResult('PAWS & Garden')}>PAWS & Garden</button>
@@ -132,15 +125,14 @@ const AllProductList = () => {
           </div>
         </div>
         <div className="all-products-items">
-        {notification && <PopupNotification notification={notification} />}
           {isLoading ? (
             <p className="all-products-loading">Loading...</p>
-            ) : isError ? (
-              <p className="all-products-error">Error: {message}</p>
-              ) : (
-                <div className="all-products-grid">
-                  {data.map(product => (
-                    <div className="all-products-item" key={product._id} style={{ cursor: "pointer" }}>
+          ) : isError ? (
+            <p className="all-products-error">Error: {message}</p>
+          ) : (
+            <div className="all-products-grid">
+              {data.map(product => (
+                <div className="all-products-item" key={product._id} style={{ cursor: "pointer" }}>
                   <div className="">
                     <div className="all-products-item-image">
                       <img src={product.image ? product.image.filePath : "/default-product-image.jpg"} className="" alt={product.name} />
@@ -161,14 +153,14 @@ const AllProductList = () => {
                     <div className="all-products-item-action">
                       {user ? (
                         <button 
-                        disabled={product.quantity <= 3}
-                        className="all-products-add-to-cart-btn" 
-                        onClick={() => handleAddToCart(product._id)}
-                      >
-                        {product.quantity > 3 ? "Add to Cart" : "Out of Stock"}
-                      </button>
+                          disabled={product.quantity <= 3}
+                          className="all-products-add-to-cart-btn" 
+                          onClick={() => handleCart(product)} 
+                        >
+                          {product.quantity > 3 ? "Add to Cart" : "Out of Stock"}
+                        </button>
                       ) : (
-                        <button className="all-products-add-to-cart-btn" onClick={handleCart} >
+                        <button className="all-products-add-to-cart-btn" onClick={handleCart(product)} >
                           Add to Cart
                         </button>
                       )}
@@ -177,11 +169,26 @@ const AllProductList = () => {
                   </div>
                 </div>
               ))}
-              
             </div>
           )}
         </div>
       </div>
+      
+    
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+            <h2>Add Quantity</h2>
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+            <button onClick={handleAddToCart}>Add to Cart</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
