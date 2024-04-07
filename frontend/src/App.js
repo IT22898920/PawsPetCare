@@ -28,6 +28,8 @@ import ChartPage from "./components/product/totalStoreValueBarchart/ChartPage";
 import UserDashboard from "./pages/userDashboard/UserDashboard";
 import ViewCartItems from "./pages/cart/ViewCartItems";
 import ViewOrders from "./pages/cart/ViewOrders";
+import BlogForm from "./components/blog/blogForm/BlogForm";
+import Addblog from "./pages/addblog/Addblog";
 
 axios.defaults.withCredentials = true;
 
@@ -170,6 +172,53 @@ function App() {
             
           }
         />
+          <Route
+          path="/add-blog"
+          element={
+            <Sidebar>
+              <Layout>
+                <Addblog />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+        <Route
+          path="/blog-form"
+          element={
+            <Sidebar>
+              <Layout>
+                <BlogForm />
+              </Layout>
+            </Sidebar>
+          }
+        />
+         <Route
+          path="/blog-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <blogDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-blog/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <Editblog />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+        
+
+
+
+
       <Route path="/out" element={<OutOfStock/>}/>
       <Route path="/total" element={<ChartPage />}/>
       </Routes>

@@ -9,6 +9,8 @@ import productReducer from './features/product/productSlice';
 import petReducer from './features/Pets/petsSlice';
 import filterReducer from './features/product/filterSlice';
 import userReducer from './features/auth/userSlice'; // Importing userReducer
+import blogReducer from './features/blog/blogSlice';
+import filterReducer from './features/blog/filterSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -16,6 +18,8 @@ const rootReducer = combineReducers({
   pet: petReducer,
   filter: filterReducer,
   users: userReducer, // Adding the userReducer
+  blog: blogReducer,
+  filter: filterReducer,
 
 });
 

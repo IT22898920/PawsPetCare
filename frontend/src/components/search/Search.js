@@ -13,6 +13,19 @@ const Search = ({ value, onChange }) => {
         onChange={onChange}
       />
     </div>
+
+/*
+<div className={styles.search}>
+      <BiSearch size={18} className={styles.icon} />
+      <input
+        type="text"
+        placeholder="Search blog"
+        value={value}
+        onChange={onChange}
+      />
+    </div>
+
+    */
   );
 };
 

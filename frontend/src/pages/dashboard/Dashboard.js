@@ -11,6 +11,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const userRole = useSelector(selectRole); // Corrected use of selector
+  
 
   useEffect(() => {
     if (!isLoggedIn || userRole !== 'admin') {
@@ -31,11 +32,43 @@ const Dashboard = () => {
     }
   }, [isError, message]);
 
+
+/*
+  useEffect(() => {
+    if (!isLoggedIn || userRole !== 'admin') {
+      navigate("/login");
+      return;
+    }
+
+    dispatch(getblogs());
+  }, [dispatch, isLoggedIn, navigate, userRole]);
+
+  const { blog, isLoading, isError, message } = useSelector(
+    (state) => state.blog
+  );
+
+  useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+  }, [isError, message]);
+
+
+  */
   return (
     <div>
       <ProductSummary products={products} />
       <ProductList products={products} isLoading={isLoading} />
     </div>
+
+
+/*
+<div>
+      <blogSummary blog={blog} />
+      <blogList blog={blog} isLoading={isLoading} />
+    </div>
+
+    */
   );
 };
 
