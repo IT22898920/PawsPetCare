@@ -9,13 +9,16 @@ import productReducer from './features/product/productSlice';
 import petReducer from './features/Pets/petsSlice';
 import filterReducer from './features/product/filterSlice';
 import userReducer from './features/auth/userSlice'; // Importing userReducer
-
+import blogReducer from './features/blog/blogSlice';
+import blogFilterReducer from './features/blog/blogFilterSlice';
 const rootReducer = combineReducers({
   auth: authReducer,
   product: productReducer,
   pet: petReducer,
   filter: filterReducer,
   users: userReducer, // Adding the userReducer
+  blog: blogReducer,
+  blogfilter: blogFilterReducer,
 
 });
 
