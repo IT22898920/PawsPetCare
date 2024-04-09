@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { selectEmail, selectName } from "../../redux/features/auth/authSlice";
-
+import "./ViewCartItems.css";
 import { getUser } from "../../services/authService";
 
 import "./checkout.css"
