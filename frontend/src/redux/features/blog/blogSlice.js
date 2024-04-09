@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import blogService from "./blogService"; // Ensure this is the only import statement for blogService
 import { toast } from 'react-toastify';
+import { createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
     blog: null,
@@ -85,24 +86,24 @@ export const deleteBlog = createAsyncThunk(
  );
 
 
-//  // Update blog
-//  export const updateblog = createAsyncThunk(
-//    "blog/updateblog",
-//    async ({ id, formData }, thunkAPI) => {
-//      try {
-//        return await blogService.updateblog(id, formData);
-//      } catch (error) {
-//        const message =
-//          (error.response &&
-//            error.response.data &&
-//            error.response.data.message) ||
-//          error.message ||
-//          error.toString();
-//        console.log(message);
-//        return thunkAPI.rejectWithValue(message);
-//      }
-//    }
-//  );
+ // Update blog
+ export const updateBlog = createAsyncThunk(
+   "blog/updateBlog",
+   async ({ id, formData }, thunkAPI) => {
+     try {
+       return await blogService.updateBlog(id, formData);
+     } catch (error) {
+       const message =
+         (error.response &&
+           error.response.data &&
+           error.response.data.message) ||
+         error.message ||
+         error.toString();
+       console.log(message);
+       return thunkAPI.rejectWithValue(message);
+     }
+   }
+ );
 
 
   const blogSlice = createSlice({
@@ -186,32 +187,33 @@ export const deleteBlog = createAsyncThunk(
          state.message = action.payload;
          toast.error(action.payload);
        })
-    //    // Update blog
-    //    .addCase(updateblog.pending, (state) => {
-    //      state.isLoading = true;
-    //    })
-    //    .addCase(updateblog.fulfilled, (state, action) => {
-    //      state.isLoading = false;
-    //      state.isSuccess = true;
-    //      state.isError = false;
-    //      toast.success("blog updated successfully");
-    //    })
-    //    .addCase(updateblog.rejected, (state, action) => {
-    //      state.isLoading = false;
-    //      state.isError = true;
-    //      state.message = action.payload;
-    //      toast.error(action.payload);
-    //    });
+       // Update blog
+       .addCase(updateBlog.pending, (state) => {
+         state.isLoading = true;
+       })
+       .addCase(updateBlog.fulfilled, (state, action) => {
+         state.isLoading = false;
+         state.isSuccess = true;
+         state.isError = false;
+         toast.success("blog updated successfully");
+       })
+       .addCase(updateBlog.rejected, (state, action) => {
+         state.isLoading = false;
+         state.isError = true;
+         state.message = action.payload;
+         toast.error(action.payload);
+       });
    },
  });
  
 //  export const { CALC_STORE_VALUE, CALC_OUTOFSTOCK, CALC_CATEGORY } =
 //  blogSlice.actions;
  
-  export const selectIsLoading = (state) => state.blog.isLoading;
-//  export const selectblog = (state) => state.blog.blog;
-//  export const selectTotalStoreValue = (state) => state.blog.totalStoreValue;
-//  export const selectOutOfStock = (state) => state.blog.outOfStock;
-//  export const selectCategory = (state) => state.blog.category;
- 
+export const selectIsLoading = (state) => state.blog.isLoading;
+  export const selectBlog = (state) => state.blog.blog;
+  export const selectBlogById = createSelector(
+    [(state) => state.blog.blogs, (state, blogId) => blogId],
+    (blogs, blogId) => blogs.find(blog => blog.id === blogId)
+  );
+  
  export default blogSlice.reducer;

@@ -33,6 +33,7 @@ import ClintOutOfStock from "./components/ClintOutOfStock";
 import AddBlog from "./pages/addBlog/AddBlog";
 import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 import BlogDetail from "./components/blog/blogDetail/BlogDetail";
+import EditBlog from "./pages/editBlog/EditBlog";
  
 
 axios.defaults.withCredentials = true;
@@ -146,6 +147,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <EditProduct />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-blog/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditBlog />
               </Layout>
             </Sidebar>
           }

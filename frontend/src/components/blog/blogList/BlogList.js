@@ -31,8 +31,8 @@ const BlogList = ({ blog, isLoading }) => {
     // Fetch and filter blogs
     useEffect(() => {
         if (blog) {
-            dispatch(FILTER_BLOG({ blog, searchBlog }));
-        }
+            console.log(blog); // This will show you the structure of `blog`
+            dispatch(FILTER_BLOG({ blog, searchBlog }));        }
     }, [blog, searchBlog, dispatch]);
 
     // Handle pagination

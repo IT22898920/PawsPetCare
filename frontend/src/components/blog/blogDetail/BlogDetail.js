@@ -62,12 +62,13 @@ const BlogDetail = () => {
             ></div>
             <hr />
             <code className="--color-dark">
-              Created on: {blog.createdAt.toLocaleString("en-US")}
-            </code>
-            <br />
-            <code className="--color-dark">
-              Last Updated: {blog.updatedAt.toLocaleString("en-US")}
-            </code>
+  Created on: {blog.createdAt ? blog.createdAt.toLocaleString("en-US") : "Not available"}
+</code>
+<br />
+<code className="--color-dark">
+  Last Updated: {blog.updatedAt ? blog.updatedAt.toLocaleString("en-US") : "Not available"}
+</code>
+
           </div>
         )}
       </Card>

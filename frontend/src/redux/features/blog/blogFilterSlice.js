@@ -10,14 +10,23 @@ const filterSlice = createSlice({
     reducers: {
         FILTER_BLOG(state, action) {
             const { blog, searchBlog } = action.payload;
-            const tempBlog = blog.filter(
-                (blogItem) =>
-                blogItem.title.toLowerCase().includes(searchBlog.toLowerCase())
-            );
-
-            state.filteredblog = tempBlog;
+    
+            // Check if 'blog' is an array before filtering
+            if (Array.isArray(blog)) {
+                const tempBlog = blog.filter(
+                    (blogItem) =>
+                    blogItem.title.toLowerCase().includes(searchBlog.toLowerCase())
+                );
+    
+                state.filteredblog = tempBlog;
+            } else {
+                // Optionally handle the case where 'blog' is not an array
+                console.error('Expected an array for "blog", received:', typeof blog);
+                state.filteredblog = [];
+            }
         },
     },
+    
 });
 
 
