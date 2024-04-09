@@ -27,11 +27,11 @@ const deleteBlog = async (id) => {
    const response = await axios.get(API_URL + id);
    return response.data;
  };
-//  // Update blog
-//  const updateblog = async (id, formData) => {
-//    const response = await axios.patch(${API_URl}${id}, formData);
-//    return response.data;
-//  };
+ // Update blog
+ const updateBlog = async (id, formData) => {
+  const response = await axios.patch(`${API_URL}${id}`, formData);
+  return response.data;
+};
 
  const blogService = {
 
@@ -39,7 +39,7 @@ const deleteBlog = async (id) => {
    getBlogs,
    getBlog,
     deleteBlog,
-//    updateblog,
+    updateBlog,
   };
 
 

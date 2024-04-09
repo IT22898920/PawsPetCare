@@ -32,7 +32,9 @@ import AddPets from "./pages/addPets/AddPets";
 import ClintOutOfStock from "./components/ClintOutOfStock";
 import AddBlog from "./pages/addBlog/AddBlog";
 import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
-
+import BlogDetail from "./components/blog/blogDetail/BlogDetail";
+import EditBlog from "./pages/editBlog/EditBlog";
+ 
 
 axios.defaults.withCredentials = true;
 
@@ -130,11 +132,31 @@ function App() {
           }
         />
         <Route
+          path="/blog-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <BlogDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
           path="/edit-product/:id"
           element={
             <Sidebar>
               <Layout>
                 <EditProduct />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-blog/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditBlog />
               </Layout>
             </Sidebar>
           }
