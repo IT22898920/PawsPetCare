@@ -67,7 +67,7 @@ export const deleteBlog = createAsyncThunk(
  
  // Get a blog
  export const getBlog = createAsyncThunk(
-   "blog/getblog",
+   "blog/getBlog",
    async (id, thunkAPI) => {
      try {
        return await blogService.getBlog(id);
@@ -170,22 +170,22 @@ export const deleteBlog = createAsyncThunk(
         toast.error(action.payload);
       })
     
-    //     // Get a blog
-    //    .addCase(getblog.pending, (state) => {
-    //      state.isLoading = true;
-    //    })
-    //    .addCase(getblog.fulfilled, (state, action) => {
-    //      state.isLoading = false;
-    //      state.isSuccess = true;
-    //      state.isError = false;
-    //      state.blog = action.payload;
-    //    })
-    //    .addCase(getblog.rejected, (state, action) => {
-    //      state.isLoading = false;
-    //      state.isError = true;
-    //      state.message = action.payload;
-    //      toast.error(action.payload);
-    //    })
+        // Get a blog
+       .addCase(getBlog.pending, (state) => {
+         state.isLoading = true;
+       })
+       .addCase(getBlog.fulfilled, (state, action) => {
+         state.isLoading = false;
+         state.isSuccess = true;
+         state.isError = false;
+         state.blog = action.payload;
+       })
+       .addCase(getBlog.rejected, (state, action) => {
+         state.isLoading = false;
+         state.isError = true;
+         state.message = action.payload;
+         toast.error(action.payload);
+       })
     //    // Update blog
     //    .addCase(updateblog.pending, (state) => {
     //      state.isLoading = true;

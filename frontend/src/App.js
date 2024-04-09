@@ -32,7 +32,8 @@ import AddPets from "./pages/addPets/AddPets";
 import ClintOutOfStock from "./components/ClintOutOfStock";
 import AddBlog from "./pages/addBlog/AddBlog";
 import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
-
+import BlogDetail from "./components/blog/blogDetail/BlogDetail";
+ 
 
 axios.defaults.withCredentials = true;
 
@@ -125,6 +126,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <ProductDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/blog-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <BlogDetail />
               </Layout>
             </Sidebar>
           }
