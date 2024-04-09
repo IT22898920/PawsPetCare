@@ -30,6 +30,8 @@ import ViewCartItems from "./pages/cart/ViewCartItems";
 import ViewOrders from "./pages/cart/ViewOrders";
 import AddPets from "./pages/addPets/AddPets";
 import ClintOutOfStock from "./components/ClintOutOfStock";
+import AddBlog from "./pages/addBlog/AddBlog";
+import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 
 
 axios.defaults.withCredentials = true;
@@ -77,6 +79,16 @@ function App() {
           }
         />
         <Route
+          path="/blog-dashboard"
+          element={
+            <Sidebar>
+              <Layout>
+                <BlogDashboard />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
           path="/add-pet"
           element={
             <Sidebar>
@@ -86,7 +98,16 @@ function App() {
             </Sidebar>
           }
         />
-       
+       <Route
+          path="/add-blog"
+          element={
+            <Sidebar>
+              <Layout>
+               <AddBlog />
+              </Layout>
+            </Sidebar>
+          }
+        />
 
         <Route
           path="/add-product"
