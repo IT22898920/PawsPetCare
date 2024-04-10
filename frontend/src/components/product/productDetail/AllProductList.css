@@ -137,9 +137,10 @@
   /* Removed the height and min-height properties */
   /* If you want to control the height, set a min-height that works for your content */
   margin-bottom: 20px; /* Adjust the bottom margin to control vertical spacing between grid rows */
+  padding: 15px; /* Add padding inside each grid item */
+  border: 2px solid #ddd; /* Existing styles */
+
 }
-
-
 
 
 .all-products-item-image img {
@@ -148,8 +149,41 @@
   object-fit: cover; /* This will ensure the image covers the area, cropping it if necessary */
   display: block;
   object-fit: contain; /* Adjusts image to fit without cropping */
-
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity; /* Optimizes animations */
 }
+.all-products-item-image:hover img {
+  transform: scale(1.08); /* Slightly larger scale for emphasis */
+  opacity: 0.8; /* Slightly transparent */
+}
+.all-products-item-image {
+  position: relative;
+  overflow: hidden; /* Ensure the overlay fits within the image container */
+}
+
+.all-products-item-image::after {
+  content: ""; /* Replace with your desired text or use an attribute value */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 1.5rem; /* Adjust based on your design */
+  font-weight: bold;
+}
+
+.all-products-item-image:hover::after {
+  opacity: 1; /* Show the overlay on hover */
+}
+
+
 @media (max-width: 768px) {
   .all-products-item {
     min-height: 150px; /* Smaller min-height for tablet and mobile */
