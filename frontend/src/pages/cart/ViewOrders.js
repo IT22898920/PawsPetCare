@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { selectEmail, selectName } from "../../redux/features/auth/authSlice";
-import "./ViewOrders.css";
+
 import { getUser } from "../../services/authService";
+import "./ViewOrders.css";
 
 const ViewOrders = () => {
   const [checkouts, setCheckouts] = useState([]);
