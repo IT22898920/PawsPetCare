@@ -1,0 +1,37 @@
+/* ViewOrders.css */
+
+.card {
+  border: 1px solid #f9f5f5;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card p {
+  margin: 5px 0;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #666;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.loading {
+  font-style: italic;
+  color: #999;
+}
+
+.error {
+  color: #ff0000;
+}

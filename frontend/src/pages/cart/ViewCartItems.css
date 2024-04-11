@@ -43,7 +43,7 @@ body {
     color: #666;
   }
   
-  /* style.css */
+  
 
 .modal {
     display: flex;
@@ -109,6 +109,7 @@ body {
   
   .form-group {
     margin-bottom: 10px;
+    
   }
   
   label {
@@ -141,6 +142,7 @@ body {
     background-color: #0056b3; /* Darker shade on hover */
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Increased shadow on hover */
   }
+  
   
 
   
