@@ -1,0 +1,35 @@
+
+.wrapper {
+  
+  
+}
+.table{
+
+width: 1200px;
+
+
+}
+.form-wrapper{
+
+  max-width: 700px;
+  margin: 0 auto;
+  background-color:lightseagreen;
+  padding: 70px;
+}
+
+body{
+
+  
+}
+
+.heading{
+
+  text-align:center; color:cyan;
+  background-color:darkblue;
+}
+
+.container{
+
+  background-color:aqua;
+  font-size: 24px;
+}
