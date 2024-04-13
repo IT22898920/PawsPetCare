@@ -34,7 +34,9 @@ import AddBlog from "./pages/addBlog/AddBlog";
 import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
- 
+import EventDashboard from "./pages/eventDashboard/EventDashboard";
+
+
 
 axios.defaults.withCredentials = true;
 
@@ -86,6 +88,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <BlogDashboard />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/event-dashboard"
+          element={
+            <Sidebar>
+              <Layout>
+                <EventDashboard />
               </Layout>
             </Sidebar>
           }
