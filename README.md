@@ -1,1 +1,1 @@
-Donation App - The user can fill the donation form with their details, which will be disp[layed on the admin dashboard.
+Donation App - The user can fill the donation form with their details, which will be displayed on the admin dashboard.
