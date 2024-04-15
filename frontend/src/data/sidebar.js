@@ -19,6 +19,12 @@ const menu = [
     path: "/blog-dashboard",
   },
   {
+    title: "pet Dashbord",
+    icon: <FaTh />,
+    path: "/pet-dashboard",
+  },
+
+  {
     title: "Add Product",
     icon: <BiImageAdd />,
     path: "/add-product",

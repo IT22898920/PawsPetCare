@@ -11,10 +11,17 @@ import axios from "axios";
     return response.data;
  
  };
+  //get all new Pets
+  const getPets = async () =>{
+   const response = await axios.post(API_URl)
+   return response.data;
+
+};
 
  const petsService = {
 
     createPets,
+    getPets,
  };
 
  export default petsService;

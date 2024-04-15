@@ -90,6 +90,17 @@ function App() {
             </Sidebar>
           }
         />
+          <Route
+          path="/pet-dashboard"
+          element={
+            <Sidebar>
+              <Layout>
+                <petDashbord />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
         <Route
           path="/add-pet"
           element={
