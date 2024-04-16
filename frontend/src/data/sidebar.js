@@ -38,7 +38,11 @@ const menu = [
     icon: <BiImageAdd />,
     path: "/add-pet",
   },
-  
+  {
+    title: "Add Event",
+    icon: <BiImageAdd />,
+    path: "/add-event",
+  },
   
   {
     title: "Account",

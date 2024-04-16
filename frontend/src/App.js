@@ -35,6 +35,7 @@ import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
 import EventDashboard from "./pages/eventDashboard/EventDashboard";
+import AddEvent from "./pages/addEvent/AddEvent";
 
 
 
@@ -129,6 +130,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <AddProduct />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/add-event"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddEvent />
               </Layout>
             </Sidebar>
           }
