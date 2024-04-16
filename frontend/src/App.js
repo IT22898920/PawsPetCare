@@ -34,6 +34,7 @@ import AddBlog from "./pages/addBlog/AddBlog";
 import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
+import PetDashboard from "./pages/petDashboard/PetDashboards";
  
 
 axios.defaults.withCredentials = true;
@@ -95,7 +96,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <petDashbord />
+                <PetDashboard />
               </Layout>
             </Sidebar>
           }
