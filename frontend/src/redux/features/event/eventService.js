@@ -10,8 +10,15 @@ const createEvent = async (formData) => {
     return response.data;
 };
 
+//Get all Events 
+const getEvents = async () => {
+    const response = await axios.get(API_URL);
+    return response.data;
+};
+
 const eventService = {
     createEvent,
+    getEvents,
 };
 
 export default eventService;

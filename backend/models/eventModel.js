@@ -18,6 +18,12 @@ const eventSchema = mongoose.Schema({
     trim: true 
   },
 
+  date: {
+    type: String,
+    required: [true, "Please add the date"],
+    trim: true 
+  },
+
   venue: {
     type: String,
     required: [true, "Please add the venue"],

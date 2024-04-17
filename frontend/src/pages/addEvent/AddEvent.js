@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import EventForm from "../../components/eventForm/EventForm";
+import EventForm from "../../components/event/eventForm/EventForm";
 import { useDispatch, useSelector } from "react-redux";
 import { createEvent, selectIsLoading } from "../../redux/features/event/eventSlice";
 import Loader from "../../components/loader/Loader";
@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 const initialState = {
     name: "",
     category: "",
-    vanue: "",
+    date: "",
+    venue: "",
     time: "",
     trainer: "",
 }
@@ -24,7 +25,7 @@ const AddEvent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {name, category, vanue, time, trainer} = event;
+    const {name, category, date, venue, time, trainer} = event;
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -40,8 +41,8 @@ const saveEvent = async (e) => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("category", category);
-    //formData.append("date", date);
-    formData.append("vanue", vanue);
+    formData.append("date", date);
+    formData.append("venue", venue);
     formData.append("time", time);
     formData.append("trainer", trainer);
     formData.append("description", description);
@@ -56,7 +57,7 @@ const saveEvent = async (e) => {
     };
 
 
-    return
+    return (
         <div>
             {isLoading && <Loader />}
             <h3 className="--mt">Add New Event</h3>
@@ -70,7 +71,7 @@ const saveEvent = async (e) => {
             handleImageChange = {handleImageChange}
             saveEvent = {saveEvent}
             />
-        </div>;
-
+        </div>
+    );
 };
 export default AddEvent;

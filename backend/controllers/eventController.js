@@ -5,10 +5,10 @@ const cloudinary = require ("cloudinary").v2;
 
 //create Event
 const createEvent = asyncHandler(async (req, res) => {
-    const { name, category, venue, time, trainer, description } = req.body;
+    const { name, category, date, venue, time, trainer, description } = req.body;
 
     //validation
-    if (!name || !category || !venue || !time || !trainer || !description) {
+    if (!name || !category || !date || !venue || !time || !trainer || !description) {
         res.status(400);
         throw new Error("Please fill in all fields");
     }
@@ -41,6 +41,7 @@ const createEvent = asyncHandler(async (req, res) => {
             user: req.user.id,
             name,
             category,
+            date,
             venue,
             time,
             trainer,
@@ -96,7 +97,7 @@ const deleteEvent = asyncHandler (async (req, res) => {
 
 //Update Event
 const updateEvent = asyncHandler(async (req, res) => {
-    const { name, category, venue, time, trainer, description } = req.body;
+    const { name, category, date, venue, time, trainer, description } = req.body;
     req.body;
     const {id} = req.params
 
@@ -142,6 +143,7 @@ const updateEvent = asyncHandler(async (req, res) => {
     {
             name,
             category,
+            date,
             venue,
             time,
             trainer,

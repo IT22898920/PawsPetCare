@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getEvents } from "../../redux/features/event/eventSlice";
+import EventList from "../../components/event/eventList/EventList";
 
 const EventDashboard = () => {
+    const dispatch = useDispatch();
+    
+    const {events, isLoading, isError, message} = useSelector((state) => state.event);
+
+    useEffect(() => {
+       dispatch (getEvents());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (isError) {
+          console.log(message);
+        }
+      }, [isError, message]);
+    //},[isLoggedIn, isError, message, dispatch, events])
+
     return (
         <div>
-            <h2>Animal Event Dashboard</h2>
-        </div>
+            <h2 style={{textAlign: "center"}}>Animal Event Dashboard</h2>
+            
+            <EventList events = {events} isLoading={isLoading}/>
+        </div> 
     );
 };
 
-export default EventDashboard
+export default EventDashboard;

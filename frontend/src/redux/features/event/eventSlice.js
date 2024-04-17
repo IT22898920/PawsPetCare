@@ -23,11 +23,28 @@ export const createEvent = createAsyncThunk(
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-            console.log(message)
-            return thunkAPI.rejectWithValue(message)
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
         }
     }
-)
+);
+
+//Get all Events
+export const getEvents = createAsyncThunk(
+    "events/getAll",
+    async (_, thunkAPI) => {
+        try {
+            return await eventService.getEvents();
+        } catch (error) {
+            const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
 
 const eventSlice = createSlice ({
     name: "event",
@@ -37,6 +54,7 @@ const eventSlice = createSlice ({
             console.log("store value");
         },
     },
+
     extraReducers: (builder) => {
         builder
             .addCase(createEvent.pending, (state) => {
@@ -45,7 +63,8 @@ const eventSlice = createSlice ({
             .addCase(createEvent.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                console.log(action.payload)
+                state.isError = false;
+                console.log(action.payload);
                 state.events.push(action.payload);
                 toast.success("Event added successfully")
             })
@@ -54,8 +73,26 @@ const eventSlice = createSlice ({
                 state.isError = true;
                 state.message = action.payload;
                 
-                toast.error(action.payload)
+                toast.error(action.payload);
             })
+
+            .addCase(getEvents.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getEvents.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                console.log(action.payload);
+                state.events.push(action.payload);
+                state.events = action.payload;
+            })
+            .addCase(getEvents.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                
+                toast.error(action.payload);
+            });
     },
 });
 export const {CALC_STORE_VALUE} = eventSlice.actions
