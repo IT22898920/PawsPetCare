@@ -63,7 +63,7 @@ const AddPets = () => {
       console.log(...formData);
       await dispatch(createPets(formData))
 
-      navigate("/dashboard");
+      navigate("/pet-dashboard");
       
      
     };

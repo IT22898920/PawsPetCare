@@ -1,4 +1,4 @@
-.blog-list {
+.pet-list {
     --primary-color: #007bff; // Example primary color
     --secondary-color: #6c757d; // Secondary color
     --background-color: #f8f9fa; // Light background color
@@ -38,7 +38,7 @@
           tr {
             background-color: #ffffff;
             transition: background-color 0.3s ease;
-            font-size: 1.3rem; // Increased for table headers
+            font-size: 1rem; // Adjusted to avoid unintended inheritance
             &:hover {
               background-color: var(--border-color);
             }
@@ -47,8 +47,8 @@
               padding: 10px 15px;
               border-bottom: 1px solid var(--border-color);
   
-              &.icons span {
-                margin: 0 5px;
+              span {
+                margin: 0 5px; // Adjusted since there's no 'icons' class
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
