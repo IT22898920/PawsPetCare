@@ -12,6 +12,8 @@
     "chartjs-plugin-zoom": "^2.0.1",
     "dompurify": "^3.0.8",
     "i": "^0.3.7",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "npm": "^10.4.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
