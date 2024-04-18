@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./eventList.scss";
 import { SpinnerImg } from "../../loader/Loader";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
+import SearchEvent from "../../searchEvent/SearchEvent";
+import { useDispatch, useSelector } from "react-redux";
+import { FILTER_EVENTS, selectFilteredEvents } from "../../../redux/features/event/eventFilterSlice";
 
 const EventList = ({events, isLoading}) => {
+
+    const [searchEvent, setSearchEvent] = useState("");
+    const filteredEvents = useSelector(selectFilteredEvents);
+    
+    const dispatch = useDispatch()
+
     const shortenText = (text, n) => {
         if (text.length > n) {
             const shortenedText = text.substring(0, n).concat("...")
@@ -12,6 +21,10 @@ const EventList = ({events, isLoading}) => {
         }
         return text;
     };
+
+    useEffect(() => {
+        dispatch(FILTER_EVENTS({events, searchEvent}))
+    }, [events, searchEvent, dispatch]);
 
     return <div className="event-list">
         <hr />
@@ -21,8 +34,11 @@ const EventList = ({events, isLoading}) => {
                 <h3>Event List</h3>
             </span>
             <span>
-                <h3>Search Event</h3>
-            </span>
+                <SearchEvent 
+                value={searchEvent} 
+                onChange={(e) =>
+                setSearchEvent(e.target.value)} />
+            </span>   
             </div> 
 
                 {isLoading && <SpinnerImg />}
@@ -46,10 +62,10 @@ const EventList = ({events, isLoading}) => {
                             </thead>
 
                             <tbody>
-                                {
-                                    events.map((event, index) => {
-                                        const {_id, name, category, date, venue, time, trainer }=
-                                        event
+                                
+                                    { filteredEvents.map((event, index) => {
+                                        const {_id, name, category, date, venue, time, trainer } =
+                                        event;
                                         return (
                                             <tr key={_id}>
                                                 <td>{index +1}</td>

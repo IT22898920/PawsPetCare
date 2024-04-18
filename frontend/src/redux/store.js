@@ -3,7 +3,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-
 import authReducer from './features/auth/authSlice';
 import productReducer from './features/product/productSlice';
 import petReducer from './features/Pets/petsSlice';
@@ -12,6 +11,7 @@ import userReducer from './features/auth/userSlice'; // Importing userReducer
 import blogReducer from './features/blog/blogSlice';
 import blogFilterReducer from './features/blog/blogFilterSlice';
 import eventReducer from './features/event/eventSlice';
+import eventFilterReducer from './features/event/eventFilterSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   blog: blogReducer,
   blogfilter: blogFilterReducer,
   event: eventReducer,
-
+  eventFilter: eventFilterReducer,
 });
 
 const persistConfig = {
