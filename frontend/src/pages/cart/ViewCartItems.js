@@ -5,6 +5,8 @@ import { selectEmail, selectName } from "../../redux/features/auth/authSlice";
 import { getUser } from "../../services/authService";
 
 import "./checkout.css"
+import { jsPDF } from "jspdf";
+import "./ViewCartItems.css";
 
 const ViewCartItems = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -58,7 +60,7 @@ const ViewCartItems = () => {
   
     const data = await getUser();
     console.log(data.email);
-
+  
     const formData = {
       Name: userName,
       email: data.email,
@@ -66,11 +68,10 @@ const ViewCartItems = () => {
       PNumber: event.target.phoneNumber.value,
       Currentuser: data.email, 
       items: cartItems,
-      totalPrice: totalPrice // Calculate the total price from cartItems
+      totalPrice: totalPrice
     };
   
     try {
-      // Call CheckOutcrete function to save checkout details
       const checkoutResponse = await fetch('http://localhost:5000/api/products/Checkout/', {
         method: 'POST',
         headers: {
@@ -82,17 +83,36 @@ const ViewCartItems = () => {
       if (checkoutResponse.ok) {
         setShowModal(false); // Hide the modal after successful checkout
   
-        // Call deleteItemss function to clear cart items
+        // PDF Generation
+        const pdf = new jsPDF();
+  
+        pdf.text("Checkout Summary", 20, 20);
+        pdf.text(`Name: ${formData.Name}`, 20, 30);
+        pdf.text(`Email: ${formData.email}`, 20, 40);
+        pdf.text(`Address: ${formData.Address}`, 20, 50);
+        pdf.text(`Phone Number: ${formData.PNumber}`, 20, 60);
+        pdf.text(`Total Price: $${formData.totalPrice}`, 20, 70);
+  
+        // Adding cart items
+        let y = 80;
+        formData.items.forEach(item => {
+          pdf.text(`${item.name} - Quantity: ${item.quantity} - Price: $${item.price}`, 20, y);
+          y += 10;
+        });
+  
+        pdf.save("checkout-summary.pdf");
+  
+        // Clear cart items in the client-side state and server
         const deleteResponse = await fetch(`http://localhost:5000/api/products/deletCurretId/${data.email}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application.json'
           }
         });
   
         if (deleteResponse.ok) {
           console.log('Cart items cleared successfully');
-          setCartItems([]); // Clear cart items in the client-side state
+          setCartItems([]);
         } else {
           console.error('Failed to clear cart items');
         }
@@ -103,6 +123,7 @@ const ViewCartItems = () => {
       console.error('Error:', error.message);
     }
   };
+  
   
   
   
