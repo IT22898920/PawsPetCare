@@ -17,13 +17,13 @@ import {
   getProducts,
 } from "../../../redux/features/product/productSlice";
 import { Link } from "react-router-dom";
-
-
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const ProductList = ({ products, isLoading }) => {
   const [search, setSearch] = useState("");
   const filteredProducts = useSelector(selectFilteredPoducts);
-
+  const [reportType, setReportType] = useState("csv");
   const dispatch = useDispatch();
 
   const shortenText = (text, n) => {
@@ -80,6 +80,53 @@ const ProductList = ({ products, isLoading }) => {
     dispatch(FILTER_PRODUCTS({ products, search }));
   }, [products, search, dispatch]);
 
+
+
+  // CSV Report Generation
+  const generateCSVReport = () => {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Name,Category,Price,Quantity,Value\n";
+
+    filteredProducts.forEach(product => {
+      const { name, category, price, quantity } = product;
+      const value = price * quantity;
+      csvContent += `${name},${category},${price},${quantity},${value}\n`;
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "product_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // PDF Report Generation
+  const generatePDFReport = () => {
+    const doc = new jsPDF();
+    const tableColumn = ["Name", "Category", "Price", "Quantity", "Value"];
+    const tableRows = [];
+
+    filteredProducts.forEach(product => {
+      const { name, category, price, quantity } = product;
+      const value = price * quantity;
+      tableRows.push([name, category, price, quantity, value]);
+    });
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    doc.text("Products Report", 14, 15);
+    doc.save("products_report.pdf");
+  };
+
+  // Dropdown for report type selection
+  const reportTypeSelector = (
+    <select value={reportType} onChange={(e) => setReportType(e.target.value)} style={{ margin: "10px 0", padding: "5px" }}>
+      <option value="csv">CSV</option>
+      <option value="pdf">PDF</option>
+    </select>
+  );
+
   return (
     <div className="product-list">
       <hr />
@@ -88,6 +135,17 @@ const ProductList = ({ products, isLoading }) => {
           <span>
             <h3>Inventory Items</h3>
           </span>
+          <div className="report-options">
+        {reportTypeSelector}
+        <button
+          onClick={() => reportType === "csv" ? generateCSVReport() : generatePDFReport()}
+          className="--btn --btn-AllProductList"
+          style={{
+            // Your button styles
+          }}>
+          Generate Report
+        </button>
+      </div>
           <span>
             <Search
               value={search}

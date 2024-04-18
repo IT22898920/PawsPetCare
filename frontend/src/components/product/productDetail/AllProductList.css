@@ -122,8 +122,9 @@
 /* Products grid - using grid layout */
 .all-products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px; /* Adjust the gap to control space between items */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Creates a responsive grid with columns of at least 250px */
+  gap: 20px; /* Space between grid items */
+  margin-top: 20px; /* Space above the grid */
 }
 
 .all-products-item {
@@ -134,12 +135,18 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Push the footer to the bottom */
-  /* Removed the height and min-height properties */
-  /* If you want to control the height, set a min-height that works for your content */
   margin-bottom: 20px; /* Adjust the bottom margin to control vertical spacing between grid rows */
+  padding: 15px; /* Add padding inside each grid item */
+  border: 2px solid #ddd; /* Existing styles */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
+/* Hover effect for product items */
+.all-products-item:hover {
+  transform: translateY(-5px); /* Slightly raise the item */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
 
 
 .all-products-item-image img {
@@ -148,8 +155,41 @@
   object-fit: cover; /* This will ensure the image covers the area, cropping it if necessary */
   display: block;
   object-fit: contain; /* Adjusts image to fit without cropping */
-
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity; /* Optimizes animations */
 }
+.all-products-item-image:hover img {
+  transform: scale(1.08); /* Slightly larger scale for emphasis */
+  opacity: 0.8; /* Slightly transparent */
+}
+.all-products-item-image {
+  position: relative;
+  overflow: hidden; /* Ensure the overlay fits within the image container */
+}
+
+.all-products-item-image::after {
+  content: ""; /* Replace with your desired text or use an attribute value */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 1.5rem; /* Adjust based on your design */
+  font-weight: bold;
+}
+
+.all-products-item-image:hover::after {
+  opacity: 1; /* Show the overlay on hover */
+}
+
+
 @media (max-width: 768px) {
   .all-products-item {
     min-height: 150px; /* Smaller min-height for tablet and mobile */
@@ -294,6 +334,7 @@
   letter-spacing: 0.5px; /* Slightly reduced letter spacing */
   display: inline-block; 
   margin-top: 10px; 
+  
 }
 
 .all-products-add-to-cart-btn:hover {
@@ -306,6 +347,17 @@
   background-color: #1e7e34; 
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Inner shadow for a pressed effect */
   transform: translateY(1px); /* Slight downward push to simulate a button press */
+}
+
+.all-products-add-to-cart-btn.out-of-stock {
+  background-color: #dc3545; /* Red color for 'Out of Stock' */
+  cursor: not-allowed; /* Change cursor to indicate the button is disabled */
+  opacity: 0.7; /* Optional: change the opacity to indicate it is disabled */
+}
+
+.all-products-add-to-cart-btn:not(.out-of-stock):hover {
+  background-color: #218838; /* Greenish shade on hover for available items */
+  /* ... existing hover styles ... */
 }
 
 @media (max-width: 768px) {

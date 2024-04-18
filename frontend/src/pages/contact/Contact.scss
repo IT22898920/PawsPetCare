@@ -1,71 +1,127 @@
 .contact {
-  .card {
-    padding: 1rem;
-    border: 1px solid #ccc;
-  }
+  padding: 40px;
+  background: linear-gradient(135deg, #ece9e6, #ffffff); // Subtle gradient background
+  font-family: 'Poppins', sans-serif; // Modern, clean font
 
-  .card2 {
-    padding: 2rem;
-    background-color: var(--light-blue);
-    color: #fff;
-    h3,
-    p {
-      color: #fff;
-    }
-    .icons {
-      margin: 3rem 0;
-      span {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-bottom: 1rem;
-        a,
-        p {
-          margin-left: 5px;
-        }
-      }
-    }
+  h3.--mt {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #324d67; // Deep, professional blue
+    text-align: center;
   }
 
   .section {
     display: flex;
-    align-items: flex-start;
+    justify-content: space-around;
+    gap: 30px;
+    margin-top: 30px;
 
-    form {
-      width: 500px;
-      max-width: 100%;
-      margin-right: 1rem;
-      margin-bottom: 1rem;
-      label {
-        display: block;
-        font-size: 1.4rem;
-        font-weight: 500;
-      }
-      input[type="text"],
-      input[type="number"],
-      input[type="file"],
-      input[type="email"],
-      select,
-      textarea,
-      input[type="password"] {
-        display: block;
-        font-size: 1.6rem;
-        font-weight: 300;
-        padding: 1rem;
-        margin: 1rem auto;
-        width: 100%;
-        border: 1px solid #777;
-        border-radius: 3px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  form {
+    flex: 1 1 48%; // Adjusted for better visual balance
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #5a7184; // Softer color for text
+      font-size: 16px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 2px solid #d1d1d1; // Lighter and thinner border
+      border-radius: 10px;
+      background: #fbfbfb;
+      transition: border 0.3s, box-shadow 0.3s;
+
+      &:focus {
+        border-color: #00a8ff; // Vibrant blue focus
+        box-shadow: 0 0 8px rgba(0, 168, 255, 0.2);
         outline: none;
       }
     }
-  }
-}
 
-@media screen and (max-width: 700px) {
-  .contact {
-    .section {
-      flex-direction: column;
+    button.--btn {
+      width: 100%;
+      padding: 15px 20px;
+      background: #00a8ff; // Vibrant blue
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        background-color: #007bff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+  }
+
+  .details {
+    flex: 1 1 48%; // Ensures both sections are visually equivalent
+    .card2 {
+      padding: 25px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease-in-out;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      h3 {
+        font-size: 22px;
+        color: #324d67;
+        margin-bottom: 20px;
+      }
+
+      p {
+        color: #5a7184;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .icons {
+        margin-top: 25px;
+        span {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+          margin-bottom: 15px;
+
+          svg {
+            font-size: 24px;
+            margin-right: 15px;
+            color: #00a8ff; // Matches the button color for cohesion
+          }
+        }
+      }
     }
   }
 }
