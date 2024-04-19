@@ -154,11 +154,11 @@ if(quantity<selectItem.quantity-2){
                       {user ? (
                         <button 
                           disabled={product.quantity <= 3}
-                          className="all-products-add-to-cart-btn" 
+                          className={`all-products-add-to-cart-btn ${product.quantity <= 3 ? "out-of-stock" : ""}`} 
                           onClick={() => handleCart(product)} 
                         >
                           {product.quantity > 3 ? "Add to Cart" : "Out of Stock"}
-                        </button>
+                      </button>
                       ) : (
                         <button className="all-products-add-to-cart-btn" onClick={handleCart(product)} >
                           Add to Cart
