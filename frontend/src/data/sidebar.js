@@ -59,6 +59,11 @@ const menu = [
     icon: <FaChartBar />,
     path: "/chart",
   },
+  {
+    title: "Order List",
+    icon: <FaChartBar />,
+    path: "/ordersAdmin",
+  },
 ];
 
 export default menu;
