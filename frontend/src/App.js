@@ -34,7 +34,8 @@ import AddBlog from "./pages/addBlog/AddBlog";
 import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
- 
+import OrdersAdmin from "./pages/admin/orders";
+
 
 axios.defaults.withCredentials = true;
 
@@ -227,6 +228,18 @@ function App() {
             
           }
         />
+         <Route
+          path="/ordersAdmin"
+          element={
+           
+              <Layout>
+                <OrdersAdmin />
+              </Layout>
+            
+          }
+        />
+
+
       <Route path="/cout" element={<ClintOutOfStock/>}/>
       <Route path="/out" element={<OutOfStock/>}/>
       <Route path="/total" element={<ChartPage />}/>

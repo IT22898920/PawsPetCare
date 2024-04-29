@@ -30,7 +30,12 @@ const checkoutSchema = new mongoose.Schema({
   Currentuser: {
     type: String,
     required: true
-  }
+  },
+  Status: {
+    type: String,
+    required: true
+  },
+
 }, { timestamps: true });
 
 const Checkout = mongoose.model('Checkout', checkoutSchema);
