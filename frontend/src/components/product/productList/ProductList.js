@@ -102,22 +102,34 @@ const ProductList = ({ products, isLoading }) => {
     document.body.removeChild(link);
   };
 
-  // PDF Report Generation
-  const generatePDFReport = () => {
-    const doc = new jsPDF();
-    const tableColumn = ["Name", "Category", "Price", "Quantity", "Value"];
-    const tableRows = [];
+// PDF Report Generation
+const generatePDFReport = () => {
+  const doc = new jsPDF();
+  const tableColumn = ["Name", "Category", "Price", "Quantity", "Value"];
+  const tableRows = [];
 
-    filteredProducts.forEach(product => {
-      const { name, category, price, quantity } = product;
-      const value = price * quantity;
-      tableRows.push([name, category, price, quantity, value]);
-    });
+  filteredProducts.forEach(product => {
+    const { name, category, price, quantity } = product;
+    const value = price * quantity;
+    tableRows.push([name, category, price, quantity, value]);
+  });
 
-    doc.autoTable(tableColumn, tableRows, { startY: 20 });
-    doc.text("Products Report", 14, 15);
-    doc.save("products_report.pdf");
-  };
+  doc.autoTable(tableColumn, tableRows, { startY: 20 });
+  doc.text("Products Report", 14, 15);
+
+  // Add current date and time
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleString();
+  doc.setFontSize(10);
+  doc.text(`Generated on: ${formattedDate}`, 10, doc.internal.pageSize.height - 20); // Adjust position as needed
+
+  // Add manager's signature placeholder
+  doc.text("Manager's Signature:", 10, doc.internal.pageSize.height - 10); // Adjust position as needed
+  doc.line(60, doc.internal.pageSize.height - 10, 150, doc.internal.pageSize.height - 10); // Draw line for signature
+
+  doc.save("products_report.pdf");
+};
+
 
   // Dropdown for report type selection
   const reportTypeSelector = (
