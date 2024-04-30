@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PetForm from "../../components/PetForm/PetForm";
+import PetForm from "../../components/pet/PetForm/PetForm";
 import {useDispatch, useSelector} from "react-redux";
 import { createPets, selectIsLoading } from '../../redux/features/Pets/petsSlice';
 import { useNavigate  } from 'react-router-dom';

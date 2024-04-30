@@ -51,9 +51,8 @@ const createPet = asyncHandler(async (req, res) => {
 
 //get all pets
 const getPets = asyncHandler(async(req,res)=> {
-
-    const petAdoption = await PetAdoption.find({user: req.user.id}).sort("-createAp")
-    res.status(300).json(petAdoption)
+  const petAdoption = await PetAdoption.find({user: req.user.id}).sort("-createAp");
+  res.status(200).json(petAdoption); // <-- Change status code to 200
 });
 
 

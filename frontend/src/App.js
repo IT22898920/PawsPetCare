@@ -35,6 +35,7 @@ import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
 import OrdersAdmin from "./pages/admin/orders";
+import PetDashboard from "./pages/petDashboard/PetDashboard";
 
 
 axios.defaults.withCredentials = true;
@@ -77,6 +78,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <Dashboard />
+              </Layout>
+            </Sidebar>
+          }
+        />
+      <Route
+          path="/pet-dashboard"
+          element={
+            <Sidebar>
+              <Layout>
+                <PetDashboard />
               </Layout>
             </Sidebar>
           }
