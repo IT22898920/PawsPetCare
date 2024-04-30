@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PetForm from "../../components/pet/PetForm/PetForm";
 import {useDispatch, useSelector} from "react-redux";
-import { createPets, selectIsLoading } from '../../redux/features/Pets/petsSlice';
+import { createPet, selectIsLoading } from '../../redux/features/Pets/petsSlice';
 import { useNavigate  } from 'react-router-dom';
 import Loader from '../../components/loader/Loader';
 
@@ -61,9 +61,9 @@ const AddPets = () => {
       formData.append("image", petImage);
     
       console.log(...formData);
-      await dispatch(createPets(formData))
+      await dispatch(createPet(formData))
 
-      navigate("/dashboard");
+      navigate("/pet-dashboard");
       
      
     };

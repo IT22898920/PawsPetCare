@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import petsService from './petsService';
 import { toast } from 'react-toastify';
+import { createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
    pet: null,
@@ -12,11 +13,11 @@ const initialState = {
 };
 
 // Create new Pets
- export const createPets = createAsyncThunk(
+ export const createPet = createAsyncThunk(
    "pets/create",
    async (formData, thunkAPI) => {
       try {
-         const response = await petsService.createPets(formData);
+         const response = await petsService.createPet(formData);
          return response.data; // Assuming response.data contains the created pet object
       } catch (error) {
          const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -26,19 +27,24 @@ const initialState = {
    }
 );
 
-// get all Pets
-export const getPets = createAsyncThunk("pets/getAll", async (_, thunkAPI) => {
-   try {
-     const response = await petsService.getPets();
-     console.log("API Response:", response.data);  // Ensure data is as expected
-     return response.data;  // Confirm this matches your expected format
-   } catch (error) {
-     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
-     console.error("API Error:", message);
-     return thunkAPI.rejectWithValue(message);
+ // Get all pets
+ export const getPets = createAsyncThunk(
+   "pets/getAll",
+   async (_, thunkAPI) => {
+     try {
+       return await petsService.getPets();
+     } catch (error) {
+       const message =
+         (error.response &&
+           error.response.data &&
+           error.response.data.message) ||
+         error.message ||
+         error.toString();
+       console.log(message);
+       return thunkAPI.rejectWithValue(message);
+     }
    }
- });
- 
+ );
 
 
 
@@ -55,10 +61,10 @@ const petsSlice = createSlice({
    },
    extraReducers: (builder) => {
       builder
-         .addCase(createPets.pending, (state) => {
+         .addCase(createPet.pending, (state) => {
             state.isLoading = true;
          })
-         .addCase(createPets.fulfilled, (state, action) => {
+         .addCase(createPet.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
             state.isError = false;
@@ -66,7 +72,7 @@ const petsSlice = createSlice({
             state.pets.push(action.payload);
             toast.success("Pet added successfully");
          })
-         .addCase(createPets.rejected, (state, action) => {
+         .addCase(createPet.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload;
