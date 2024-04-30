@@ -1,114 +1,114 @@
 /* Footer.css */
 
 .w-full {
-    width: 100%;
-  }
-  
-  .bg-black {
-    background-color: #01080b;
-  }
-  
-  .py-16 {
-    padding-top: 4rem; /* 16 x 0.25rem */
-    padding-bottom: 4rem; /* 16 x 0.25rem */
-  }
-  
-  .px-10 {
-    padding-left: 2.5rem; /* 10 x 0.25rem */
-    padding-right: 2.5rem; /* 10 x 0.25rem */
-  }
-  
-  .text-gray-300 {
-    color: #D1D5DB; /* Tailwind gray-300 */
-  }
-  
+  width: 100%;
+}
+
+.bg-black {
+  background-color: #01080b;
+}
+
+.py-16 {
+  padding-top: 4rem; /* 16 x 0.25rem */
+  padding-bottom: 4rem; /* 16 x 0.25rem */
+}
+
+.px-10 {
+  padding-left: 2.5rem; /* 10 x 0.25rem */
+  padding-right: 2.5rem; /* 10 x 0.25rem */
+}
+
+.text-gray-300 {
+  color: #d1d5db; /* Tailwind gray-300 */
+}
+
+.md\:grid-cols-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gap-8 {
+  gap: 2rem; /* 8 x 0.25rem */
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-[#41a4ff] {
+  color: #41a4ff;
+}
+
+.py-4 {
+  padding-top: 1rem; /* 4 x 0.25rem */
+  padding-bottom: 1rem; /* 4 x 0.25rem */
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.gap-10 {
+  gap: 2.5rem; /* 10 x 0.25rem */
+}
+
+.md\:w-[75%] {
+  width: 75%;
+}
+
+.my-6 {
+  margin-top: 1.5rem; /* 6 x 0.25rem */
+  margin-bottom: 1.5rem; /* 6 x 0.25rem */
+}
+
+.md\:justify-around {
+  justify-content: space-around;
+}
+
+.mt-8 {
+  margin-top: 2rem; /* 8 x 0.25rem */
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.text-sm {
+  font-size: 0.875rem; /* Typically 14px */
+}
+
+.py-2 {
+  padding-top: 0.5rem; /* 2 x 0.25rem */
+  padding-bottom: 0.5rem; /* 2 x 0.25rem */
+}
+
+.ml-[8rem] {
+  margin-left: 8rem;
+}
+
+@media (max-width: 768px) {
   .md\:grid-cols-2 {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
-  
-  .gap-8 {
-    gap: 2rem; /* 8 x 0.25rem */
-  }
-  
-  .bottom-0 {
-    bottom: 0;
-  }
-  
-  .text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-  
-  .font-bold {
-    font-weight: 700;
-  }
-  
-  .text-[#41A4FF] {
-    color: #41A4FF;
-  }
-  
-  .py-4 {
-    padding-top: 1rem; /* 4 x 0.25rem */
-    padding-bottom: 1rem; /* 4 x 0.25rem */
-  }
-  
-  .flex {
-    display: flex;
-  }
-  
-  .justify-start {
+
+  .md\:justify-around {
     justify-content: flex-start;
   }
-  
-  .gap-10 {
-    gap: 2.5rem; /* 10 x 0.25rem */
-  }
-  
-  .md\:w-[75%] {
-    width: 75%;
-  }
-  
-  .my-6 {
-    margin-top: 1.5rem; /* 6 x 0.25rem */
-    margin-bottom: 1.5rem; /* 6 x 0.25rem */
-  }
-  
-  .md\:justify-around {
-    justify-content: space-around;
-  }
-  
-  .mt-8 {
-    margin-top: 2rem; /* 8 x 0.25rem */
-  }
-  
-  .font-light {
-    font-weight: 300;
-  }
-  
-  .text-sm {
-    font-size: .875rem; /* Typically 14px */
-  }
-  
-  .py-2 {
-    padding-top: .5rem; /* 2 x 0.25rem */
-    padding-bottom: .5rem; /* 2 x 0.25rem */
-  }
-  
+
   .ml-[8rem] {
-    margin-left: 8rem;
+    margin-left: 2rem;
   }
-  
-  @media (max-width: 768px) {
-    .md\:grid-cols-2 {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  
-    .md\:justify-around {
-      justify-content: flex-start;
-    }
-  
-    .ml-[8rem] {
-      margin-left: 2rem; 
-    }
-  }
+}
