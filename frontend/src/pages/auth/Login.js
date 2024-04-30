@@ -54,8 +54,11 @@ const Login = () => {
       // Redirect based on role
       if (data.role === 'admin') {
         navigate("/dashboard");
-      } else {
-        navigate("/userDashboard");
+      } else if(data.role === 'doctor'){
+        navigate("/doctorAppointments");
+      }
+      else if(data.role === 'user') {
+        navigate("/AllproductList");
       }
       setIsLoading(false);
     } catch (error) {

@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema(
       role: {
         type: String,
         required: true,
-        enum: ['admin', 'user'], // This restricts the values to either 'admin' or 'user'
+        enum: ['admin', 'user', 'doctor'], // This restricts the values to either 'admin' or 'user'
         default: 'user' // Default to 'user' if not specified
       },
 
@@ -45,10 +45,19 @@ const userSchema = mongoose.Schema(
         maxLength: [250, "Bio must not be more than 250 characters"],
         default: "bio",
       },
+      isAdmin: {
+        type: Boolean,
+        default: false,
+      },
+      isDoctor: {
+        type: Boolean,
+        default: false,
+      },
     },
     {
       timestamps: true,
     }
+    
 )
 
 //   Encrypt password before saving to DB

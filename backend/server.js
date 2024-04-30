@@ -13,6 +13,7 @@ const errorHandler = require("./middleWare/errorMiddleware");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const checkoutRoutes = require('./routes/checkoutRoutes');
+const admin = require("./routes/adminRoutes");
 
 const app = express();
 // Middlewares
@@ -44,7 +45,8 @@ app.use("/api/petAdoption",petRoute);
 app.use("/api/events",eventRoute);
 app.use("/api/Blog",blogRoute);
 app.use('/api/checkouts', checkoutRoutes);
-
+app.use("/api/v1/admin", admin);
+app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
 // Error Middleware
 app.use(errorHandler);
 

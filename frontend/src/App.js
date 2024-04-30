@@ -25,7 +25,7 @@ import Contact from "./pages/contact/Contact";
 import Chart from "./pages/chart/Chart";
 import OutOfStock from "./components/OutOfStock";
 import ChartPage from "./components/product/totalStoreValueBarchart/ChartPage";
-import UserDashboard from "./pages/userDashboard/UserDashboard";
+import UserDashboard from "./pages/userList/UserList";
 import ViewCartItems from "./pages/cart/ViewCartItems";
 import ViewOrders from "./pages/cart/ViewOrders";
 import AddPets from "./pages/addPets/AddPets";
@@ -36,6 +36,14 @@ import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
 import OrdersAdmin from "./pages/admin/orders";
 
+import DoctorsRequests from "./pages/DoctorsFunc/AdminHandle/DocRequests";
+import AllDoctors from "./pages/DoctorsFunc/UserHandle/AllDoctors";
+import BookingPage from "./pages/DoctorsFunc/UserHandle/BookingPage";
+import ApplyDoctor from "./pages/DoctorsFunc/UserHandle/ApplyDoctor";
+import AdminAllDoctors from "./pages/DoctorsFunc/AdminHandle/AdminAllDoctors";
+import Appointments from "./pages/DoctorsFunc/UserHandle/Appointments";
+import UserSidebar from "./components/userSidebar/UserSidebar";
+import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
 
 axios.defaults.withCredentials = true;
 
@@ -238,6 +246,110 @@ function App() {
             
           }
         />
+
+<Route
+          path="/admin/doctorReq"
+          element={
+            <Sidebar>
+            <Layout>
+            <DoctorsRequests />
+            </Layout>
+          </Sidebar>
+  
+          }
+        />
+        <Route
+          path="/admin/doctors"
+          element={
+            <Sidebar>
+            <Layout>
+            <AdminAllDoctors />
+             </Layout>
+           </Sidebar>
+          }
+        />
+        <Route
+          path="/admin/AllProductList"
+          element={
+            <Sidebar>
+              <Layout>
+              <AllProductList />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/user/doctors"
+          element={
+            <UserSidebar>
+            <Layout>
+            <AllDoctors />
+               </Layout>
+               </UserSidebar>
+          }
+        />
+        <Route
+          path="/doctor/book-appointment/:doctorId"
+          element={
+            <UserSidebar>
+            <Layout>
+            <BookingPage />
+            </Layout>
+               </UserSidebar>
+          }
+        />
+        <Route
+          path="/apply-doctor"
+          element={
+            <UserSidebar>
+            <Layout>
+            <ApplyDoctor />
+            </Layout>
+               </UserSidebar>
+          }
+        />
+        <Route
+          path="/appointments"
+          element={
+            <UserSidebar>
+            <Layout>
+            <Appointments />
+            </Layout>
+               </UserSidebar>
+          
+          }
+        />
+<Route
+          path="/userProfile"
+          element={
+            <UserSidebar>
+            <Layout>
+                <Profile />
+                </Layout>
+               </UserSidebar>
+          }
+        />
+        <Route
+          path="/userEdit-profile"
+          element={
+            <UserSidebar>
+            <Layout>
+                <EditProfile />
+                </Layout>
+               </UserSidebar>
+          }
+        />
+        <Route
+          path="/doctorAppointments"
+          element={
+            <UserSidebar>
+            <Layout>
+                <DoctorAppointments />
+                </Layout>
+               </UserSidebar>
+          }
+        />
+
 
 
       <Route path="/cout" element={<ClintOutOfStock/>}/>

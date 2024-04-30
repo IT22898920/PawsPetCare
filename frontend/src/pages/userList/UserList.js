@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllUsers } from '../../redux/features/auth/userSlice';
 import { SpinnerImg } from '../../components/loader/Loader'; // Assuming you have a similar spinner component
-import './UserDashboard.scss';
+import './UserList.scss';
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
