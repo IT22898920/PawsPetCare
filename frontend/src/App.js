@@ -18,6 +18,7 @@ import { SET_LOGIN } from "./redux/features/auth/authSlice";
 import AddProduct from "./pages/addProduct/AddProduct";
 import ProductDetail from "./components/product/productDetail/ProductDetail";
 import AllProductList from "./components/product/productDetail/AllProductList";
+import AllBlogList from "./components/blog/blogDetail/AllBlogList";
 import EditProduct from "./pages/editProduct/EditProduct";
 import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
@@ -217,6 +218,12 @@ function App() {
           }
         />
         <Route
+          path="/AllBlogList"
+          element={
+            <AllBlogList />
+          }
+        />
+        <Route
           path="/viewcart"
           element={
            
@@ -247,7 +254,7 @@ function App() {
           }
         />
 
-<Route
+        <Route
           path="/admin/doctorReq"
           element={
             <Sidebar>
@@ -319,14 +326,14 @@ function App() {
           
           }
         />
-<Route
+        <Route
           path="/userProfile"
           element={
             <UserSidebar>
-            <Layout>
+              <Layout>
                 <Profile />
-                </Layout>
-               </UserSidebar>
+              </Layout>
+            </UserSidebar>
           }
         />
         <Route
@@ -352,9 +359,9 @@ function App() {
 
 
 
-      <Route path="/cout" element={<ClintOutOfStock/>}/>
-      <Route path="/out" element={<OutOfStock/>}/>
-      <Route path="/total" element={<ChartPage />}/>
+        <Route path="/cout" element={<ClintOutOfStock/>}/>
+        <Route path="/out" element={<OutOfStock/>}/>
+        <Route path="/total" element={<ChartPage />}/>
       </Routes>
     </BrowserRouter>
   );
