@@ -6,6 +6,11 @@ const Token = require("../models/tokenModel");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 
+const moment = require("moment");
+
+const doctorModel = require("../models/doctorModel");
+const appointmentModel = require("../models/appointmentModel");
+
 // Generate Token
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "1d" });
@@ -110,12 +115,13 @@ const loginUser = asyncHandler(async (req, res) => {
     }
     // Modify the part in your loginUser function that sends the response
 if (user && passwordIsCorrect) {
-  const { _id, name, email, role } = user; // Include role here
+  const { _id, name, email, role, isDoctor } = user; // Include role here
   res.status(200).json({
     _id,
     name,
     email,
     role, // Send role to the frontend
+    isDoctor,
     token,
   });
 } else {
@@ -339,6 +345,147 @@ const updateUser = asyncHandler(async (req, res) => {
     });
   });
   
+// Apply Doctor CTRL
+const applyDoctorController = asyncHandler(async (req, res) => {
+  try {
+    const newDoctor = await doctorModel({ ...req.body, status: "pending" });
+    await newDoctor.save();
+    // const adminUser = await User.findOne({ isAdmin: true });
+    // const notifcation = adminUser.notifcation;
+    // notifcation.push({
+    //   type: "apply-doctor-request",
+    //   message: `${newDoctor.firstName} ${newDoctor.lastName} Has Applied For A Doctor Account`,
+    //   data: {
+    //     doctorId: newDoctor._id,
+    //     name: newDoctor.firstName + " " + newDoctor.lastName,
+    //     onClickPath: "/admin/docotrs",
+    //   },
+    // });
+    // await User.findByIdAndUpdate(adminUser._id, { notifcation });
+    res.status(201).send({
+      success: true,
+      message: "Doctor Account Applied Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error While Applying For Doctotr",
+    });
+  }
+});
+
+
+
+
+//GET ALL DOC
+const getAllDocotrsController = async (req, res) => {
+  try {
+    const doctors = await doctorModel.find({ status: "approved" });
+    res.status(200).send({
+      success: true,
+      message: "Docots Lists Fetched Successfully",
+      data: doctors,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Errro While Fetching Doctor",
+    });
+  }
+};
+
+//BOOK APPOINTMENT
+const bookeAppointmnetController = asyncHandler(async (req, res) => {
+  try {
+    req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+    req.body.time = moment(req.body.time, "HH:mm").toISOString();
+    req.body.status = "pending";
+    const newAppointment = new appointmentModel(req.body);
+    await newAppointment.save();
+    // const user = await User.findOne({ _id: req.body.doctorInfo.userId });
+    // user.notifcation.push({
+    //   type: "New-appointment-request",
+    //   message: `A new Appointment Request from ${req.body.userInfo.name}`,
+    //   onCLickPath: "/user/appointments",
+    // });
+    // await user.save();
+    res.status(200).send({
+      success: true,
+      message: "Appointment Book Succesfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error While Booking Appointment",
+    });
+  }
+});
+
+// booking bookingAvailabilityController
+const bookingAvailabilityController = asyncHandler(async (req, res) => {
+  try {
+    const date = moment(req.body.date, "DD-MM-YY").toISOString();
+    const fromTime = moment(req.body.time, "HH:mm")
+      .subtract(1, "hours")
+      .toISOString();
+    const toTime = moment(req.body.time, "HH:mm").add(1, "hours").toISOString();
+    const doctorId = req.body.doctorId;
+    const appointments = await appointmentModel.find({
+      doctorId,
+      date,
+      time: {
+        $gte: fromTime,
+        $lte: toTime,
+      },
+    });
+    if (appointments.length > 0) {
+      return res.status(200).send({
+        message: "Appointments not Availibale at this time",
+        success: true,
+      });
+    } else {
+      return res.status(200).send({
+        success: true,
+        message: "Appointments Available",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error In Booking",
+    });
+  }
+});
+
+const userAppointmentsController = asyncHandler(async (req, res) => {
+  const { userId } = req.query;
+  try {
+    const appointments = await appointmentModel.find({
+      userId: userId,
+    });
+    res.status(200).send({
+      success: true,
+      message: "Users Appointments Fetch Successfully",
+      data: appointments,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error In User Appointments",
+    });
+  }
+});
+
 
 module.exports = {
     registerUser,
@@ -351,5 +498,9 @@ module.exports = {
     changePassword,
     forgotPassword,
     resetPassword,
-
+    applyDoctorController,
+    getAllDocotrsController,
+    bookeAppointmnetController,
+    bookingAvailabilityController,
+    userAppointmentsController
 };

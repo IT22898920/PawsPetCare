@@ -20,9 +20,10 @@ const initialState = {
   user: {
     name: "",
     email: "",
-    phone: "",
+    // phone: "",
     bio: "",
     photo: "",
+    isDoctor: ""
   },
 };
 
@@ -41,22 +42,27 @@ const authSlice = createSlice({
       const profile = action.payload;
       state.user.name = profile.name;
       state.user.email = profile.email;
-      state.user.phone = profile.phone;
+      // state.user.phone = profile.phone;
       state.user.bio = profile.bio;
       state.user.photo = profile.photo;
+      state.user.isDoctor = profile.isDoctor;
     },
     SET_ROLE(state, action) {
       state.role = action.payload;
     },
+    SET_PHONE(state, action) {
+      state.phone = action.payload;
+    },
   },
 });
 
-export const { SET_LOGIN, SET_NAME, SET_USER, SET_ROLE } = authSlice.actions;
+export const { SET_LOGIN, SET_NAME, SET_USER, SET_ROLE,SET_PHONE } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;
 export const selectEmail = (state) => state.auth.email; // Selector for directly accessing email from auth state
 export const selectUser = (state) => state.auth.user;
 export const selectRole = (state) => state.auth.role; // Export a selector for the role
+export const selectPhone = (state) => state.auth.phone;
 
 export default authSlice.reducer;

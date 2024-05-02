@@ -29,23 +29,22 @@ export const createBlog = createAsyncThunk(
  );
 
  // Get all blogs
-export const getBlogs = createAsyncThunk(
-    "blog/getAll",
-    async (_, thunkAPI) => {
+ export const getBlogs = createAsyncThunk(
+  "blog/getAll",
+  async (_, thunkAPI) => {
       try {
-        return await blogService.getBlogs();
+          const response = await blogService.getBlogs();
+          console.log('API response:', response); // Ensure this logs expected data
+          return response;
       } catch (error) {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        console.log(message);
-        return thunkAPI.rejectWithValue(message);
+          console.error('API error:', error);
+          return thunkAPI.rejectWithValue(error.toString());
       }
-    }
-  );
+  }
+);
+
+
+
 
 // Delete a Product
 export const deleteBlog = createAsyncThunk(
@@ -136,14 +135,15 @@ export const deleteBlog = createAsyncThunk(
          toast.error(action.payload);
        })
         // Get all blogs
-       .addCase(getBlogs.pending, (state) => {
-         state.isLoading = true;
-       })
+        .addCase(getBlogs.pending, (state) => {
+          state.isLoading = true;
+      })
        .addCase(getBlogs.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
         console.log(action.payload); // Check what you get here
+        state.blogs = action.payload;
         state.blog = action.payload; // Make sure action.payload is an array
       })
    
