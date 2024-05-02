@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../../redux/features/product/productSlice";
 import { useNavigate } from "react-router-dom";
@@ -20,19 +20,27 @@ const AllProductList = () => {
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const filteredProducts = useSelector(selectFilteredPoducts);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { products, isLoading, isError, message } = useSelector(state => state.product);
   const [category, setCategory] = useState('all');
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(FILTER_PRODUCTS({ products, search: searchQuery, category }));
-  }, [products, searchQuery, category, dispatch]);
+    if (products) {
+      const filtered = products.filter(product => 
+        (category === 'all' || product.category === category) && 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [products, category, searchQuery]);
+  console.log("Filtered Products:", filteredProducts);
 
   const stockStatus = (quantity) => {
     return quantity > 4 ? "In Stock" : "Out Of Stock";
@@ -90,19 +98,17 @@ const AllProductList = () => {
       <div className="flex justify-center mt-8">
         <img src={Dog} alt="Dog" />
       </div>
-      <Search value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+      <div className="search-bar-container">
+  <Search value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+</div>
 
       <div className="all-products-list">
         <div className="all-products-categories">
           <h3 className="all-products-categories-title">Categories</h3>
           <div className="all-products-carousel-indicators">
-            <button className="all-products-category-btn" onClick={() => setCategory('all')}>All</button>
-            <button className="products-category-btn" onClick={() => setCategory('Cards and Stationery')}>Cards and Stationery</button>
-            <button className="products-category-btn" onClick={() => setCategory('PAWS & Garden')}>PAWS & Garden</button>
-            <button className="products-category-btn" onClick={() => setCategory('Supplements')}>Supplements</button>
-            <button className="products-category-btn" onClick={() => setCategory('Clothing and accessories')}>Clothing and accessories</button>
-            <button className="products-category-btn" onClick={() => setCategory('Gifts')}>Gifts</button>
-            <button className="products-category-btn" onClick={() => setCategory('Books & DVDs')}>Books & DVDs</button>
+            {['all', 'Cards and Stationery', 'PAWS & Garden', 'Supplements', 'Clothing and accessories', 'Gifts', 'Books & DVDs'].map(cat => (
+              <button key={cat} className="products-category-btn" onClick={() => setCategory(cat)}>{cat}</button>
+            ))}
           </div>
         </div>
         <div className="all-products-items">
@@ -129,8 +135,7 @@ const AllProductList = () => {
                   </div>
                   <div className="all-products-item-action">
                     {user ? (
-                      <button disabled={product.quantity <= 3} className={`all-products-add-to-cart-btn ${product.quantity <= 3 ? "out-of-stock" : ""}`}
-                        onClick={() => handleCart(product)}>
+                      <button disabled={product.quantity <= 3} className="all-products-add-to-cart-btn" onClick={() => handleCart(product)}>
                         {product.quantity > 3 ? "Add to Cart" : "Out of Stock"}
                       </button>
                     ) : (
@@ -147,16 +152,15 @@ const AllProductList = () => {
       </div>
 
       {showModal && (
-    <div className="modal">
-        <div className="modal-content">
+        <div className="modal">
+          <div className="modal-content">
             <span className="close" onClick={() => setShowModal(false)}>&times;</span>
             <h2>Add Quantity</h2>
             <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
             <button onClick={handleAddToCart}>Add to Cart</button>
+          </div>
         </div>
-    </div>
-)}
-
+      )}
     </div>
   );
 };
