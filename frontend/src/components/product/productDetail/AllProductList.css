@@ -11,7 +11,38 @@
   /* Add any additional styling you need for the image */
 }
 
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
+.search-input {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px 20px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-input {
+    padding: 8px 15px;
+  }
+}
 
 
 /* Main container style */
