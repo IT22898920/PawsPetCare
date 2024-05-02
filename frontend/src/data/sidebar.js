@@ -19,6 +19,11 @@ const menu = [
     path: "/blog-dashboard",
   },
   {
+    title: "Event Dashbord",
+    icon: <FaTh />,
+    path: "/event-dashboard",
+  },
+  {
     title: "Add Product",
     icon: <BiImageAdd />,
     path: "/add-product",
@@ -33,8 +38,11 @@ const menu = [
     icon: <BiImageAdd />,
     path: "/add-pet",
   },
-  
-  
+  {
+    title: "Add Event",
+    icon: <BiImageAdd />,
+    path: "/add-event",
+  },
   {
     title: "Account",
     icon: <FaRegChartBar />,

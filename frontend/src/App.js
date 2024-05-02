@@ -36,6 +36,8 @@ import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
 import OrdersAdmin from "./pages/admin/orders";
+import EventDashboard from "./pages/eventDashboard/EventDashboard";
+import AddEvent from "./pages/addEvent/AddEvent";
 
 import DoctorsRequests from "./pages/DoctorsFunc/AdminHandle/DocRequests";
 import AllDoctors from "./pages/DoctorsFunc/UserHandle/AllDoctors";
@@ -101,6 +103,16 @@ function App() {
           }
         />
         <Route
+          path="/event-dashboard"
+          element={
+            <Sidebar>
+              <Layout>
+                <EventDashboard />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
           path="/add-pet"
           element={
             <Sidebar>
@@ -127,6 +139,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <AddProduct />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/add-event"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddEvent />
               </Layout>
             </Sidebar>
           }
