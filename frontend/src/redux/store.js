@@ -11,6 +11,10 @@ import filterReducer from './features/product/filterSlice';
 import userReducer from './features/auth/userSlice'; // Importing userReducer
 import blogReducer from './features/blog/blogSlice';
 import blogFilterReducer from './features/blog/blogFilterSlice';
+import eventFilterReducer from './features/event/eventFilterSlice';
+import eventReducer from './features/event/eventSlice';
+
+
 const rootReducer = combineReducers({
   auth: authReducer,
   product: productReducer,
@@ -19,6 +23,8 @@ const rootReducer = combineReducers({
   users: userReducer, // Adding the userReducer
   blog: blogReducer,
   blogfilter: blogFilterReducer,
+  event: eventReducer,
+  eventFilter: eventFilterReducer,
 
 });
 
