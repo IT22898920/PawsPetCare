@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './petList.scss';
 import { SpinnerImg } from '../../loader/Loader';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { FILTER_PETS, selectFilteredpet } from '../../../redux/features/Pets/petFilterSlice';
+import SearchPet from '../../search-pets/SearchPet';
+
 
 const PetList = ({ pets = [], isLoading }) => {
-  const [searchPet, setSearchPet] = useState('');
+  const [SearchPet, setSearchPet] = useState('');
+  const filteredPets = useSelector(selectFilteredpet)
+  const dispatch = useDispatch()
 
   // Defaulting pets to an empty array if undefined
   const shortenText = (text, n) => {
@@ -15,6 +21,12 @@ const PetList = ({ pets = [], isLoading }) => {
     }
     return text;
   };
+
+
+  useEffect(() => {
+    dispatch(FILTER_PETS({ pets, SearchPet }));
+  }, [pets, SearchPet, dispatch]);
+  
 
   return (
     <div className='pet-list'>
@@ -27,7 +39,7 @@ const PetList = ({ pets = [], isLoading }) => {
           <span>
             <input
               type='text'
-              value={searchPet}
+              value={SearchPet}
               onChange={(e) => setSearchPet(e.target.value)}
               placeholder='Search Pet...'
             />
@@ -51,7 +63,7 @@ const PetList = ({ pets = [], isLoading }) => {
                 </tr>
               </thead>
               <tbody>
-                {pets.map((pet, index) => {
+                {filteredPets.map((pet, index) => {
                   const { _id, name, category, price } = pet || {};
                   return (
                     <tr key={_id || index}>

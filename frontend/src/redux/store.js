@@ -9,6 +9,7 @@ import filterReducer from './features/product/filterSlice';
 import userReducer from './features/auth/userSlice';
 import blogReducer from './features/blog/blogSlice';
 import blogFilterReducer from './features/blog/blogFilterSlice';
+import petFilterReducer from './features/Pets/petFilterSlice';
 
 // Combine all reducers
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   users: userReducer,
   blog: blogReducer,
   blogfilter: blogFilterReducer,
+  petFilter :petFilterReducer,
 });
 
 // Persist configuration
