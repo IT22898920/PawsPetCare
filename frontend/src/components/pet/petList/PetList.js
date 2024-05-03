@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FILTER_PETS, selectFilteredpet } from '../../../redux/features/Pets/petFilterSlice';
 import SearchPet from '../../search-pets/SearchPet';
 import ReactPaginate from 'react-paginate';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import { deletepets, getPets } from '../../../redux/features/Pets/petsSlice';
 
 
 const PetList = ({ pets = [], isLoading }) => {
@@ -22,6 +25,29 @@ const PetList = ({ pets = [], isLoading }) => {
     }
     return text;
   };
+
+  const delpet = async (id) => {
+    console.log(id);
+    await dispatch(deletepets(id));
+    await dispatch(getPets());
+  };
+  const confirmDelete = (id) => {
+    confirmAlert({
+        title: "Delete Blog",
+        message: "Are you sure you want to delete this Blog?",
+        buttons: [
+            {
+                label: "Delete",
+                onClick: () => delpet(id),
+            },
+            {
+                label: "Cancel",
+                // No need for an onClick if it just cancels
+            },
+        ],
+    });
+};
+
 
  //BEgin pagination
      // Pagination state
@@ -100,7 +126,7 @@ const handlePageClick = (event) => {
                       <td className='icons'>
                         <AiOutlineEye size={25} color='purple' />
                         <FaEdit size={20} color='green' />
-                        <FaTrashAlt size={20} color='red' />
+                        <FaTrashAlt size={20} color="red" onClick={() => confirmDelete(_id)} />
                       </td>
                     </tr>
                   );

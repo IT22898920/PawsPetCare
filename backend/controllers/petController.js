@@ -85,9 +85,12 @@ const deletePet = asyncHandler(async (req,res) =>{
     res.status(401);
     throw new Error("User not authorized");
   }
-  await pet.remove();
   res.status(200).json({message : "Pet deleted"});
 });
+
+
+
+
 
 //update pet
 

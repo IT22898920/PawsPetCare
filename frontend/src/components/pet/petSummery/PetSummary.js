@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AiFillDollarCircle } from "react-icons/ai";
 import { BsCart4, BsCartX } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
 import "./PetSummary.scss"
 import InfoBox from '../../infoBox/InfoBox';
+import { selectOutOfStock, CALC_OUTOFSTOCK } from '../../../redux/features/Pets/petsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 //ICONS
@@ -15,13 +18,23 @@ color='#fff' />
 const outOfStock =<BsCartX size={40}color='#fff' />
 
 const PetSummary = ({pets}) => {
+
+       const dispatch = useDispatch();
+
+       const outOfStock = useSelector(selectOutOfStock)
+
+       useEffect(()=>{
+  dispatch(CALC_OUTOFSTOCK(pets));
+
+       },[dispatch, pets])
+
   return (
     <div className='pet-summary'>
      <h3 className='--mt'>Pet Status</h3>
      <div className='info-summary'>
 
        <InfoBox icon={petIcon} title={"Total Pets"} count={pets.length} bgColor="card1"></InfoBox>
-       <InfoBox icon={outOfStock} title={"out of stock"} count={"0"} bgColor="card3"></InfoBox>
+       <InfoBox icon={outOfStock} title={"out of stock"} count={outOfStock} bgColor="card3"></InfoBox>
        <InfoBox icon={categoryIcon} title={"All categories"} count={"0"} bgColor="card2"></InfoBox>
     
 
