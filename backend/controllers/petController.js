@@ -71,9 +71,7 @@ const getPet = asyncHandler(async (req, res) => {
   res.status(200).json(pet);
 });
 
-//delete pets
-const deletePet = asyncHandler(async (req,res) =>{
-
+const deletePet = asyncHandler(async (req, res) => {
   const pet = await PetAdoption.findById(req.params.id);
   // If the pet doesn't exist
   if (!pet) {
@@ -85,8 +83,12 @@ const deletePet = asyncHandler(async (req,res) =>{
     res.status(401);
     throw new Error("User not authorized");
   }
-  res.status(200).json({message : "Pet deleted"});
+
+  await PetAdoption.deleteOne({ _id: req.params.id }); // Delete the pet
+
+  res.status(200).json({ message: "Pet deleted" });
 });
+
 
 
 

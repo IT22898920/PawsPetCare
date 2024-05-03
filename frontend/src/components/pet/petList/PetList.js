@@ -4,7 +4,7 @@ import { SpinnerImg } from '../../loader/Loader';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { FILTER_PETS, selectFilteredpet } from '../../../redux/features/Pets/petFilterSlice';
+import { FILTER_PETS, selectFilteredPet } from '../../../redux/features/Pets/petFilterSlice'; // Corrected import statement
 import SearchPet from '../../search-pets/SearchPet';
 import ReactPaginate from 'react-paginate';
 import { confirmAlert } from 'react-confirm-alert';
@@ -14,8 +14,8 @@ import { deletepets, getPets } from '../../../redux/features/Pets/petsSlice';
 
 const PetList = ({ pets = [], isLoading }) => {
   const [SearchPet, setSearchPet] = useState('');
-  const filteredPets = useSelector(selectFilteredpet)
-  const dispatch = useDispatch()
+  const filteredPets = useSelector(selectFilteredPet); // Corrected selector function name
+  const dispatch = useDispatch();
 
   // Defaulting pets to an empty array if undefined
   const shortenText = (text, n) => {
@@ -33,8 +33,8 @@ const PetList = ({ pets = [], isLoading }) => {
   };
   const confirmDelete = (id) => {
     confirmAlert({
-        title: "Delete Blog",
-        message: "Are you sure you want to delete this Blog?",
+        title: "Delete Pet",
+        message: "Are you sure you want to delete this Pet?",
         buttons: [
             {
                 label: "Delete",
@@ -49,7 +49,7 @@ const PetList = ({ pets = [], isLoading }) => {
 };
 
 
- //BEgin pagination
+ // Begin pagination
      // Pagination state
      const [currentItems, setCurrentItems] = useState([]);
      const [pageCount, setPageCount] = useState(0);
@@ -60,7 +60,8 @@ const PetList = ({ pets = [], isLoading }) => {
      useEffect(() => {
       if (pets) {
           console.log(pets); // This will show you the structure of `blog`
-          dispatch(FILTER_PETS({ pets, SearchPet }));        }
+          dispatch(FILTER_PETS({ pets, SearchPet }));
+      }
   }, [pets, SearchPet, dispatch]);
 
 
@@ -68,7 +69,7 @@ const PetList = ({ pets = [], isLoading }) => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(filteredPets.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(filteredPets.length / itemsPerPage));
-}, [itemOffset, itemsPerPage, filteredPets])
+}, [itemOffset, itemsPerPage, filteredPets]);
 
 const handlePageClick = (event) => {
   const newOffset = (event.selected * itemsPerPage) % filteredPets.length;
@@ -76,7 +77,7 @@ const handlePageClick = (event) => {
 };
 
     
- //end pagination
+ // End pagination
 
  
 

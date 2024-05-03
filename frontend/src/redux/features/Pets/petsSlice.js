@@ -11,7 +11,6 @@ const initialState = {
    isSuccess: false,
    isLoading: false,
    message: "",
-   outOfStock: 0,
    category : [],
 };
 
@@ -81,28 +80,7 @@ const petsSlice = createSlice({
          console.log("Store value");
       },
 
-      CALC_OUTOFSTOCK(state, action){
-
-         const pets = action.payload
-         const array = [];
-         pets.map((item)=>{
-        const {quantity} = item;
-
-        return array.push(quantity)
-
-         });
-
-         let count = 0
-         array.forEach((number)=>{
-                if(number === 0 || number === "0"){
-                  count +=1
-                }
-  
-         })
-
-         state.outOfStock = count
-
-      }
+    
    },
    extraReducers: (builder) => {
       builder
@@ -162,11 +140,9 @@ const petsSlice = createSlice({
    }
 });
 
-export const { CALC_STORE_VALUE, CALC_OUTOFSTOCK } = petsSlice.actions;
+export const { CALC_STORE_VALUE  } = petsSlice.actions;
 export const selectPets = (state) => state.pet.pets; // Adjust according to your state structure
 
 export const selectIsLoading = (state) => state.pet.isLoading;
-
-export const selectOutOfStock = (state) => state.pet.outOfStock;
 export const selectCategory = (state) => state.pet.category;
 export default petsSlice.reducer;
