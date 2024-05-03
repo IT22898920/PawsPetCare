@@ -1,8 +1,7 @@
 import React from "react";
-import ReactQuill from "react-quill"; 
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Card from "../../card/Card";
-
 import "./ProductForm.scss";
 
 const ProductForm = ({
@@ -14,6 +13,7 @@ const ProductForm = ({
   handleInputChange,
   handleImageChange,
   saveProduct,
+  errors
 }) => {
   return (
     <div className="add-product">
@@ -29,13 +29,12 @@ const ProductForm = ({
               name="image"
               onChange={(e) => handleImageChange(e)}
             />
-
-            {imagePreview != null ? (
+            {imagePreview ? (
               <div className="image-preview">
                 <img src={imagePreview} alt="product" />
               </div>
             ) : (
-              <p>No image set for this poduct.</p>
+              <p>No image set for this product.</p>
             )}
           </Card>
           <label>Product Name:</label>
@@ -64,6 +63,9 @@ const ProductForm = ({
             value={product?.price}
             onChange={handleInputChange}
           />
+          {errors?.price && (
+            <div className="error-message">{errors.price}</div>
+          )}
 
           <label>Product Quantity:</label>
           <input
@@ -73,6 +75,9 @@ const ProductForm = ({
             value={product?.quantity}
             onChange={handleInputChange}
           />
+          {errors?.quantity && (
+            <div className="error-message">{errors.quantity}</div>
+          )}
 
           <label>Product Description:</label>
           <ReactQuill
@@ -105,30 +110,15 @@ ProductForm.modules = {
       { list: "ordered" },
       { list: "bullet" },
       { indent: "-1" },
-      { indent: "+1" },
+      { indent: "+1" }
     ],
-    ["clean"],
-  ],
+    ["clean"]
+  ]
 };
+
 ProductForm.formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "color",
-  "background",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "video",
-  "image",
-  "code-block",
-  "align",
+  "header", "font", "size", "bold", "italic", "underline", "strike", "blockquote",
+  "color", "background", "list", "bullet", "indent", "link", "video", "image", "code-block", "align"
 ];
 
 export default ProductForm;
