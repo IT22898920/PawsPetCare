@@ -6,6 +6,7 @@ import { AiOutlineEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { FILTER_PETS, selectFilteredpet } from '../../../redux/features/Pets/petFilterSlice';
 import SearchPet from '../../search-pets/SearchPet';
+import ReactPaginate from 'react-paginate';
 
 
 const PetList = ({ pets = [], isLoading }) => {
@@ -22,11 +23,36 @@ const PetList = ({ pets = [], isLoading }) => {
     return text;
   };
 
+ //BEgin pagination
+     // Pagination state
+     const [currentItems, setCurrentItems] = useState([]);
+     const [pageCount, setPageCount] = useState(0);
+     const [itemOffset, setItemOffset] = useState(0);
+     const itemsPerPage = 5;
+
+     // Fetch and filter blogs
+     useEffect(() => {
+      if (pets) {
+          console.log(pets); // This will show you the structure of `blog`
+          dispatch(FILTER_PETS({ pets, SearchPet }));        }
+  }, [pets, SearchPet, dispatch]);
+
 
   useEffect(() => {
-    dispatch(FILTER_PETS({ pets, SearchPet }));
-  }, [pets, SearchPet, dispatch]);
-  
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(filteredPets.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredPets.length / itemsPerPage));
+}, [itemOffset, itemsPerPage, filteredPets])
+
+const handlePageClick = (event) => {
+  const newOffset = (event.selected * itemsPerPage) % filteredPets.length;
+  setItemOffset(newOffset);
+};
+
+    
+ //end pagination
+
+ 
 
   return (
     <div className='pet-list'>
@@ -63,7 +89,7 @@ const PetList = ({ pets = [], isLoading }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredPets.map((pet, index) => {
+                {currentItems.map((pet, index) => {
                   const { _id, name, category, price } = pet || {};
                   return (
                     <tr key={_id || index}>
@@ -84,6 +110,20 @@ const PetList = ({ pets = [], isLoading }) => {
           )}
         </div>
       </div>
+      <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel="Prev"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          pageLinkClassName="page-num"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="activePage"
+        />
     </div>
   );
 };
