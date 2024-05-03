@@ -21,7 +21,6 @@ const PetDashboard = () => {
 
   return (
     <div>
-      <h2>Pet Dashboard</h2>
       <PetSummary pets={pets} />
       <PetList pets={pets} isLoading={isLoading} />
     </div>
