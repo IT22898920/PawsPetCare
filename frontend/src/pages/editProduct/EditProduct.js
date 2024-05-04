@@ -42,7 +42,9 @@ const EditProduct = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+    if (name !== "quantity") {  // Prevents updating the state for quantity
+      setProduct({ ...product, [name]: value });
+    }
   };
 
   const handleImageChange = (e) => {
@@ -54,15 +56,14 @@ const EditProduct = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("name", product?.name);
-
     formData.append("category", product?.category);
-    formData.append("quantity", product?.quantity);
     formData.append("price", product?.price);
     formData.append("description", description);
     if (productImage) {
       formData.append("image", productImage);
     }
 
+    // Notice quantity is not appended here
     console.log(...formData);
 
     await dispatch(updateProduct({ id, formData }));
