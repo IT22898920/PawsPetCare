@@ -87,3 +87,49 @@
       }
     }
   }
+
+  
+/* Styles for the dropdown and generate report button */
+.report-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;  /* Adds space around the options for clarity */
+}
+
+.report-options select {
+  padding: 8px 15px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: white;
+  color: var(--text-color);
+  cursor: pointer;  /* Indicates the element is interactive */
+  outline: none; /* Removes the default focus outline */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover, &:focus {
+    border-color: var(--primary-color); /* Highlight on hover/focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Soft glow for focus/hover */
+  }
+}
+
+.report-options button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-color-dark); 
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+  }
+}

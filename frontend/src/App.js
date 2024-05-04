@@ -47,6 +47,7 @@ import AdminAllDoctors from "./pages/DoctorsFunc/AdminHandle/AdminAllDoctors";
 import Appointments from "./pages/DoctorsFunc/UserHandle/Appointments";
 import UserSidebar from "./components/userSidebar/UserSidebar";
 import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
+import EventDetail from "./components/event/eventDetail/EventDetail";
 
 axios.defaults.withCredentials = true;
 
@@ -153,6 +154,18 @@ function App() {
             </Sidebar>
           }
         />
+
+        <Route
+          path="/event-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EventDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
         <Route
           path="/product-detail/:id"
           element={

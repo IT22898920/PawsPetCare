@@ -9,7 +9,7 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: "",
-
+    category: [],
 };
 
 //Create New Event
@@ -46,6 +46,40 @@ export const getEvents = createAsyncThunk(
     }
 );
 
+//Delete a event
+export const deleteEvent = createAsyncThunk(
+    "events/delete",
+    async (id, thunkAPI) => {
+        try {
+            return await eventService.deleteEvent(id);
+        } catch (error) {
+            const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+//View a event
+export const getEvent = createAsyncThunk(
+    "events/getEvent",
+    async (id, thunkAPI) => {
+        try {
+            return await eventService.getEvent(id);
+        } catch (error) {
+            const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
 const eventSlice = createSlice ({
     name: "event",
     initialState,
@@ -53,6 +87,18 @@ const eventSlice = createSlice ({
         CALC_STORE_VALUE(state, action) {
             console.log("store value");
         },
+
+            CALC_CATEGORY(state,action) {
+                const events = action.payload;
+                const array = [];
+                events.map((day) => {
+                    const {category} = day;
+
+                    return array.push(category);
+                });
+                const uniqueCategory = [...new Set(array)]
+                state.category = uniqueCategory;
+            },
     },
 
     extraReducers: (builder) => {
@@ -82,6 +128,7 @@ const eventSlice = createSlice ({
             .addCase(getEvents.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
+                state.isError = false;
                 console.log(action.payload);
                 state.events.push(action.payload);
                 state.events = action.payload;
@@ -92,11 +139,43 @@ const eventSlice = createSlice ({
                 state.message = action.payload;
                 
                 toast.error(action.payload);
+            })
+
+            .addCase(deleteEvent.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(deleteEvent.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+                toast.success("Event deleted successfully")
+            })
+            .addCase(deleteEvent.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                toast.error(action.payload);
+            })
+
+            .addCase(getEvent.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getEvent.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+                state.event = action.payload;
+            })
+            .addCase(getEvent.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                toast.error(action.payload);
             });
     },
 });
-export const {CALC_STORE_VALUE} = eventSlice.actions
-
+export const {CALC_STORE_VALUE, CALC_CATEGORY} = eventSlice.actions;
+export const selectEvent = (state) => state.event.event;
 export const selectIsLoading = (state) => state.event.isLoading;
-
+export const selectCategory = (state) => state.event.category;
 export default eventSlice.reducer;
