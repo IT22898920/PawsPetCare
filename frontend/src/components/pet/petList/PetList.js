@@ -10,6 +10,7 @@ import ReactPaginate from 'react-paginate';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import { deletepets, getPets } from '../../../redux/features/Pets/petsSlice';
+import { Link } from 'react-router-dom';
 
 
 const PetList = ({ pets = [], isLoading }) => {
@@ -125,8 +126,15 @@ const handlePageClick = (event) => {
                       <td>{category || ''}</td>
                       <td>{price || ''}</td>
                       <td className='icons'>
+                        <Link to={`/pet-detail/${_id}`}>
                         <AiOutlineEye size={25} color='purple' />
+                        </Link>
+
+                        <Link to={`/edit-pet/${_id}`}>
                         <FaEdit size={20} color='green' />
+                        </Link>
+                      
+                        
                         <FaTrashAlt size={20} color="red" onClick={() => confirmDelete(_id)} />
                       </td>
                     </tr>

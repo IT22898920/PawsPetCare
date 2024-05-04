@@ -36,6 +36,8 @@ import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
 import OrdersAdmin from "./pages/admin/orders";
 import PetDashboard from "./pages/petDashboard/PetDashboard";
+import PetDetail from "./components/pet/petDetail/PetDetail";
+import EditPets from "./pages/editpets/EditPets";
 
 
 axios.defaults.withCredentials = true;
@@ -112,6 +114,28 @@ function App() {
             </Sidebar>
           }
         />
+              <Route
+          path="/pet-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+               <PetDetail/>
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+<Route
+          path="/edit-pet/:id"
+          element={
+            <Sidebar>
+              <Layout>
+               <EditPets/>
+              </Layout>
+            </Sidebar>
+          }
+        />
+
        <Route
           path="/add-blog"
           element={

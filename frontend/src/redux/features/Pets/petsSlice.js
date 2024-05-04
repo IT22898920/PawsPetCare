@@ -87,6 +87,24 @@ const initialState = {
       }
     );
    
+ // Update pet
+ export const updatePet= createAsyncThunk(
+  "pets/updatePet",
+  async ({id, formData}, thunkAPI) => {
+    try {
+      return await petsService.updatePet(id,formData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 
 
@@ -177,6 +195,24 @@ const petsSlice = createSlice({
             state.isError = true;
             state.message = action.payload;
             toast.error(action.payload);
+         })
+
+           //update a pets
+           .addCase(updatePet.pending, (state) => {
+            state.isLoading = true;
+         })
+         .addCase(updatePet.fulfilled, (state, action) => {
+           // console.log('Payload received:', action.payload); // Check received payload
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.isError = false;
+            toast.success("Pet updated successfully");
+          })
+         .addCase(updatePet.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+            toast.error(action.payload);
          });
    }
 });
@@ -186,4 +222,9 @@ export const selectPets = (state) => state.pet.pets; // Adjust according to your
 
 export const selectIsLoading = (state) => state.pet.isLoading;
 export const selectCategory = (state) => state.pet.category;
+
+export const selectPetById = createSelector(
+  [(state) => state.pet.pets, (state, petId) => petId],
+  (pets, petId) => pets.find(pet => pet.id === petId)
+);
 export default petsSlice.reducer;

@@ -28,6 +28,12 @@ const createPet = async (formData) =>{
   const response = await axios.get(API_URL + id);
   return response.data;
 };
+
+ // update a pets
+ const updatePet = async (id,formData) => {
+  const response = await axios.patch(`${API_URL}${id}`, formData);
+  return response.data;
+};
  
  
 const petsService = {
@@ -35,6 +41,7 @@ const petsService = {
   getPets,
   getPet,
   deletepets,
+  updatePet,
 };
 
 export default petsService;
