@@ -79,6 +79,7 @@ const deleteblog = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
 // Remove the blog from the database
+await blog.deleteOne({ _id: req.params.id }); // Delete the pet
   res.status(200).json({ message: "Blog deleted successfully" });
 });
 

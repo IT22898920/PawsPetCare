@@ -22,11 +22,18 @@ const createPet = async (formData) =>{
   const response = await axios.delete(API_URL + id);
   return response.data;
 };
+
+ // get a pets
+ const getPet = async (id) => {
+  const response = await axios.get(API_URL + id);
+  return response.data;
+};
  
  
 const petsService = {
   createPet,
   getPets,
+  getPet,
   deletepets,
 };
 

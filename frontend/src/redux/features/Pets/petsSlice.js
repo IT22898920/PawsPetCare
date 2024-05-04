@@ -68,6 +68,27 @@ const initialState = {
  );
 
 
+   // geta pet
+   export const getPet= createAsyncThunk(
+      "pets/getPet",
+      async (id, thunkAPI) => {
+        try {
+          return await petsService.getPet(id);
+        } catch (error) {
+          const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          console.log(message);
+          return thunkAPI.rejectWithValue(message);
+        }
+      }
+    );
+   
+
+
 
 
 
@@ -132,6 +153,26 @@ const petsSlice = createSlice({
             toast.success("Pet delete successfully") // Ensure this assignment is correct
           })
          .addCase(deletepets.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+            toast.error(action.payload);
+         })
+
+
+         
+          //get a pets
+          .addCase(getPet.pending, (state) => {
+            state.isLoading = true;
+         })
+         .addCase(getPet.fulfilled, (state, action) => {
+           // console.log('Payload received:', action.payload); // Check received payload
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.isError = false;
+            state.pet = action.payload;
+          })
+         .addCase(getPet.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload;
