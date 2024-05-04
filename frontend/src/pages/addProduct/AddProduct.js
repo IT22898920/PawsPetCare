@@ -3,17 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
 import ProductForm from "../../components/product/productForm/ProductForm";
-import {
-  createProduct,
-  selectIsLoading,
-} from "../../redux/features/product/productSlice";
-import "./AddProduct.scss"
+import { createProduct, selectIsLoading } from "../../redux/features/product/productSlice";
+import "./AddProduct.scss";
 
 const initialState = {
   name: "",
   category: "",
   quantity: "",
   price: "",
+  errors: {
+    name: "",
+    category: "",
+    quantity: "",
+    price: ""
+  }
 };
 
 const AddProduct = () => {
@@ -26,11 +29,31 @@ const AddProduct = () => {
 
   const isLoading = useSelector(selectIsLoading);
 
-  const { name, category, price, quantity } = product;
+  const validatePrice = (price) => {
+    if (!/^\d+(\.\d{1,2})?$/.test(price)) {
+      return "Only numbers can be entered for the price";
+    }
+    return "";
+  };
+
+  const validateQuantity = (quantity) => {
+    if (!/^\d+$/.test(quantity)) {
+      return "Only integer numbers can be entered for quantity";
+    }
+    return "";
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+    let error = "";
+
+    if (name === "price") {
+      error = validatePrice(value);
+    } else if (name === "quantity") {
+      error = validateQuantity(value);
+    }
+
+    setProduct({ ...product, [name]: value, errors: { ...product.errors, [name]: error } });
   };
 
   const handleImageChange = (e) => {
@@ -38,21 +61,13 @@ const AddProduct = () => {
     setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const generateKSKU = (category) => {
-    const letter = category.slice(0, 3).toUpperCase();
-    const number = Date.now();
-    const sku = letter + "-" + number;
-    return sku;
-  };
-
   const saveProduct = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("sku", generateKSKU(category));
-    formData.append("category", category);
-    formData.append("quantity", Number(quantity));
-    formData.append("price", price);
+    formData.append("name", product.name);
+    formData.append("category", product.category);
+    formData.append("quantity", Number(product.quantity));
+    formData.append("price", product.price);
     formData.append("description", description);
     formData.append("image", productImage);
 
@@ -76,6 +91,7 @@ const AddProduct = () => {
         handleInputChange={handleInputChange}
         handleImageChange={handleImageChange}
         saveProduct={saveProduct}
+        errors={product.errors}
       />
     </div>
   );

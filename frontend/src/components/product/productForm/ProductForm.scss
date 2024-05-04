@@ -18,6 +18,13 @@
     }
   }
 
+  .error-message {
+    color: red; /* Makes text color red */
+    font-size: 1.4em; /* Adjust size as needed */
+    margin-top: 4px; /* Adds spacing above the message */
+  }
+  
+
   form {
     label {
       display: block;

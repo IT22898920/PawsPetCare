@@ -1,0 +1,107 @@
+.header {
+    padding: 20px;
+    background-color: #f8f9fa; /* Light grey background */
+    border-bottom: 1px solid #ccc; /* Light grey border */
+  }
+  
+  .header .--flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header h3 {
+    margin: 0;
+  }
+  
+  .header .--btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .header .--btn-AllProductList {
+    background-color: #b624ff; /* Purple background */
+    color: white; /* White text */
+  }
+  
+  .header .--btn-danger {
+    background-color: #dc3545; /* Red background */
+    color: white; /* White text */
+  }
+  
+  .header input {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(50% - 12px);
+  }
+  
+  .header button {
+    margin-top: 10px;
+  }
+  
+  .header hr {
+    margin-top: 20px;
+    border-color: #ccc; /* Light grey border */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .header .--flex-between {
+      flex-direction: column;
+    }
+  
+    .header input {
+      width: calc(100% - 20px); /* Adjust width for smaller screens */
+    }
+  }
+  
+  /* Enhanced styling for the login form */
+.header .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%; /* Full width to align with header layout */
+    max-width: 300px; /* Limit form width */
+  }
+  
+  .header .login-form input {
+    width: 100%; /* Full width inputs */
+    margin-bottom: 10px; /* Space between inputs and button */
+  }
+  
+  .header .login-form button {
+    width: 100%; /* Button to match input width */
+    background-color: #4CAF50; /* Green background for visibility */
+    color: white; /* White text for contrast */
+    font-size: 16px; /* Larger font size for readability */
+  }
+  
+  /* Hover and focus styles for inputs and buttons */
+  .header input:hover,
+  .header input:focus,
+  .header button:hover {
+    border-color: #4CAF50; /* Highlight with theme color on hover/focus */
+    outline: none; /* Remove default outline to use custom border */
+  }
+  
+  .header button:focus {
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5); /* Subtle focus shadow */
+  }
+  
+  /* Responsive adjustments for the login form */
+  @media (max-width: 768px) {
+    .header .login-form {
+      width: calc(100% - 40px); /* Adjust width for smaller screens */
+      margin-top: 20px; /* Extra space above the form on small screens */
+    }
+  }
+  

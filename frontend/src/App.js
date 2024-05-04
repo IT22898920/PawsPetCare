@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
@@ -60,6 +60,19 @@ function App() {
     }
     loginStatus();
   }, [dispatch]);
+
+  const ProtectedRoute = ({ children }) => {
+    const location = useLocation();
+    
+    // Check if the navigation state has `allowed` set to true
+    if (location.state?.allowed) {
+      return children;
+    } else {
+      // Redirect to home or any other page if the condition is not met
+      return <Navigate to="/" />;
+    }
+  };
+
 
   return (
     <BrowserRouter>
@@ -381,7 +394,11 @@ function App() {
 
 
 
-        <Route path="/cout" element={<ClintOutOfStock/>}/>
+<Route path="/cout" element={
+          <ProtectedRoute>
+            <ClintOutOfStock/>
+          </ProtectedRoute>
+        }/>
         <Route path="/out" element={<OutOfStock/>}/>
         <Route path="/total" element={<ChartPage />}/>
       </Routes>
