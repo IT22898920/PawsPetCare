@@ -16,15 +16,21 @@ const getEvents = async () => {
     return response.data;
 };
 
-//Delete a Event 
+//Delete an Event 
 const deleteEvent = async (id) => {
     const response = await axios.delete(API_URL + id);
     return response.data;
 };
 
-//View a Event 
+//View an Event 
 const getEvent = async (id) => {
     const response = await axios.get(API_URL + id);
+    return response.data;
+};
+
+//Update an Event 
+const updateEvent = async (id,formData) => {
+    const response = await axios.patch(`${API_URL}${id}`, formData);
     return response.data;
 };
 
@@ -33,6 +39,7 @@ const eventService = {
     getEvents,
     getEvent,
     deleteEvent,
+    updateEvent,
 };
 
 export default eventService;

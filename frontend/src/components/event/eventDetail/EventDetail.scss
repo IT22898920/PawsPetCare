@@ -1,13 +1,13 @@
-.product-detail {
+.event-detail {
     margin: auto;
     margin-bottom: 5rem;
     padding: 20px;
     width: 100%;
     max-width: 760px; // Adjusted for better layout
-    background-color: #f9f9f9; // Light background for the detail view
+    background-color: rgb(237, 218, 246); // Light background for the detail view
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); // Soft shadow for depth
     border-radius: 8px; // Rounded corners for modern look
-    color: #333; // Default font color for overall detail view, adjust as needed
+    color: #333; // Default font color for overall detail view,
   
     .card {
       padding: 2rem;
@@ -48,7 +48,7 @@
         }
       }
       // If the SKU, Category, Price, etc., are within their own elements, add margins
-      .sku, .category, .price, .quantity, .total-value {
+      ._id, .category, .date, .venue, .time, .trainer {
         margin-bottom: 0.5rem; // Adjust this value as needed
       }
       .--color-success, .--color-danger {

@@ -206,8 +206,10 @@ const generatePDFReportEvent = () => {
                                                         </Link>
                                                     </span>
                                                     <span>
+                                                        <Link to={`/edit-event/${_id}`}>
                                                         <FaEdit size = {20}
                                                         color={"green"}/>
+                                                        </Link>
                                                     </span>
                                                     <span>
                                                         <FaTrashAlt 

@@ -52,6 +52,7 @@ import Appointments from "./pages/DoctorsFunc/UserHandle/Appointments";
 import UserSidebar from "./components/userSidebar/UserSidebar";
 import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
 import EventDetail from "./components/event/eventDetail/EventDetail";
+import EditEvent from "./pages/editEvent/EditEvent";
 
 axios.defaults.withCredentials = true;
 
@@ -188,6 +189,17 @@ function App() {
             <Sidebar>
               <Layout>
                 <EventDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+        <Route
+          path="/edit-event/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditEvent />
               </Layout>
             </Sidebar>
           }

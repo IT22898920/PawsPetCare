@@ -15,10 +15,10 @@ const initialState = {
 }
 
 const AddEvent = () => {
-    const [event, setEvent] = useState (initialState)
-    const [eventImage, setEventImage] = useState ("")
-    const [imagePreview, setImagePreview] = useState (null)
-    const [description, setDescription] = useState ("")
+    const [event, setEvent] = useState (initialState);
+    const [eventImage, setEventImage] = useState ("");
+    const [imagePreview, setImagePreview] = useState (null);
+    const [description, setDescription] = useState ("");
    
     const isLoading = useSelector (selectIsLoading);
 
