@@ -151,6 +151,8 @@ const petsSlice = createSlice({
             state.isSuccess = true;
             state.isError = false;
             state.pets = action.payload;  // Ensure this assignment is correct
+            state.pet = action.payload;
+
           })
          .addCase(getPets.rejected, (state, action) => {
             state.isLoading = false;

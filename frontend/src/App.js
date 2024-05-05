@@ -38,6 +38,7 @@ import OrdersAdmin from "./pages/admin/orders";
 import PetDashboard from "./pages/petDashboard/PetDashboard";
 import PetDetail from "./components/pet/petDetail/PetDetail";
 import EditPets from "./pages/editpets/EditPets";
+import AllPetList from "./components/pet/petDetail/AllPetList";
 
 
 axios.defaults.withCredentials = true;
@@ -241,6 +242,12 @@ function App() {
           path="/AllProductList"
           element={
             <AllProductList />
+          }
+        />
+                <Route
+          path="/AllPetList"
+          element={
+            <AllPetList />
           }
         />
         <Route
