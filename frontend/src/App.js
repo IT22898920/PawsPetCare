@@ -38,6 +38,10 @@ import EditBlog from "./pages/editBlog/EditBlog";
 import OrdersAdmin from "./pages/admin/orders";
 import EventDashboard from "./pages/eventDashboard/EventDashboard";
 import AddEvent from "./pages/addEvent/AddEvent";
+import PetDashboard from "./pages/petDashboard/PetDashboard";
+import PetDetail from "./components/pet/petDetail/PetDetail";
+import EditPets from "./pages/editpets/EditPets";
+import AllPetList from "./components/pet/petDetail/AllPetList";
 
 import DoctorsRequests from "./pages/DoctorsFunc/AdminHandle/DocRequests";
 import AllDoctors from "./pages/DoctorsFunc/UserHandle/AllDoctors";
@@ -112,6 +116,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <BlogDashboard />
+              </Layout>
+            </Sidebar>
+          }
+        />
+              <Route
+          path="/pet-dashboard"
+          element={
+            <Sidebar>
+              <Layout>
+                <PetDashboard />
               </Layout>
             </Sidebar>
           }
@@ -199,6 +213,17 @@ function App() {
             </Sidebar>
           }
         />
+
+<Route
+          path="/pet-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+               <PetDetail/>
+              </Layout>
+            </Sidebar>
+          }
+        />
         <Route
           path="/edit-product/:id"
           element={
@@ -215,6 +240,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <EditBlog />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-pet/:id"
+          element={
+            <Sidebar>
+              <Layout>
+               <EditPets/>
               </Layout>
             </Sidebar>
           }
@@ -263,6 +298,12 @@ function App() {
           path="/AllProductList"
           element={
             <AllProductList />
+          }
+        />
+       <Route
+          path="/AllPetList"
+          element={
+            <AllPetList />
           }
         />
         <Route
