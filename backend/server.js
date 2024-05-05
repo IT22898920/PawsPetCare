@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRoute = require("./routes/userRoute");
+const userAdoptionRoutes = require("./routes/userAdoptionRoutes");
 const eventRoute = require("./routes/eventRoute");
 const petRoute = require("./routes/petRoute");
 const productRoute = require("./routes/productRoute");
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 
 // Routes Middleware
 app.use("/api/users", userRoute);
+app.use("/api/useradoptions", userAdoptionRoutes);
 app.use("/api/products", productRoute);
 app.use("/api/contactus", contactRoute);
 app.use("/api/petAdoption",petRoute);
