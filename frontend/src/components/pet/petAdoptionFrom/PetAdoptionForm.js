@@ -5,52 +5,33 @@ import "./petAdoptionForm.scss";
 import Card from '../../card/Card';
 
 const PetAdoptionForm = ({
-  pet, 
-  petImage, 
-  imagePreview,
+  userAdoption, 
   description,
   setDescription,
-   handleInputChange,
-    handleImageChange,
-     savePet,
-    }) => {
+  handleInputChange,
+  saveUserAdoption,
+  }) => {
   return (
-    <div className='add-pet'>
+    <div className='add-userAdoption'>
     <Card cardClass={"card"}>
-          <form onSubmit={savePet}>
-            <Card cardClass={"group"}>
-              <label >Pet Image</label>
-              <code className='--color-dark'>Supported Formats: jpg, jpeg, png</code>
-              <input type='file'
-               name='image'
-                onChange={(e) =>handleImageChange(e)}
-                />
+    <form onSubmit={saveUserAdoption}>
 
-              {imagePreview != null ? (
-                <div className='image-preview'>
-                  <img src={imagePreview} alt="pet" />
-                </div>
-              ): (
-              <p>No image set for this pet.</p>
-              )}
-            </Card>
+            <label>User name :</label>
+            <input type='text' placeholder='Enter your name' name='name' value={userAdoption?.cname} onChange={handleInputChange}/>
 
-            <label>Pet name :</label>
-            <input type='text' placeholder='Enter your name' name='name' value={pet?.name} onChange={handleInputChange}/>
+            <label>User Address :</label>
+            <input type='text' placeholder='Enter Address' name='Address' value={userAdoption?.caddress} onChange={handleInputChange}/>
 
-            <label>Pet category :</label>
-            <input type='text' placeholder='Pet category' name='category' value={pet?.category} onChange={handleInputChange}/>
+            <label>User Contact Number:</label>
+            <input type='text' placeholder='Enter Contact Number' name='Number' value={userAdoption?.cnumber} onChange={handleInputChange} />
 
-            <label>Pet price:</label>
-            <input type='text' placeholder='Pet price' name='price' value={pet?.price} onChange={handleInputChange} />
-
-            <label>Pet description:</label>
+            <label>UserAdoption description:</label>
             <ReactQuill theme="snow" value={description} onChange={setDescription}  />
 
 
               <div className='--my'>
                 <button type='submit'  className='--btn --btn-primary'>
-                  save Pet
+                  Submit
                 </button>
               </div>
           </form>
