@@ -142,9 +142,9 @@ export const deleteBlog = createAsyncThunk(
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        console.log(action.payload); // Check what you get here
+        console.log(action.payload); 
         state.blogs = action.payload;
-        state.blog = action.payload; // Make sure action.payload is an array
+        state.blog = action.payload;
       })
    
        .addCase(getBlogs.rejected, (state, action) => {

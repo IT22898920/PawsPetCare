@@ -51,9 +51,8 @@ const createPet = asyncHandler(async (req, res) => {
 
 //get all pets
 const getPets = asyncHandler(async(req,res)=> {
-
-    const petAdoption = await PetAdoption.find({user: req.user.id}).sort("-createAp")
-    res.status(300).json(petAdoption)
+  const petAdoption = await PetAdoption.find({user: req.user.id}).sort("-createAp");
+  res.status(200).json(petAdoption); // <-- Change status code to 200
 });
 
 
@@ -72,9 +71,7 @@ const getPet = asyncHandler(async (req, res) => {
   res.status(200).json(pet);
 });
 
-//delete pets
-const deletePet = asyncHandler(async (req,res) =>{
-
+const deletePet = asyncHandler(async (req, res) => {
   const pet = await PetAdoption.findById(req.params.id);
   // If the pet doesn't exist
   if (!pet) {
@@ -86,9 +83,16 @@ const deletePet = asyncHandler(async (req,res) =>{
     res.status(401);
     throw new Error("User not authorized");
   }
-  await pet.remove();
-  res.status(200).json({message : "Pet deleted"});
+
+  await PetAdoption.deleteOne({ _id: req.params.id }); // Delete the pet
+
+  res.status(200).json({ message: "Pet deleted" });
 });
+
+
+
+
+
 
 //update pet
 
