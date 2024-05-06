@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Use the safeParseJSON function to safely parse the "name" from localStorage
+
 const safeParseJSON = (key) => {
   const item = localStorage.getItem(key);
   try {

@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import "./Home.scss";
-import { ShowOnLogin, ShowOnLogout } from '../../components/protect/HiddenLink';
-import AllBlogList from '../../components/blog/blogDetail/AllBlogList';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectName, SET_LOGIN } from "../../redux/features/auth/authSlice";
+import { logoutUser } from "../../services/authService";
+import "../Home/Home.scss";
+import { ShowOnLogin,  } from '../../components/protect/HiddenLink';
 
-const HomeNavBar = () => {
+
+const RegisterUserHome = () => {
+
+    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const name = useSelector(selectName);
+  const [showLogin, setShowLogin] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -13,26 +24,26 @@ const HomeNavBar = () => {
     setIsLoggedIn(!!token);
   }, []);
 
+  const logout = async () => {
+    await logoutUser();
+    await dispatch(SET_LOGIN(false));
+    navigate("/");
+  };
+
   return (
     <>
       <header>
-        <Link to="/" className="logo"><i className="fas fa-utensils"></i>PawsPet care</Link>
+        <Link to="/registeruserHome" className="logo"><i className="fas fa-utensils"></i>PawsPet care</Link>
         <div id="menu-bars" className="fas fa-bars"></div>
         <nav className="navbar">
-          <Link to="#popular">popular</Link>
-          <Link to="#gallery">gallery</Link>
-          <Link to="#review">review</Link>
+          <Link to="#home">home</Link>
+          <Link to="/AllProductList">Shop</Link>
+          <Link to="/AllPetList">Adopt Pet</Link>
+          <Link to="/AllBlogList">Blog</Link>
           <ul className="navbar-links">
-            {!isLoggedIn && (
-              <ShowOnLogout>
-                <li>
-                  <Link to="/register">Register</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </ShowOnLogout>
-            )}
+          <button onClick={logout} className="--btn --btn-danger">
+          Logout
+        </button>
             {isLoggedIn && (
               <ShowOnLogin>
                 <li>
@@ -47,8 +58,8 @@ const HomeNavBar = () => {
       <section className="home" id="home">
         <div className="content">
           <h3>Make love</h3>
-          <p>Food lovers On the other hand, food lovers are people who simply love food. “Food lover” is an all-encompassing term that includes food enthusiasts of all types, no matter what drives their interests.</p>
-          <a href="#" className="btn"> order now</a>
+          <p>A pet lover is someone who adores animals, treating them like family and prioritizing their well-being and happiness. They enjoy spending quality time with their pets and are dedicated to providing them with love, care, and attention</p>
+          <a href="https://www.bing.com/ck/a?!&&p=ee8a9538cb05a392JmltdHM9MTcxNDk1MzYwMCZpZ3VpZD0zYjEzNWYwOC03OTI2LTY2NWQtMzc0Mi00Y2QwNzgyNzY3M2YmaW5zaWQ9NTIyMA&ptn=3&ver=2&hsh=3&fclid=3b135f08-7926-665d-3742-4cd07827673f&psq=wikipidia+pet+adoption&u=a1aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvUGV0X2Fkb3B0aW9u&ntb=1" className="btn">lern more</a>
         </div>
         <div className="image">
           <img src="https://img.freepik.com/free-vector/adopt-pet-poster-template_23-2148931292.jpg?t=st=1715020934~exp=1715024534~hmac=30ba68387945b811120d88e0725e2c58c7514f243d88a4e8e66cfbb75f11427a&w=360" alt="Burger Image" />
@@ -83,6 +94,4 @@ const Box = ({ imgSrc, title, description }) => {
     );
 };
 
-export default HomeNavBar;
-
-
+export default RegisterUserHome;

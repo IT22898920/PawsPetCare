@@ -16,7 +16,7 @@ const Sidebar = ({ children }) => {
     const navigate = useNavigate();
 
     const goHome = () => {
-        navigate("/");
+        navigate("/registeruserHome");
       };
 
     return (

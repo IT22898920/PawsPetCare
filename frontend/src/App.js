@@ -51,6 +51,7 @@ import AdminAllDoctors from "./pages/DoctorsFunc/AdminHandle/AdminAllDoctors";
 import Appointments from "./pages/DoctorsFunc/UserHandle/Appointments";
 import UserSidebar from "./components/userSidebar/UserSidebar";
 import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
+import RegisterUserHome from "./pages/registerUserHome/RegisterUserHome";
 
 axios.defaults.withCredentials = true;
 
@@ -83,6 +84,8 @@ function App() {
     <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/registeruserHome" element={<RegisterUserHome />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />

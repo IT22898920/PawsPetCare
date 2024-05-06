@@ -58,7 +58,7 @@ const Login = () => {
         navigate("/doctorAppointments");
       }
       else if(data.role === 'user') {
-        navigate("/AllproductList");
+        navigate("/registeruserHome");
       }
       setIsLoading(false);
     } catch (error) {
