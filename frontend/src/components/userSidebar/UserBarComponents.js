@@ -33,8 +33,20 @@ const menu = [
     icon: <BiImageAdd />,
     path: "/appointments",
   },
-  
-  
+  {
+    title: "Pet Adoption",
+    icon: <FaRegChartBar />,
+    childrens: [
+      {
+        title: "Pet Adopt",
+        path: "/petAdoptionForm",
+      },
+      {
+        title: "Schedule",
+        path: "/schedule",
+      },
+    ],
+  },  
   {
     title: "Account",
     icon: <FaRegChartBar />,

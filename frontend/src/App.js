@@ -42,9 +42,7 @@ import PetDashboard from "./pages/petDashboard/PetDashboard";
 import PetDetail from "./components/pet/petDetail/PetDetail";
 import EditPets from "./pages/editpets/EditPets";
 import AllPetList from "./components/pet/petDetail/AllPetList";
-import EventDetail from "./components/event/eventDetail/EventDetail";
-import EditEvent from "./pages/editEvent/EditEvent";
-import AllEventList from "./components/event/eventDetail/AllEventList";
+
 import DoctorsRequests from "./pages/DoctorsFunc/AdminHandle/DocRequests";
 import AllDoctors from "./pages/DoctorsFunc/UserHandle/AllDoctors";
 import BookingPage from "./pages/DoctorsFunc/UserHandle/BookingPage";
@@ -55,6 +53,11 @@ import UserSidebar from "./components/userSidebar/UserSidebar";
 import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
 import PetAdoptionForm from "./components/pet/petAdoptionFrom/PetAdoptionForm";
 import AddUserAdoption from "./pages/addUserAdoption/AddUserAdoption";
+import AdoptSchedule from "./components/pet/AdoptSchedule/AdoptSchedule";
+import ViewAllAdoptionSchedule from "./components/pet/AdoptSchedule/ViewAllAdoptionSchedule";
+import AdoptScheduleUpdate from "./components/pet/AdoptSchedule/AdoptScheduleUpdate";
+import ViewSchedule from "./components/pet/AdoptSchedule/ViewSchedule";
+import Reschedule from "./components/pet/AdoptSchedule/Reschedule";
 import RegisterUserHome from "./pages/registerUserHome/RegisterUserHome";
 
 axios.defaults.withCredentials = true;
@@ -87,8 +90,8 @@ function App() {
     <BrowserRouter>
     <ToastContainer />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/registeruserHome" element={<RegisterUserHome />} />        
+      <Route path="/" element={<Home />} />
+        <Route path="/registeruserHome" element={<RegisterUserHome />} />         
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
@@ -279,16 +282,6 @@ function App() {
           }
         />
         <Route
-          path="/edit-event/:id"
-          element={
-            <Sidebar>
-              <Layout>
-                <EditEvent />
-              </Layout>
-            </Sidebar>
-          }
-        />
-        <Route
           path="/contact-us"
           element={
             <Sidebar>
@@ -327,27 +320,13 @@ function App() {
           }
         />
         <Route
-          path="/AllEventList"
-          element={
-            <AllEventList />
-          }
-        />
-        <Route
-          path="/event-detail/:id"
-          element={
-            <Sidebar>
-              <Layout>
-                <EventDetail />
-              </Layout>
-            </Sidebar>
-          }
-        />
-        <Route
           path="/viewcart"
           element={
+           
               <Layout>
                 <ViewCartItems />
               </Layout>
+            
           }
         />
         <Route
@@ -473,8 +452,60 @@ function App() {
                </UserSidebar>
           }
         />
+<Route
+          path="/schedule"
+          element={
+            <UserSidebar>
+            <Layout>
+            <ViewSchedule />
+                </Layout>
+               </UserSidebar>
+          }
+        />
+        <Route
+          path="/petAdoptionForm"
+          element={
+            <UserSidebar>
+            <Layout>
+            <PetAdoptionForm />
+                </Layout>
+               </UserSidebar>
+          }
+        />
+
+          <Route
+          path="/adoptSchedule/:petId"
+          element={
+            <UserSidebar>
+            <Layout>
+            <AdoptSchedule />
+                </Layout>
+               </UserSidebar>
+          }
+        />
+        <Route
+          path="/reschedule/:Id"
+          element={
+            <UserSidebar>
+            <Layout>
+            <Reschedule />
+                </Layout>
+               </UserSidebar>
+          }
+        />
 
 
+<Route
+          path="/ViewAllAdoptionSchedule"
+          element={
+            <Sidebar>
+              <Layout>
+              <ViewAllAdoptionSchedule />
+              </Layout>
+            </Sidebar>
+          }
+        />
+     
 
 <Route path="/cout" element={
           <ProtectedRoute>
@@ -483,7 +514,10 @@ function App() {
         }/>
         <Route path="/out" element={<OutOfStock/>}/>
         <Route path="/total" element={<ChartPage />}/>
-        <Route path="/petAdoptionForm" element={<PetAdoptionForm />}/>
+
+        <Route path="/adoptSchedule-update/" element={<AdoptScheduleUpdate />} />
+
+        <Route path="/reschedule/:Id" element={ <Reschedule />} />
       </Routes>
     </BrowserRouter>
   );

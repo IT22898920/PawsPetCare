@@ -6,12 +6,6 @@ const userAdoptionSchema = mongoose.Schema({
         required: true,
         ref: "User",
     },
-    adoptionId: {
-        type: String,
-        required: true,
-        default: "ID",
-        trim: true,
-    },
     cname: {
         type: String,
         required: [true, "Please add a name"],
