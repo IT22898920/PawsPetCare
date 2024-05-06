@@ -82,6 +82,11 @@ const menu = [
     icon: <FaChartBar />,
     path: "/admin/doctors",
   },
+  {
+    title: "Pet Adoptions",
+    icon: <FaChartBar />,
+    path: "/ViewAllAdoptionSchedule",
+  },
 ];
 
 export default menu;

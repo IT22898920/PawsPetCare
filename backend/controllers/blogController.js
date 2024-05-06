@@ -44,7 +44,7 @@ const createBlog = asyncHandler(async (req, res) => {
 });
 
 const getblogs = asyncHandler(async (req, res) => {
-  const blogs = await Blog.find({ user: req.user.id }).sort("-createdAt");
+  const blogs = await Blog.find({ }).sort("-createdAt");
   res.status(200).json(blogs);
 });
 
@@ -78,7 +78,8 @@ const deleteblog = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
-// Remove the blog from the database
+// Remove the blog from the database 
+await blog.deleteOne({ _id: req.params.id }); 
   res.status(200).json({ message: "Blog deleted successfully" });
 });
 

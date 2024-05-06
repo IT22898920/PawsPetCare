@@ -54,7 +54,7 @@ const createEvent = asyncHandler(async (req, res) => {
 
 //Get all Events
 const getEvents = asyncHandler (async (req, res) => {
-    const events =await Event.find({user: req.user.id}).sort("-createdAt");
+    const events =await Event.find({}).sort("-createdAt");
     res.status(200).json(events);
 });
 

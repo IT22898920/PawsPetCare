@@ -15,6 +15,7 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const checkoutRoutes = require('./routes/checkoutRoutes');
 const admin = require("./routes/adminRoutes");
+const adoptScheduleRoutes = require("./routes/adoptScheduleRoutes")
 
 const app = express();
 // Middlewares
@@ -49,6 +50,8 @@ app.use("/api/Blog",blogRoute);
 app.use('/api/checkouts', checkoutRoutes);
 app.use("/api/v1/admin", admin);
 app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
+app.use('/api/adopt-schedule', adoptScheduleRoutes);
+
 // Error Middleware
 app.use(errorHandler);
 
@@ -57,9 +60,11 @@ const PORT = process.env.PORT || 5000;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
+    console.log("MongoDB connection successful!"); 
     app.listen(PORT, () => {
       console.log(`Server Running on port ${PORT}`);
     });
   })
   .catch((err) => console.log(err));
+
 

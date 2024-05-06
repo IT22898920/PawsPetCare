@@ -1,45 +1,84 @@
-import React from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import "./petAdoptionForm.scss";
-import Card from '../../card/Card';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const PetAdoptionForm = ({
-  userAdoption, 
-  description,
-  setDescription,
-  handleInputChange,
-  saveUserAdoption,
-  }) => {
-  return (
-    <div className='add-userAdoption'>
-    <Card cardClass={"card"}>
-    <form onSubmit={saveUserAdoption}>
+const PetAdoptionForm = () => {
+  const [formData, setFormData] = useState({
+    cname: '',
+    caddress: '',
+    cnumber: '',
+    description: ''
+  });
+  const { cname, caddress, cnumber, description } = formData;
 
-            <label>User name :</label>
-            <input type='text' placeholder='Enter your name' name='name' value={userAdoption?.cname} onChange={handleInputChange}/>
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-            <label>User Address :</label>
-            <input type='text' placeholder='Enter Address' name='Address' value={userAdoption?.caddress} onChange={handleInputChange}/>
-
-            <label>User Contact Number:</label>
-            <input type='text' placeholder='Enter Contact Number' name='Number' value={userAdoption?.cnumber} onChange={handleInputChange} />
-
-            <label>UserAdoption description:</label>
-            <ReactQuill theme="snow" value={description} onChange={setDescription}  />
-
-
-              <div className='--my'>
-                <button type='submit'  className='--btn --btn-primary'>
-                  Submit
-                </button>
-              </div>
-          </form>
-    </Card>
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:5000/api/useradoptions/', formData);
+      console.log(res.data); // Assuming you want to log the response
+      // Optionally, you can redirect the user or show a success message here
+      const petId = res.data._id; // Get the ID from the response data
+      window.location = `/adoptSchedule/${petId}`;
+      if (res.ok) {
+        
+      }
       
+    } catch (err) {
+      console.error(err.response.data);
+      // Handle error: show error message to the user
+    }
+  };
+
+  return (
+    <div>
+      <h2>Submit Adoption Details</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            name="cname"
+            value={cname}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Address:</label>
+          <input
+            type="text"
+            name="caddress"
+            value={caddress}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Phone Number:</label>
+          <input
+            type="text"
+            name="cnumber"
+            value={cnumber}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea
+            name="description"
+            value={description}
+            onChange={handleChange}
+            required
+          ></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-
-export default PetAdoptionForm
+export default PetAdoptionForm;
