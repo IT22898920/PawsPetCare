@@ -182,6 +182,7 @@ const eventSlice = createSlice ({
                 state.isSuccess = true;
                 state.isError = false;
                 state.event = action.payload;
+
             })
             .addCase(getEvent.rejected, (state, action) => {
                 state.isLoading = false;

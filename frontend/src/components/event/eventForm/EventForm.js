@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import "./EventForm.scss"
@@ -14,6 +14,7 @@ const EventForm = ({
     handleImageChange, 
     saveEvent,
 }) => {
+
     return (
     <div className="add-event">
         <Card cardClass={"card"}>

@@ -53,6 +53,7 @@ import UserSidebar from "./components/userSidebar/UserSidebar";
 import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
 import EventDetail from "./components/event/eventDetail/EventDetail";
 import EditEvent from "./pages/editEvent/EditEvent";
+import AllEventList from "./components/event/eventDetail/AllEventList";
 
 axios.defaults.withCredentials = true;
 
@@ -322,6 +323,12 @@ function App() {
           path="/AllBlogList"
           element={
             <AllBlogList />
+          }
+        />
+        <Route
+          path="/AllEventList"
+          element={
+            <AllEventList />
           }
         />
         <Route

@@ -55,15 +55,24 @@ const EditEvent = () => {
         formData.append("time", event?.time);
         formData.append("trainer", event?.trainer);
         formData.append("description", description);
+        //check if image is present and append to form data
         if (eventImage) {
             formData.append("image", eventImage);
         }
-        formData.append("image", eventImage);
-    
+
+        //check if required fields are not empty
+        if(event?.name && event?.category && event?.date && event?.venue && event?.time && event?.trainer) {
+            await dispatch (updateEvent({id, formData}));
+            await dispatch (getEvents())
+            navigate("/event-dashboard");
+        }else {
+            console.log("Required fields are empty");
+        }
+
         console.log (...formData);
 
         await dispatch(updateEvent({id, formData}));
-        await dispatch (getEvents())
+        await dispatch (getEvents());
         navigate("/event-dashboard");
     
         };
