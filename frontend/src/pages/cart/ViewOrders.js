@@ -7,7 +7,7 @@ const ViewOrders = () => {
   const [checkouts, setCheckouts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [priceSearch, setPriceSearch] = useState('');
+  const [selectedPriceRange, setSelectedPriceRange] = useState('');
   const userEmail = useSelector(selectEmail);
 
   useEffect(() => {
@@ -33,15 +33,20 @@ const ViewOrders = () => {
     fetchCheckouts();
   }, []);
 
-  const filteredCheckouts = checkouts.filter(checkout => {
-    // Filter by price if priceSearch is not empty
-    if (priceSearch.trim() === '') return true;
-    return checkout.totalPrice.toString().includes(priceSearch);
-  });
-
-  const handlePriceSearchChange = (e) => {
-    setPriceSearch(e.target.value);
+  const handlePriceRangeChange = (e) => {
+    setSelectedPriceRange(e.target.value);
   };
+
+  const filteredCheckouts = checkouts.filter(checkout => {
+    // Filter by price range
+    if (!selectedPriceRange) return true;
+    if (selectedPriceRange === 'more-than-5000') {
+      return checkout.totalPrice > 5000;
+    } else {
+      const [min, max] = selectedPriceRange.split('-').map(Number);
+      return checkout.totalPrice >= min && checkout.totalPrice <= max;
+    }
+  });
 
   if (loading) {
     return <p>Loading...</p>;
@@ -51,45 +56,55 @@ const ViewOrders = () => {
     return <p>Error: {error}</p>;
   }
 
+  const priceRanges = [
+    { label: 'All', value: '' },
+    { label: '0 - 1000', value: '0-1000' },
+    { label: '1000 - 2000', value: '1000-2000' },
+    { label: '2000 - 3000', value: '2000-3000' },
+    { label: '3000 - 4000', value: '3000-4000' },
+    { label: '4000 - 5000', value: '4000-5000' },
+    { label: 'More than 5000', value: 'more-than-5000' }
+  ];
+
   return (
     <div>
-      <h2>Checkouts</h2>
-      <div style={{ marginBottom: '20px' }}>
-        <input
-          type="text"
-          placeholder="Search by price"
-          value={priceSearch}
-          onChange={handlePriceSearchChange}
+      <h2 style={{ textAlign: 'center' }}>Checkouts</h2>
+      <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+        <select
+          value={selectedPriceRange}
+          onChange={handlePriceRangeChange}
           style={{
-            width: '300px',
             padding: '10px',
             border: '1px solid #ccc',
             borderRadius: '5px',
             fontSize: '16px'
           }}
-        />
+        >
+          {priceRanges.map((range, index) => (
+            <option key={index} value={range.value}>{range.label}</option>
+          ))}
+        </select>
       </div>
       {filteredCheckouts.length === 0 ? (
         <p>No checkouts found</p>
       ) : (
-        <ul>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           {filteredCheckouts.map((checkout) => (
-            <div className="card" key={checkout._id}>
-              <li>
-                <p>Name: {checkout.Name}</p>
-                <p>Email: {checkout.email}</p>
-                <p>Address: {checkout.Address}</p>
-                <p>Phone Number: {checkout.PNumber}</p>
-                <p>Total Price: {checkout.totalPrice}</p>
-                <p>Status: 
-                  <span style={{ color: getStatusColor(checkout.Status) }}>
-                    {checkout.Status}
-                  </span>
-                </p>
-              </li>
+            <div key={checkout._id} className="card" style={{ marginBottom: '20px', padding: '20px', width: '300px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)', borderRadius: '5px' }}>
+              <h3 style={{ marginBottom: '15px', textAlign: 'center' }}>Order Details</h3>
+              <p><strong>Name:</strong> {checkout.Name}</p>
+              <p><strong>Email:</strong> {checkout.email}</p>
+              <p><strong>Address:</strong> {checkout.Address}</p>
+              <p><strong>Phone Number:</strong> {checkout.PNumber}</p>
+              <p><strong>Total Price:</strong> {checkout.totalPrice}</p>
+              <p><strong>Status:</strong> 
+                <span style={{ color: getStatusColor(checkout.Status) }}>
+                  {checkout.Status}
+                </span>
+              </p>
             </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
