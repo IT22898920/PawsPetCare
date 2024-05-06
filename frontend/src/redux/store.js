@@ -13,7 +13,8 @@ import blogReducer from './features/blog/blogSlice';
 import blogFilterReducer from './features/blog/blogFilterSlice';
 import eventFilterReducer from './features/event/eventFilterSlice';
 import eventReducer from './features/event/eventSlice';
-
+import petFilterReducer from './features/Pets/petFilterSlice';
+import userAdoptionReducer from './features/userAdoption/userAdoptionSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   blogfilter: blogFilterReducer,
   event: eventReducer,
   eventFilter: eventFilterReducer,
-
+  petFilter :petFilterReducer,
+  userAdoption: userAdoptionReducer,
 });
 
 const persistConfig = {

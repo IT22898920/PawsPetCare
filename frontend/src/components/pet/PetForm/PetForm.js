@@ -2,7 +2,7 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import "./petForm.scss";
-import Card from '../card/Card';
+import Card from '../../card/Card';
 
 const petForm = ({
   pet, 

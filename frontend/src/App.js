@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
@@ -38,6 +38,10 @@ import EditBlog from "./pages/editBlog/EditBlog";
 import OrdersAdmin from "./pages/admin/orders";
 import EventDashboard from "./pages/eventDashboard/EventDashboard";
 import AddEvent from "./pages/addEvent/AddEvent";
+import PetDashboard from "./pages/petDashboard/PetDashboard";
+import PetDetail from "./components/pet/petDetail/PetDetail";
+import EditPets from "./pages/editpets/EditPets";
+import AllPetList from "./components/pet/petDetail/AllPetList";
 
 import DoctorsRequests from "./pages/DoctorsFunc/AdminHandle/DocRequests";
 import AllDoctors from "./pages/DoctorsFunc/UserHandle/AllDoctors";
@@ -47,6 +51,8 @@ import AdminAllDoctors from "./pages/DoctorsFunc/AdminHandle/AdminAllDoctors";
 import Appointments from "./pages/DoctorsFunc/UserHandle/Appointments";
 import UserSidebar from "./components/userSidebar/UserSidebar";
 import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
+import PetAdoptionForm from "./components/pet/petAdoptionFrom/PetAdoptionForm";
+import AddUserAdoption from "./pages/addUserAdoption/AddUserAdoption";
 
 axios.defaults.withCredentials = true;
 
@@ -60,6 +66,19 @@ function App() {
     }
     loginStatus();
   }, [dispatch]);
+
+  const ProtectedRoute = ({ children }) => {
+    const location = useLocation();
+    
+    // Check if the navigation state has `allowed` set to true
+    if (location.state?.allowed) {
+      return children;
+    } else {
+      // Redirect to home or any other page if the condition is not met
+      return <Navigate to="/" />;
+    }
+  };
+
 
   return (
     <BrowserRouter>
@@ -98,6 +117,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <BlogDashboard />
+              </Layout>
+            </Sidebar>
+          }
+        />
+              <Route
+          path="/pet-dashboard"
+          element={
+            <Sidebar>
+              <Layout>
+                <PetDashboard />
               </Layout>
             </Sidebar>
           }
@@ -153,6 +182,17 @@ function App() {
             </Sidebar>
           }
         />
+<Route
+          path="/add-userAdoption"
+          element={
+            <Sidebar>
+              <Layout>
+               <AddUserAdoption />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
         <Route
           path="/product-detail/:id"
           element={
@@ -173,6 +213,17 @@ function App() {
             </Sidebar>
           }
         />
+
+<Route
+          path="/pet-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+               <PetDetail/>
+              </Layout>
+            </Sidebar>
+          }
+        />
         <Route
           path="/edit-product/:id"
           element={
@@ -189,6 +240,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <EditBlog />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-pet/:id"
+          element={
+            <Sidebar>
+              <Layout>
+               <EditPets/>
               </Layout>
             </Sidebar>
           }
@@ -237,6 +298,12 @@ function App() {
           path="/AllProductList"
           element={
             <AllProductList />
+          }
+        />
+       <Route
+          path="/AllPetList"
+          element={
+            <AllPetList />
           }
         />
         <Route
@@ -381,9 +448,14 @@ function App() {
 
 
 
-        <Route path="/cout" element={<ClintOutOfStock/>}/>
+<Route path="/cout" element={
+          <ProtectedRoute>
+            <ClintOutOfStock/>
+          </ProtectedRoute>
+        }/>
         <Route path="/out" element={<OutOfStock/>}/>
         <Route path="/total" element={<ChartPage />}/>
+        <Route path="/petAdoptionForm" element={<PetAdoptionForm />}/>
       </Routes>
     </BrowserRouter>
   );
