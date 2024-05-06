@@ -51,6 +51,8 @@ import AdminAllDoctors from "./pages/DoctorsFunc/AdminHandle/AdminAllDoctors";
 import Appointments from "./pages/DoctorsFunc/UserHandle/Appointments";
 import UserSidebar from "./components/userSidebar/UserSidebar";
 import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
+import PetAdoptionForm from "./components/pet/petAdoptionFrom/PetAdoptionForm";
+import AddUserAdoption from "./pages/addUserAdoption/AddUserAdoption";
 
 axios.defaults.withCredentials = true;
 
@@ -180,6 +182,17 @@ function App() {
             </Sidebar>
           }
         />
+<Route
+          path="/add-userAdoption"
+          element={
+            <Sidebar>
+              <Layout>
+               <AddUserAdoption />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
         <Route
           path="/product-detail/:id"
           element={
@@ -442,6 +455,7 @@ function App() {
         }/>
         <Route path="/out" element={<OutOfStock/>}/>
         <Route path="/total" element={<ChartPage />}/>
+        <Route path="/petAdoptionForm" element={<PetAdoptionForm />}/>
       </Routes>
     </BrowserRouter>
   );

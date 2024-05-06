@@ -20,7 +20,6 @@ const Doctors = () => {
       return;
     }
 
-    dispatch(getDoctors());
   }, [dispatch, isLoggedIn, navigate, userRole]);
 
 
