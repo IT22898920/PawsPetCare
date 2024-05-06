@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Layout from "./../../components/Layout";
+import Layout from "./../../../components/layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Col, Form, Input, Row, TimePicker, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { showLoading, hideLoading } from "../../redux/features/alertSlice";
+import { showLoading, hideLoading } from "../../../redux/features/alertSlice";
+
 import moment from "moment";
 
-const Profile = () => {
+const DocProfile = () => {
   const { user } = useSelector((state) => state.user);
   const [doctor, setDoctor] = useState(null);
   const dispatch = useDispatch();
@@ -197,4 +198,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default DocProfile;

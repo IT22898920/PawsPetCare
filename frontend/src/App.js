@@ -53,6 +53,7 @@ import UserSidebar from "./components/userSidebar/UserSidebar";
 import DoctorAppointments from "./pages/DoctorsFunc/doctor/DoctorAppointments";
 import PetAdoptionForm from "./components/pet/petAdoptionFrom/PetAdoptionForm";
 import AddUserAdoption from "./pages/addUserAdoption/AddUserAdoption";
+import DocProfile from "./pages/DoctorsFunc/doctor/DocProfile";
 
 axios.defaults.withCredentials = true;
 
@@ -421,6 +422,16 @@ function App() {
             <UserSidebar>
               <Layout>
                 <Profile />
+              </Layout>
+            </UserSidebar>
+          }
+        />
+        <Route
+          path="/doctorProfile"
+          element={
+            <UserSidebar>
+              <Layout>
+                <DocProfile />
               </Layout>
             </UserSidebar>
           }
