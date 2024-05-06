@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import "./Home.scss";
-import { ShowOnLogin, ShowOnLogout } from '../../components/protect/HiddenLink';
-import AllBlogList from '../../components/blog/blogDetail/AllBlogList';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectName, SET_LOGIN } from "../../redux/features/auth/authSlice";
+import { logoutUser } from "../../services/authService";
+import "../Home/Home.scss";
+import { ShowOnLogin,  } from '../../components/protect/HiddenLink';
 
-const HomeNavBar = () => {
+
+const RegisterUserHome = () => {
+
+    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const name = useSelector(selectName);
+  const [showLogin, setShowLogin] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -13,21 +24,30 @@ const HomeNavBar = () => {
     setIsLoggedIn(!!token);
   }, []);
 
+  const logout = async () => {
+    await logoutUser();
+    await dispatch(SET_LOGIN(false));
+    navigate("/");
+  };
+
   return (
     <>
       <header>
-        <Link to="/" className="logo"><i className="fas fa-utensils"></i>PawsPet care</Link>
+        <Link to="/registeruserHome" className="logo"><i className="fas fa-utensils"></i>PawsPet care</Link>
         <div id="menu-bars" className="fas fa-bars"></div>
         <nav className="navbar">
-          <Link to="#popular">popular</Link>
-          <Link to="#gallery">gallery</Link>
-          <Link to="#review">review</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
+          <Link to="#home">home</Link>
+          <Link to="/AllProductList">Shop</Link>
+          <Link to="/AllPetList">Adopt Pet</Link>
+          <Link to="/AllBlogList">Blog</Link>
+          <ul className="navbar-links">
+          <button onClick={logout} className="--btn --btn-danger">
+          Logout
+        </button>
 
+          </ul>
         </nav>
       </header>
-
 
       <section className="home" id="home">
         <div className="content">
@@ -68,4 +88,4 @@ const Box = ({ imgSrc, title, description }) => {
     );
 };
 
-export default HomeNavBar;
+export default RegisterUserHome;

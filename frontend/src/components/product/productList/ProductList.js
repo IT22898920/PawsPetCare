@@ -19,6 +19,7 @@ import {
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import petLogo from './petLogo.png';  
 
 const ProductList = ({ products, isLoading }) => {
   const [search, setSearch] = useState("");
@@ -102,33 +103,74 @@ const ProductList = ({ products, isLoading }) => {
     document.body.removeChild(link);
   };
 
-// PDF Report Generation
+// PDF Report Generation with Address
 const generatePDFReport = () => {
   const doc = new jsPDF();
+
+  // Define address lines
+  const petCareAddressLines = [
+    "E3, Isurupura",
+    "Malabe",
+    "Sri Lanka",
+  ];
+
+  // Define columns and prepare rows data
   const tableColumn = ["Name", "Category", "Price", "Quantity", "Value"];
-  const tableRows = [];
+  const tableRows = filteredProducts.map(product => [
+    product.name, 
+    product.category, 
+    `LKR ${product.price}`, 
+    product.quantity, 
+    `LKR ${product.price * product.quantity}`
+  ]);
 
-  filteredProducts.forEach(product => {
-    const { name, category, price, quantity } = product;
-    const value = price * quantity;
-    tableRows.push([name, category, price, quantity, value]);
+  // Load the image and generate the PDF
+  const loadImage = src => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = src;
+    });
+  };
+
+  loadImage(petLogo).then(img => {
+    // Add image to PDF
+    doc.addImage(img, 'JPEG', 10, 10, 30, 30);
+
+    // Add address text
+    doc.setFontSize(10);
+    let addressYPosition = 50;  // Start position for address text
+    petCareAddressLines.forEach(line => {
+      doc.text(line, 10, addressYPosition);
+      addressYPosition += 10; // Increment for next line
+    });
+
+    // Add table and other text elements
+    doc.autoTable(tableColumn, tableRows, { startY: addressYPosition + 10 });
+    const title = "Products Report";
+    doc.setFontSize(14);
+    const titleWidth = doc.getStringUnitWidth(title) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+    const titleX = (doc.internal.pageSize.width - titleWidth) / 2; // Center the title horizontally
+    doc.text(title, titleX, addressYPosition - 20); // Adjust position based on your layout
+
+    // Add current date and time
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleString();
+    doc.setFontSize(10);
+    doc.text(`Generated on: ${formattedDate}`, 10, doc.internal.pageSize.height - 20);
+
+    // Add manager's signature placeholder
+    doc.text("Manager's Signature:", 10, doc.internal.pageSize.height - 10);
+    doc.line(60, doc.internal.pageSize.height - 10, 150, doc.internal.pageSize.height - 10);
+
+    doc.save("products_report.pdf");
+  }).catch(error => {
+    console.error("Failed to load image for PDF", error);
   });
-
-  doc.autoTable(tableColumn, tableRows, { startY: 20 });
-  doc.text("Products Report", 14, 15);
-
-  // Add current date and time
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleString();
-  doc.setFontSize(10);
-  doc.text(`Generated on: ${formattedDate}`, 10, doc.internal.pageSize.height - 20); // Adjust position as needed
-
-  // Add manager's signature placeholder
-  doc.text("Manager's Signature:", 10, doc.internal.pageSize.height - 10); // Adjust position as needed
-  doc.line(60, doc.internal.pageSize.height - 10, 150, doc.internal.pageSize.height - 10); // Draw line for signature
-
-  doc.save("products_report.pdf");
 };
+
+
 
 
   // Dropdown for report type selection
