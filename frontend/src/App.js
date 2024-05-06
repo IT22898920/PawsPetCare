@@ -42,7 +42,9 @@ import PetDashboard from "./pages/petDashboard/PetDashboard";
 import PetDetail from "./components/pet/petDetail/PetDetail";
 import EditPets from "./pages/editpets/EditPets";
 import AllPetList from "./components/pet/petDetail/AllPetList";
-
+import EventDetail from "./components/event/eventDetail/EventDetail";
+import EditEvent from "./pages/editEvent/EditEvent";
+import AllEventList from "./components/event/eventDetail/AllEventList";
 import DoctorsRequests from "./pages/DoctorsFunc/AdminHandle/DocRequests";
 import AllDoctors from "./pages/DoctorsFunc/UserHandle/AllDoctors";
 import BookingPage from "./pages/DoctorsFunc/UserHandle/BookingPage";
@@ -275,6 +277,16 @@ function App() {
           }
         />
         <Route
+          path="/edit-event/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditEvent />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
           path="/contact-us"
           element={
             <Sidebar>
@@ -313,13 +325,27 @@ function App() {
           }
         />
         <Route
+          path="/AllEventList"
+          element={
+            <AllEventList />
+          }
+        />
+        <Route
+          path="/event-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EventDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
           path="/viewcart"
           element={
-           
               <Layout>
                 <ViewCartItems />
               </Layout>
-            
           }
         />
         <Route
