@@ -68,7 +68,7 @@ const Layout = ({ children }) => {
               </div>
             </div>
           </div>
-          {/* <div className="content">
+          { <div className="content">
             <div className="header">
               
               <div className="header-content" style={{ cursor: "pointer" }}>
@@ -86,7 +86,7 @@ const Layout = ({ children }) => {
               </div>
             </div>
             <div className="body">{children}</div>
-          </div> */}
+          </div> }
         </div>
       </div>
     </>
