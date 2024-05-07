@@ -44,13 +44,6 @@ const RegisterUserHome = () => {
           <button onClick={logout} className="--btn --btn-danger">
           Logout
         </button>
-            {isLoggedIn && (
-              <ShowOnLogin>
-                <li>
-                  <Link to="/dashboard">Dashboard</Link>
-                </li>
-              </ShowOnLogin>
-            )}
           </ul>
         </nav>
       </header>
