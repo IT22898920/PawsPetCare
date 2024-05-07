@@ -74,6 +74,14 @@
     }
   }
 
+  .error {
+    background-color: rgba(255, 0, 0, 0.1); /* Red background color */
+    color: #ff0000; /* Red text color */
+    padding: 0.5rem; /* Adjust padding as needed */
+    margin-top: 0.5rem; /* Adjust margin as needed */
+    border-radius: 0.5rem; /* Rounded corners */
+  }
+
   .--btn-primary {
     background-color: #3498db; // Primary button color
     color: #fff; // White text for contrast
