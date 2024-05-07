@@ -135,15 +135,15 @@ const generatePDFReport = () => {
   };
 
   loadImage(petLogo).then(img => {
-    // Add image to PDF
+   
     doc.addImage(img, 'JPEG', 10, 10, 30, 30);
 
     // Add address text
     doc.setFontSize(10);
-    let addressYPosition = 50;  // Start position for address text
+    let addressYPosition = 50;  
     petCareAddressLines.forEach(line => {
       doc.text(line, 10, addressYPosition);
-      addressYPosition += 10; // Increment for next line
+      addressYPosition += 10; 
     });
 
     // Add table and other text elements
@@ -151,8 +151,8 @@ const generatePDFReport = () => {
     const title = "Products Report";
     doc.setFontSize(14);
     const titleWidth = doc.getStringUnitWidth(title) * doc.internal.getFontSize() / doc.internal.scaleFactor;
-    const titleX = (doc.internal.pageSize.width - titleWidth) / 2; // Center the title horizontally
-    doc.text(title, titleX, addressYPosition - 20); // Adjust position based on your layout
+    const titleX = (doc.internal.pageSize.width - titleWidth) / 2; 
+    doc.text(title, titleX, addressYPosition - 20); 
 
     // Add current date and time
     const currentDate = new Date();
@@ -195,7 +195,7 @@ const generatePDFReport = () => {
           onClick={() => reportType === "csv" ? generateCSVReport() : generatePDFReport()}
           className="--btn --btn-AllProductList"
           style={{
-            // Your button styles
+            
           }}>
           Generate Report
         </button>

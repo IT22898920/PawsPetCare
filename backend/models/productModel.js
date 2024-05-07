@@ -23,15 +23,13 @@ const productSchema = mongoose.Schema(
       required: [true, "Please add a category"],
       trim: true,
     },
-    // Other fields remain unchanged
 
 quantity: {
-  type: Number, // Update this line, change from String to Number
+  type: Number, 
   required: [true, "Please add a quantity"],
   trim: true,
 },
 
-// Other fields remain unchanged
 
     price: {
       type: String,

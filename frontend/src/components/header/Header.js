@@ -14,7 +14,7 @@ const Header = () => {
   const [password, setPassword] = useState('');
 
   const handleClintPageAccess = () => {
-    if (email === "lalith@gmail.com" && password === "22222") {
+    if (email === "lalith@gmail.com" && password === "abcd@1234") {
       navigate('/cout', { state: { allowed: true } }); 
     } else {
       alert("Invalid credentials!");
@@ -40,7 +40,7 @@ const Header = () => {
         </button>
 
         <button onClick={() => setShowLogin(true)} className="--btn --btn-AllProductList">
-          Clint Page
+          Shop Owner Page
         </button>
 
         <button onClick={logout} className="--btn --btn-danger">
