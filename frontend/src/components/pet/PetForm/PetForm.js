@@ -42,7 +42,7 @@ const petForm = ({
             <input type='text' placeholder='Pet category' name='category' value={pet?.category} onChange={handleInputChange}/>
 
             <label>Pet price:</label>
-            <input type='text' placeholder='Pet price' name='price' value={pet?.price} onChange={handleInputChange} />
+            <input type='number'min={1} placeholder='Pet price' name='price' value={pet?.price} onChange={handleInputChange} />
 
             <label>Pet description:</label>
             <ReactQuill theme="snow" value={description} onChange={setDescription}  />

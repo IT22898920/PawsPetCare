@@ -190,7 +190,7 @@ const reorderProduct = asyncHandler(async (req, res) => {
     return;
   }
     // Update product quantity
-    product.quantity = quantity; // Assuming quantity is the new total quantity after restocking
+    product.quantity = quantity; 
     await product.save(); 
 });
 
@@ -208,13 +208,13 @@ const AdminreorderProduct = asyncHandler(async (req, res) => {
   const emailBody = `<p>The product <b>${product.name}</b> has been reordered. Quantity: ${quantity}.</p>`;
 
   try {
-    // Now pass emailBody to the sendEmail function
+    
     await sendEmail(
-      "Product Reorder Notification", // Subject
-      emailBody,                      // Message (HTML)
-      "ravindupasanjith22@outlook.com", // Send to (change this to your recipient's email address)
-      process.env.EMAIL_USER,            // Sent from (your EMAIL_USER env variable)
-      "ravindupasanjith22@outlook.com"  // Reply to (change this as needed)
+      "Product Reorder Notification", 
+      emailBody,                      
+      "ravindupasanjith22@outlook.com", 
+      process.env.EMAIL_USER,            
+      "ravindupasanjith22@outlook.com"  
     );
     res.json({ message: "Reorder processed and email sent." });
   } catch (error) {
@@ -231,8 +231,8 @@ const AdminreorderProduct = asyncHandler(async (req, res) => {
     getProduct,
     deleteProduct,
     updateProduct,
-    getcategory, // Now it's defined, so you can export it
+    getcategory, 
     getOutOfStockProducts,
-    reorderProduct, // Add this line
+    reorderProduct, 
     AdminreorderProduct,
   };

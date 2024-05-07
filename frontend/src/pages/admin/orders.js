@@ -113,12 +113,13 @@ const ViewOrders = () => {
                     {checkout.Status}
                   </span>
                 </p>
-                <Button variant="success" onClick={() => handleApprove(checkout._id)}>
+                <Button variant="outline-success" style={{ backgroundColor: 'green', color: 'white', borderColor: 'green' }} onClick={() => handleApprove(checkout._id)}>
                   Approve
                 </Button>{' '}
-                <Button variant="danger" onClick={() => handleReject(checkout._id)}>
+                <Button variant="outline-danger" style={{ backgroundColor: 'red', color: 'white', borderColor: 'red' }} onClick={() => handleReject(checkout._id)}>
                   Reject
                 </Button>
+
               </li>
             </div>
           ))}

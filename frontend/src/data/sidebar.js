@@ -9,7 +9,7 @@ const menu = [
     path: "/allusers",
   },
   {
-    title: "Dashboard",
+    title: "Product Dashboard",
     icon: <FaTh />,
     path: "/dashboard",
   },
