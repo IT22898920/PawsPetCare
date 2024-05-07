@@ -81,7 +81,7 @@ const ViewOrders = () => {
       setError('An error occurred while updating checkout status');
     }
   };
-
+//search
   const handleSearchQueryChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
@@ -149,7 +149,7 @@ const ViewOrders = () => {
   );
 };
 
-const getStatusColor = (status) => {
+const getStatusColor = (status) => {0
   switch (status.toLowerCase()) {
     case 'pending':
       return 'blue';
