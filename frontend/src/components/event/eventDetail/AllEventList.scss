@@ -6,25 +6,97 @@
     padding: 20px; // Optional: Padding to prevent content touching edges
 }
 
+.event-list-container {
+    box-sizing: border-box;
+}
+.all-events-popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.event-popup-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 80%;
+    max-width: 600px;
+    display: none; /* Hide the popup initially */
+}
+
+.event-popup-card.active {
+    display: block; /* Show the popup when it has the 'active' class */
+}
+
 .event-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); // Reduced min size from 250px to 200px
     gap: 10px;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
 .event-card {
     padding: 1.5rem; // Reduced padding from 2rem to 1.5rem
-    background-color: #e5d8ee;
+    background-color: #ffff;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
+    //display: flex;
+    //flex-direction: column;
     align-items: center;
     text-align: center;
     margin: 17px;
+    overflow: hidden;
+    padding: 15px;
 }
+
+.event-category {
+   
+    color: #ffff;
+    cursor: pointer;
+    font-size: small;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3 ease
+}
+
+.event-details {
+    //display: flex;
+    //flex-direction: column;
+    //text-size-adjust: 25px;
+}
+
+.event-detail {
+    //display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    // margin-bottom: 8px;
+    // text-align: left;
+   
+}
+    p {
+        margin: 0;
+        flex: 0 0 auto;
+       // width: 50%;
+        text-align: left;
+    }
+
+    .event-description {
+        text-align: left;
+    }
+
 
 .event-card img {
     max-width: 100%;

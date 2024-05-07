@@ -4,8 +4,8 @@
     padding: 20px;
     width: 100%;
     max-width: 760px; // Adjusted for better layout
-    background: rgb(238,174,202); /* fallback for old browsers */
-    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); /* Gradient background */
+    background:  rgb(237, 218, 246); /* fallback for old browsers */
+    //background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); /* Gradient background */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); // Soft shadow for depth
     border-radius: 8px; // Rounded corners for modern look
     color: #333; // Default font color for overall detail view, adjust as needed

@@ -6,10 +6,11 @@
 }
 
 .blog-card {
-    border: 1px solid #ccc;
+    border: 1px solid #e5d8ee;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: #e5d8ee;
 }
 
 .blog-card img {
