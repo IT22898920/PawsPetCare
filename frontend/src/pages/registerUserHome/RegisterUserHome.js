@@ -19,8 +19,8 @@ const RegisterUserHome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if user is logged in on component mount
-    const token = localStorage.getItem('token'); // Assuming you store token in localStorage
+
+    const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, []);
 
@@ -44,7 +44,6 @@ const RegisterUserHome = () => {
           <button onClick={logout} className="--btn --btn-danger">
           Logout
         </button>
-
           </ul>
         </nav>
       </header>

@@ -24,10 +24,8 @@ const HomeNavBar = () => {
           <Link to="#review">review</Link>
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
-
         </nav>
       </header>
-
 
       <section className="home" id="home">
         <div className="content">
@@ -69,3 +67,5 @@ const Box = ({ imgSrc, title, description }) => {
 };
 
 export default HomeNavBar;
+
+

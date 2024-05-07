@@ -6,13 +6,13 @@ import menu from "./UserBarComponents";
 import SidebarItem from "./UserSidebarItem";
 import { BiImageAdd } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux"; // Import useSelector to access user's role
+import { useSelector } from "react-redux"; 
 
 const Sidebar = ({ children }) => {
     const [isOpen, setIsOpen] = useState(true);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
-    const user = useSelector((state) => state.auth); // Get user's role from Redux store
+    const user = useSelector((state) => state.auth); 
 console.log(user.name)
     const goHome = () => {
         navigate("/");
@@ -44,7 +44,7 @@ console.log(user.name)
                 {user.role === 'doctor' && (
                     <>
                         <SidebarItem item={{ title: "Doctor Appointments", icon: <BiImageAdd />, path: "/doctorAppointments" }} isOpen={isOpen} />
-                        {/* Add more doctor-specific items here if needed */}
+                        
                     </>
                 )}
             </div>

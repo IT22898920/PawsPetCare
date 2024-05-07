@@ -16,7 +16,6 @@ const ClintOutOfStock = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // Use this to access any needed state, like user info if needed for the API call
     const reorderedProducts = useSelector((state) => state.product.reorderedProducts) || [];
 
     useEffect(() => {
@@ -51,7 +50,7 @@ const ClintOutOfStock = () => {
             toast.success("Product reordered successfully");
         }
         setIsModalOpen(false);
-        navigate('/dashboard'); // Adjust the navigation as needed
+        navigate('/dashboard'); 
     };
 
     if (isLoading) return <p>Loading...</p>;
@@ -59,7 +58,7 @@ const ClintOutOfStock = () => {
 
     return (
         <div className="out-of-stock-container">
-            <h2>Clint Out of Stock Products</h2>
+            <h2>Shop Owner Out of Stock Products</h2>
             <div className="out-of-stock-table">
                 <table>
                     <thead>

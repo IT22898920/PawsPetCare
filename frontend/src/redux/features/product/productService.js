@@ -40,7 +40,7 @@ const updateProductQuantity = async (productId, newQuantity) => {
   const response = await axios.patch(`/api/products/${productId}`, {
     quantity: newQuantity
   });
-  return response.data; // Assuming your API responds with the updated product
+  return response.data; 
 };
 
 

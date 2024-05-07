@@ -8,7 +8,7 @@ const {
     getcategory,
     getOutOfStockProducts,
     reorderProduct,
-    AdminreorderProduct, // Assuming you have this controller for handling reorders
+    AdminreorderProduct, 
 } = require('../controllers/productController');
 const protect = require("../middleWare/authMiddleware");
 const router = express.Router();
@@ -26,12 +26,11 @@ router.delete("/:id", protect, deleteProduct);
 router.post('/Cart',  Cartcrete);
 router.get('/cartitem/:useremail', getCartItem)
 router.post('/Checkout',  CheckOutcrete);
-router.delete('/deleteitems/:itemsId',  deleteItems)//delete specific item from cart
-router.delete('/deletCurretId/:useremail',  deleteItemss)//clear cart
-router.get('/checkouts/:email', viewCheckoutsByEmail); //view orders
+router.delete('/deleteitems/:itemsId',  deleteItems)
+router.delete('/deletCurretId/:useremail',  deleteItemss)
+router.get('/checkouts/:email', viewCheckoutsByEmail); 
 
 
-// Adding a route for product reorders that might trigger an email notification
 router.post("/reorder", protect, reorderProduct);
 router.post("/adminreorder", protect, AdminreorderProduct);
 

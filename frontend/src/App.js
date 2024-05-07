@@ -304,19 +304,26 @@ function App() {
         <Route
           path="/AllProductList"
           element={
+            <UserSidebar>
             <AllProductList />
+            </UserSidebar>
+
           }
         />
        <Route
           path="/AllPetList"
           element={
+            <UserSidebar>
             <AllPetList />
+            </UserSidebar>
           }
         />
         <Route
           path="/AllBlogList"
           element={
+            <UserSidebar>
             <AllBlogList />
+            </UserSidebar>
           }
         />
         <Route

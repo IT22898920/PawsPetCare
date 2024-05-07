@@ -57,7 +57,7 @@ section{
     font-size: 1.2rem;
     border: .2rem solid var(--red);
     border-radius: .5rem;
-    position: relative;
+   // position: relative;
     overflow: hidden;
     z-index: 0;
     margin-top: 1rem;
@@ -128,8 +128,9 @@ header .navbar a:hover{
     flex-wrap: wrap;
     gap: 1.5rem;
     min-height: 100vh;
+    opacity: 10;
     align-items: center;
-    background: url("https://cdn.pixabay.com/photo/2019/09/21/18/58/dog-4494554_1280.jpg") no-repeat;
+    background: url("https://img.freepik.com/free-vector/hand-drawn-pet-shop-pattern-background_23-2150842425.jpg?w=1060&t=st=1715033720~exp=1715034320~hmac=ed634dc7aa1299a30d884b09531b8ec04d7960850a29a9ef29e0e057817fd19f") no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -161,13 +162,13 @@ header .navbar a:hover{
 
 .home .content h3{
     font-size: 5rem;
-    color: #333;
+    color: #ca0000;
 
 }
 
 .home .content p{
     font-size: 1.5rem;
-    color: rgb(40, 28, 47);
+    color: rgb(97, 0, 0);
 
 }
 

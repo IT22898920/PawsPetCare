@@ -33,7 +33,7 @@ const OutOfStock = () => {
   
     const handleReorderConfirm = async (quantity) => {
         setIsModalOpen(false);
-        setIsReordering(true); // Indicate reordering starts
+        setIsReordering(true); 
         try {
             await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/products/adminreorder`, {
                 productId: currentProductId,
@@ -41,20 +41,19 @@ const OutOfStock = () => {
                 updateQuantity: false
 
             });
-            toast.success("Product reordered successfully");
+            toast.success("Send Email successfully");
             setReorderedProducts(prev => [...prev, currentProductId]);
         } catch (error) {
             toast.error('Error reordering product');
             console.error('Error reordering product:', error);
         } finally {
-            setIsReordering(false); // Indicate reordering is done
+            setIsReordering(false); 
         }
     };
     
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-        // Remove the current product ID from reorderedProducts if cancel is clicked.
         setReorderedProducts(prev => prev.filter(id => id !== currentProductId));
     };
 
