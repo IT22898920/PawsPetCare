@@ -65,11 +65,11 @@ const Schedulcreate = asyncHandler(async (req, res, next) => {
   
         if (Details.length > 0) {
           res.json({
-            message: "shadul details retrieved successfully",
+            message: "shedule details retrieved successfully",
             Details,
           });
         } else {
-          return next(errorHandle(404, " shadul not fonud "));
+          return next(errorHandle(404, "shedule not fonud "));
         }
   
         
@@ -111,7 +111,7 @@ const Schedulcreate = asyncHandler(async (req, res, next) => {
    
     try {
       await Shedul.findByIdAndDelete(req.params.scheduId);
-      res.status(200).json('shedul has been deleted');
+      res.status(200).json('shedule has been deleted');
     } catch (error) {
       next(error);
     }
@@ -125,19 +125,28 @@ const Schedulcreate = asyncHandler(async (req, res, next) => {
     const transporter = nodemailer.createTransport({
       host: "smtp-mail.outlook.com",
       auth: {
-        user: "laksameera20@hotmail.com",
-        pass: "hez5&_=XbH9RFRS",
+        user: "pawsreservation@outlook.com",
+        pass: "adiffrenthope",
       },
     });
   
     const mailOptions = {
-      from: "laksameera20@hotmail.com",
+      from: "pawsreservation@outlook.com",
       to: email,
       subject: subject,  // Use the subject from the request
-      html: `<div style='font-family: Arial, sans-serif; font-size: 20px; color: #333; background-white '>
-        <!-- ... rest of your email content ... -->
-      </div>`,
+      html: `
+        <div style='font-family: Arial, sans-serif; font-size: 20px; color: #333; background: white; padding: 20px;'>
+          <h2>Hello,</h2>
+          <p>Thank you for scheduling a visit with us. We are excited to introduce you to your potential new best friend!</p>
+          <p>Please remember to download the PDF receipt and kindly arrive least 10 minutes before your scheduled time to ensure a smooth process.</p>
+          <p>If you have any questions or need to reschedule, please don't hesitate to contact us.</p>
+          <p>Looking forward to seeing you soon!</p>
+          <p>Best regards,</p>
+          <p>The Paws Reservation Team</p>
+        </div>
+      `,
     };
+    
   
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
@@ -149,7 +158,16 @@ const Schedulcreate = asyncHandler(async (req, res, next) => {
       }
     });
   });
-
+  const checkScheduleAvailability = asyncHandler(async (req, res, next) => {
+    const { date, time } = req.body;
+    const existingSchedule = await Shedul.findOne({ date, time });
+  
+    if (existingSchedule) {
+      return res.status(400).json({ message: "This date and time are already booked." });
+    }
+  
+    next(); // If there is no conflict, move to the next middleware (usually the creation of the schedule)
+  });
 
 
   module.exports = {
@@ -158,6 +176,7 @@ const Schedulcreate = asyncHandler(async (req, res, next) => {
     allgetSchedul,
     updateschedul,
     deleteSchedul,
-    shipsend
+    shipsend,
+    checkScheduleAvailability
   };
   
