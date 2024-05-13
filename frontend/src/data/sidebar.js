@@ -87,6 +87,16 @@ const menu = [
     icon: <FaChartBar />,
     path: "/ViewAllAdoptionSchedule",
   },
+  {
+    title: "Your Cart",
+    icon: <FaChartBar />,
+    path: "/admin/viewcart",
+  },
+  {
+    title: "Your Orders",
+    icon: <FaChartBar />,
+    path: "/admin/vieworders",
+  },
 ];
 
 export default menu;

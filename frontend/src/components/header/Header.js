@@ -29,7 +29,15 @@ const Header = () => {
         <button onClick={() => navigate('/admin/AllProductList')} className="--btn --btn-AllProductList">
           All Product List
         </button>
-
+        <button onClick={() => navigate('/admin/AllPetList')} className="--btn --btn-AllProductList">
+          All Pet List
+        </button>
+        <button onClick={() => navigate('/admin/AllEventList')} className="--btn --btn-AllProductList">
+          All Event List
+        </button>
+        <button onClick={() => navigate('/admin/AllBlogList')} className="--btn --btn-AllProductList">
+          All Blog List
+        </button>
         <button onClick={logout} className="--btn --btn-danger">
           Logout
         </button>

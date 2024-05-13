@@ -59,6 +59,9 @@ import AdoptScheduleUpdate from "./components/pet/AdoptSchedule/AdoptScheduleUpd
 import ViewSchedule from "./components/pet/AdoptSchedule/ViewSchedule";
 import Reschedule from "./components/pet/AdoptSchedule/Reschedule";
 import RegisterUserHome from "./pages/registerUserHome/RegisterUserHome";
+import EditEvent from "./pages/editEvent/EditEvent";
+import EventDetail from "./components/event/eventDetail/EventDetail";
+import AllEventList from "./components/event/eventDetail/AllEventList";
 
 axios.defaults.withCredentials = true;
 
@@ -221,7 +224,18 @@ function App() {
           }
         />
 
-<Route
+        <Route
+          path="/event-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EventDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+        <Route
           path="/pet-detail/:id"
           element={
             <Sidebar>
@@ -247,6 +261,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <EditBlog />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-event/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditEvent />
               </Layout>
             </Sidebar>
           }
@@ -327,23 +351,48 @@ function App() {
           }
         />
         <Route
+          path="/AllEventList"
+          element={
+            <UserSidebar>
+            <AllEventList />
+            </UserSidebar>
+          }
+        />
+        <Route
           path="/viewcart"
           element={
-           
+            <UserSidebar>
+                <ViewCartItems />
+            </UserSidebar>
+          }
+        />
+        <Route
+          path="admin/viewcart"
+          element={
+            <Sidebar>
               <Layout>
                 <ViewCartItems />
               </Layout>
-            
+            </Sidebar>
           }
         />
         <Route
           path="/vieworders"
           element={
-           
+            <UserSidebar>
+              <ViewOrders />
+            </UserSidebar>
+
+          }
+        />
+        <Route
+          path="admin/vieworders"
+          element={
+            <Sidebar>
               <Layout>
                 <ViewOrders />
               </Layout>
-            
+            </Sidebar>
           }
         />
          <Route
@@ -384,6 +433,36 @@ function App() {
             <Sidebar>
               <Layout>
               <AllProductList />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/admin/AllEventList"
+          element={
+            <Sidebar>
+              <Layout>
+              <AllEventList />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/admin/AllBlogList"
+          element={
+            <Sidebar>
+              <Layout>
+              <AllBlogList />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/admin/AllPetList"
+          element={
+            <Sidebar>
+              <Layout>
+              <AllPetList />
               </Layout>
             </Sidebar>
           }
