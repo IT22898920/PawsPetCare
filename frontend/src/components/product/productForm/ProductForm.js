@@ -37,6 +37,7 @@ const ProductForm = ({
               <p>No image set for this product.</p>
             )}
           </Card>
+
           <label>Product Name:</label>
           <input
             type="text"
@@ -47,13 +48,20 @@ const ProductForm = ({
           />
 
           <label>Product Category:</label>
-          <input
-            type="text"
-            placeholder="Product Category"
+          <select
             name="category"
             value={product?.category}
             onChange={handleInputChange}
-          />
+            className="form-control select-category"  // Added class for styling
+          >
+            <option value="">Select Category</option>
+            <option value="Cards And Stationery">Cards And Stationery</option>
+            <option value="PAWS & Garden">PAWS & Garden</option>
+            <option value="Supplements">Supplements</option>
+            <option value="Clothing And Accessories">Clothing And Accessories</option>
+            <option value="Gifts">Gifts</option>
+            <option value="Books & DVDs">Books & DVDs</option>
+          </select>
 
           <label>Product Price:</label>
           <input
