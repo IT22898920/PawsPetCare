@@ -67,5 +67,3 @@ const Box = ({ imgSrc, title, description }) => {
 };
 
 export default HomeNavBar;
-
-
