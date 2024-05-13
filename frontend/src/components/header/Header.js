@@ -12,15 +12,6 @@ const Header = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleClintPageAccess = () => {
-    if (email === "lalith@gmail.com" && password === "abcd@1234") {
-      navigate('/cout', { state: { allowed: true } }); 
-    } else {
-      alert("Invalid credentials!");
-    }
-    setShowLogin(false); 
-  };
   
   const logout = async () => {
     await logoutUser();
@@ -37,10 +28,6 @@ const Header = () => {
         </h3>
         <button onClick={() => navigate('/admin/AllProductList')} className="--btn --btn-AllProductList">
           All Product List
-        </button>
-
-        <button onClick={() => setShowLogin(true)} className="--btn --btn-AllProductList">
-          Shop Owner Page
         </button>
 
         <button onClick={logout} className="--btn --btn-danger">
@@ -61,9 +48,6 @@ const Header = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={handleClintPageAccess}>
-            Login
-          </button>
         </div>
       )}
       <hr />

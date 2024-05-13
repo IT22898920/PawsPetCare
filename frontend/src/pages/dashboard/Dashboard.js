@@ -10,7 +10,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const userRole = useSelector(selectRole); // Corrected use of selector
+  const userRole = useSelector(selectRole); 
 
   useEffect(() => {
     if (!isLoggedIn || userRole !== 'admin') {

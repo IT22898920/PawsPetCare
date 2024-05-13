@@ -515,9 +515,9 @@ function App() {
      
 
 <Route path="/cout" element={
-          <ProtectedRoute>
-            <ClintOutOfStock/>
-          </ProtectedRoute>
+            <Layout>
+              <ClintOutOfStock/>
+            </Layout>
         }/>
         <Route path="/out" element={<OutOfStock/>}/>
         <Route path="/total" element={<ChartPage />}/>
