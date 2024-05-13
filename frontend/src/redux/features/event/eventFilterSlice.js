@@ -11,7 +11,7 @@ const eventFilterSlice = createSlice ({
     reducers: {
         FILTER_EVENTS(state, action) {
             const {events, searchEvent} = action.payload;
-            const tempEvents = events.filter((event) => event.category.toLowerCase().includes(searchEvent.toLowerCase()) || event.name.toLowerCase().includes(searchEvent.toLowerCase()) 
+            const tempEvents = events.filter((event) => event.category.toLowerCase().includes(searchEvent.toLowerCase()) && event.name.toLowerCase().includes(searchEvent.toLowerCase) && event.venue.toLowerCase().includes(searchEvent.toLowerCase) || event.name.toLowerCase().includes(searchEvent.toLowerCase()) || event.category.toLowerCase().includes(searchEvent.toLowerCase()) || event.venue.toLowerCase().includes(searchEvent.toLowerCase)
         );
 
             state.filteredEvents = tempEvents;

@@ -36,8 +36,8 @@ import BlogDashboard from "./pages/blogDashboard/BlogDashboard";
 import BlogDetail from "./components/blog/blogDetail/BlogDetail";
 import EditBlog from "./pages/editBlog/EditBlog";
 import OrdersAdmin from "./pages/admin/orders";
-import EventDashboard from "./pages/eventDashboard/EventDashboard";
-import AddEvent from "./pages/addEvent/AddEvent";
+
+
 import PetDashboard from "./pages/petDashboard/PetDashboard";
 import PetDetail from "./components/pet/petDetail/PetDetail";
 import EditPets from "./pages/editpets/EditPets";
@@ -59,6 +59,11 @@ import AdoptScheduleUpdate from "./components/pet/AdoptSchedule/AdoptScheduleUpd
 import ViewSchedule from "./components/pet/AdoptSchedule/ViewSchedule";
 import Reschedule from "./components/pet/AdoptSchedule/Reschedule";
 import RegisterUserHome from "./pages/registerUserHome/RegisterUserHome";
+import EventDetail from "./components/event/eventDetail/EventDetail";
+import AllEventList from "./components/event/eventDetail/AllEventList";
+import EventDashboard from "./pages/eventDashboard/EventDashboard";
+import AddEvent from "./pages/addEvent/AddEvent";
+import EditEvent from "./pages/editEvent/EditEvent";
 
 axios.defaults.withCredentials = true;
 
@@ -138,16 +143,7 @@ function App() {
             </Sidebar>
           }
         />
-        <Route
-          path="/event-dashboard"
-          element={
-            <Sidebar>
-              <Layout>
-                <EventDashboard />
-              </Layout>
-            </Sidebar>
-          }
-        />
+        
         <Route
           path="/add-pet"
           element={
@@ -179,16 +175,7 @@ function App() {
             </Sidebar>
           }
         />
-        <Route
-          path="/add-event"
-          element={
-            <Sidebar>
-              <Layout>
-                <AddEvent />
-              </Layout>
-            </Sidebar>
-          }
-        />
+        
 <Route
           path="/add-userAdoption"
           element={
@@ -512,8 +499,50 @@ function App() {
             </Sidebar>
           }
         />
-     
 
+<Route
+          path="/event-dashboard"
+          element={
+            <Sidebar>
+              <Layout>
+                <EventDashboard />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+<Route
+          path="/AllEventList"
+          element={
+            <Sidebar>
+              <Layout>
+              <AllEventList />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+<Route
+          path="/add-event"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddEvent />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+<Route
+          path="/event-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+               <EventDetail/>
+              </Layout>
+            </Sidebar>
+          }
+        />
 <Route path="/cout" element={
             <Layout>
               <ClintOutOfStock/>
