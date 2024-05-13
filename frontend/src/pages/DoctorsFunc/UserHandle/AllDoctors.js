@@ -29,7 +29,7 @@ const HomePage = () => {
   }, []);
   return (
 <div>
-  <h1 className="text-center"><b>Home Page</b></h1>
+  <h1 className="text-center"><b>Our Great Doctors</b></h1>
  
       <Row>
       {doctors && doctors.map((doctor) => <DoctorList key={doctor._id} doctor={doctor} />)}
