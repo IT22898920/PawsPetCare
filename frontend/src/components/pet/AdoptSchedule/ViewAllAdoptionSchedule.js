@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+ 
+
 // import Dog from "../img/dog.jpg";
 
 export default function ViewAllAdoptionSchedule() {
@@ -95,108 +97,99 @@ export default function ViewAllAdoptionSchedule() {
   
 
   return (
-    <div>
-      <div className="flex justify-center items-center text-3xl font-serif mt-4 text-slate-900">
+    <div className="min-h-screen bg-white">
+      <div className="text-center py-6 text-4xl font-serif text-gray-800">
         <h1>Admin</h1>
       </div>
-      <div className="ml-8 mt-7 flex justify-center items-center">
-        <form>
-          <input
-            type="text"
-            placeholder="Search... "
-            className=" w-[300px] h-8 rounded-lg shadow-xl"
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </form>
+      <div className="flex justify-center py-6">
+  <input
+    type="text"
+    placeholder="Search... "
+    style={{
+      width: '500px',
+      padding: '10px 20px',
+      borderRadius: '15px',
+      boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+      backgroundColor: '#f2f2f2',
+      color: '#757575',
+    }}
+    onChange={(e) => setQuery(e.target.value)}
+  />
+</div>
+
+      <div className="flex justify-center flex-wrap gap-4">
+        {filter && filter.length > 0 ? (
+          filter.slice(0, showMore ? filter.length : 2).map((formm) => (
+            <div
+              key={formm._id}
+              className="card m-2"
+              style={{ cursor: "pointer" }}
+            >
+              
+              <div className="card-body">
+              <p>
+                  <b>Name</b> {formm.name}
+                </p>
+                <p>
+                  <b>Email</b> {formm.email}
+                </p>
+                <p>
+                  <b>Phone</b> {formm.phone}
+                </p>
+                <p>
+                  <b>Date</b> {formm.date}
+                </p>
+                <p>
+                  <b>Time</b> {formm.time}
+                </p>
+              </div>
+              {user && (
+                <div className="mt-6">
+<button
+  onClick={() => {
+    sendEmail(formm.email); // Pass the email address to the sendEmail function
+  }}
+  style={{
+    width: '100%',
+    padding: '10px 20px',
+    backgroundColor: '#FF5733',
+    color: 'white',
+    fontFamily: 'serif',
+    borderRadius: '10px',
+    cursor: 'pointer',
+    transition: 'background-color 0.5s ease',
+  }}
+  onMouseOver={(e) => {
+    e.currentTarget.style.backgroundColor = '#FF0000';
+  }}
+  onMouseOut={(e) => {
+    e.currentTarget.style.backgroundColor = '#FF5733';
+  }}
+>
+  Send Email
+</button>
+
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <p className="text-xl text-gray-600">You have no items yet</p>
+        )}
       </div>
-      <div>
-        <div className="flex justify-center">
-          <div className="flex flex-wrap justify-center gap-4">
-            {filter && filter.length > 0 ? (
-              <>
-                {filter.slice(0, showMore ? filter.length : 2).map((formm) => (
-                  <div
-                    key={formm._id}
-                    className="w-[400px] h-[400px] mt-10 mb-10 rounded-xl border border-black bg-orange-600 bg-opacity-10 shadow-xl"
-                  >
-                    <div className="px-6 py-4">
-                      <div className=" border border-black rounded-3xl mt-6 h-64  bg-white bg-opacity-50 shadow-2xl">
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Name:</div>
-
-                          <div className="font-extralight text-md mb-2 max-w-[200px] break-words">
-                            {formm.name}
-                          </div>
-                        </div>
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Email</div>
-
-                          <div className=" text-md mb-2 max-w-[200px] font-extralight break-words">
-                            {formm.email}
-                          </div>
-                        </div>
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Phone</div>
-
-                          <div className=" text-md mb-2 max-w-[100px] font-extralight break-words">
-                            {formm.phone}
-                          </div>
-                        </div>
-
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Date</div>
-
-                          <div className="text-gray-700  text-sm mt-2   max-w-[200px] font-extralight break-words">
-                            {formm.date}
-                          </div>
-                        </div>
-
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Time</div>
-
-                          <div className="text-gray-700  text-sm mt-2   max-w-[200px] font-extralight break-words">
-                            {formm.time}
-                          </div>
-                        </div>
-                      </div>
-
-                      {user && (
-                        <>
-                          <div className="flex justify-center items-center gap-6 mt-6">
-                            <div>
-                              <button
-                                onClick={() => {
-                                  sendEmail(formm.email); // Pass the email address to the sendEmail function
-                                }}
-                                className="hidden sm:inline bg-orange-500 hover:bg-red-500 bg-opacity-90 text-white font-serif py-2 px-6 rounded-xl cursor-pointer"
-                              >
-                                send email
-                              </button>
-                            </div>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
-
-                {!showMore && schedul.length > 2 && (
-                  <div className="mt-4 md:hidden sm:hidden lg:block mb-4 ml-[60px]">
-                    <button
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold rounded"
-                      onClick={() => setShowMore(true)}
-                    >
-                      Show More
-                    </button>
-                  </div>
-                )}
-              </>
-            ) : (
-              <p>You have no items yet</p>
-            )}
-          </div>
+      {!showMore && schedul.length > 2 && (
+        <div className="mt-4 mb-4 text-center">
+          <button
+            className="py-2 px-4 bg-red-500 hover:bg-red-700 text-white font-bold rounded"
+            onClick={() => setShowMore(true)}
+          >
+            Show More
+          </button>
         </div>
-      </div>
+      )}
     </div>
   );
+  
+  
+  
 }

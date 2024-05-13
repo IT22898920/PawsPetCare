@@ -75,32 +75,39 @@ export default function ViewSchedule() {
   };
 
 
-  
   //report
   const generatePDF = () => {
     const doc = new jsPDF();
-    let yPos = 10;
-
-    // Add house details to PDF
-    doc.setFontSize(16);
-    doc.text(20, yPos, "Schedul Details:");
+    let yPos = 20;
+  
+    // Add title to PDF
+    doc.setFontSize(20);
+    doc.text("Schedule Details", 105, yPos, null, null, "center");
     yPos += 10;
-
+  
+    // Add details to PDF
     schedul.forEach((formm) => {
       doc.setFontSize(12);
-      doc.text(20, yPos, `Name: ${formm.name}`);
-      doc.text(20, yPos + 5, `Email: ${formm.email}`);
-      doc.text(20, yPos + 10, `Phone: ${formm.Phone}`);
-      doc.text(20, yPos + 15, `Date: ${formm.date}`);
-      doc.text(20, yPos + 20, `Time: ${formm.time}`);
-
-      yPos += 35;
+      doc.text(20, yPos += 10, `Adoption ID: ${formm.petId}`);
+      doc.text(20, yPos += 10, `Name: ${formm.name}`);
+      doc.text(20, yPos += 10, `Email: ${formm.email}`);
+      doc.text(20, yPos += 10, `Phone: ${formm.phone}`);
+      doc.text(20, yPos += 10, `Date: ${new Date(formm.date).toLocaleDateString()}`);
+      doc.text(20, yPos += 10, `Time: ${formm.time}`);
+      yPos += 20; // Add a margin at the bottom of each entry
+  
+      // Draw a line for separation between entries
+      if (schedul.indexOf(formm) < schedul.length - 1) {
+        doc.setDrawColor(169, 169, 169); // Set the line color to a light grey
+        doc.line(20, yPos, 190, yPos);
+        yPos += 10;
+      }
     });
-
+  
     // Save the PDF
-    doc.save("schedul_petcare.pdf");
+    doc.save("schedule_petcare.pdf");
   };
-
+  
   return (
     <div>
       <div className="flex justify-center items-center text-3xl font-serif mt-4 text-slate-900">
@@ -108,12 +115,26 @@ export default function ViewSchedule() {
       </div>
       <div className="ml-8 mt-7 flex justify-center items-center">
         <form>
-          <input
-            type="text"
-            placeholder="Search... "
-            className=" w-[300px] h-8 rounded-lg shadow-xl"
-            onChange={(e) => setQuery(e.target.value)}
-          />
+        <input
+          type="text"
+          placeholder="Search... "
+          className="w-[300px] h-8 rounded-lg shadow-xl"
+          onChange={(e) => setQuery(e.target.value)}
+          style={{
+            backgroundColor: "#f0f0f0",
+            border: "none",
+            padding: "10px 20px",
+            boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.1)",
+            transition: "all 0.3s ease",
+          }}
+          onFocus={(e) => {
+            e.target.style.boxShadow = "5px 5px 15px rgba(0, 0, 0, 0.3)";
+          }}
+          onBlur={(e) => {
+            e.target.style.boxShadow = "5px 5px 15px rgba(0, 0, 0, 0.1)";
+          }}
+        />
+
         </form>
       </div>
       <div>
@@ -121,13 +142,30 @@ export default function ViewSchedule() {
           {user && (
             <>
               <div className="flex justify-center items-center gap-4 ml-4">
-                <button
-                  className="hidden sm:inline  hover:underline bg-red-700 hover:bg-red-500  text-white font-serif py-2 px-4  rounded-full"
-                  type="button"
-                  onClick={() => generatePDF()}
-                >
-                  Generate Report
-                </button>
+              <button
+                className="hidden sm:inline text-black font-serif py-2 px-4 rounded-full cursor-pointer"
+                type="button"
+                onClick={() => generatePDF()}
+                style={{
+                  backgroundColor: "#7469B6",
+                  fontWeight: "bold",
+                  border: "2px solid black",
+                  boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)",
+                  transition: "all 0.3s ease",
+                  textTransform: "uppercase",
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = "#7469B6";
+                  e.target.style.transform = "scale(1.1)";
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = "#7469B6";
+                  e.target.style.transform = "scale(1.0)";
+                }}
+              >
+                Generate Report
+              </button>
+
               </div>
             </>
           )}
@@ -139,13 +177,13 @@ export default function ViewSchedule() {
                 to={"/view"}
                 className="hidden sm:inline   bg-orange-500 hover:bg-red-500  text-white font-serif  py-2 px-4   rounded-full cursor-pointer"
               >
-                view all shedule
+                View all schedule
               </Link>
               <div></div>
             </div>
           </>
         )}
-
+  
         <div className="flex justify-center">
           <div className="flex flex-wrap justify-center gap-4">
             {filter && filter.length > 0 ? (
@@ -153,81 +191,115 @@ export default function ViewSchedule() {
                 {filter.slice(0, showMore ? filter.length : 2).map((formm) => (
                   <div
                     key={formm._id}
-                    className="w-[400px] h-[400px] mt-10 mb-10 rounded-xl border border-black bg-orange-600 bg-opacity-10 shadow-xl"
+                    className="card m-2"
+                    style={{ cursor: "pointer", width: "400px", height: "400px" }}
                   >
-                    <div className="px-6 py-4">
-                      <div className=" border border-black rounded-3xl mt-6 h-64  bg-white bg-opacity-50 shadow-2xl">
-                      <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Adoption ID:</div>
-                          <div className="font-extralight text-md mb-2 max-w-[200px] break-words">
-                            {formm.petId}
-                          </div>
-                        </div>
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Name:</div>
-                          <div className="font-extralight text-md mb-2 max-w-[200px] break-words">
-                            {formm.name}
-                          </div>
-                        </div>
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Email</div>
-                          <div className=" text-md mb-2 max-w-[200px] font-extralight break-words">
-                            {formm.email}
-                          </div>
-                        </div>
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Phone</div>
-                          <div className=" text-md mb-2 max-w-[100px] font-extralight break-words">
-                            {formm.phone}
-                          </div>
-                        </div>
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Date</div>
-                          <div className="text-gray-700  text-sm mt-2   max-w-[200px] font-extralight break-words">
-                            {formm.date}
-                          </div>
-                        </div>
-                        <div className="flex gap-4 ml-4">
-                          <div className="font-extralight text-md">Time</div>
-                          <div className="text-gray-700  text-sm mt-2   max-w-[200px] font-extralight break-words">
-                            {formm.time}
-                          </div>
-                        </div>
-                      </div>
-                      {user && (
-                        <>
-                          <div className="flex justify-center items-center gap-6 mt-6">
-                            <Link
-                              to={`/reschedule/${formm._id}`}
-                              className="hidden sm:inline   bg-orange-500 hover:bg-red-500 bg-opacity-90  text-white font-serif  py-1 px-8  rounded-xl cursor-pointer"
-                            >
-                              Reschedule
-                            </Link>
-                            <div>
-                              <button
-                                onClick={() => {
-                                  setformId(formm._id);
-                                  handleDelete(formm._id); // Pass formId to handleDelete
-                                }}
-                                className="hidden sm:inline    bg-orange-500 hover:bg-red-500  bg-opacity-90 text-white font-serif py-2 px-6  rounded-xl cursor-pointer"
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          </div>
-                        </>
-                      )}
+              
+                    <div className="card-body">
+                    <p>
+                        <b>Adoption ID:</b> {formm.petId}
+                      </p>
+                      <p>
+                        <b>Name:</b> {formm.name}
+                      </p>
+                      <p>
+                        <b>Email:</b> {formm.email}
+                      </p>
+                      <p>
+                        <b>Phone:</b> {formm.phone}
+                      </p>
+                      <p>
+                        <b>Date:</b> {formm.date}
+                      </p>
+                      <p>
+                        <b>Time:</b> {formm.time}
+                      </p>
                     </div>
+                    {user && (
+                      <>
+                        <div className="flex justify-center items-center gap-6 mt-6">
+                        <Link
+                          to={`/reschedule/${formm._id}`}
+                          className="hidden sm:inline text-white font-serif py-2 px-6 rounded-xl cursor-pointer"
+                          style={{
+                            backgroundColor: "#007BFF",
+                            fontWeight: "bold",
+                            border: "2px solid #FFFFFF",
+                            boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+                            transition: "all 0.3s ease",
+                            textTransform: "uppercase",
+                          }}
+                          onMouseOver={(e) => {
+                            e.target.style.backgroundColor = "#0056b3";
+                            e.target.style.transform = "scale(1.05)";
+                          }}
+                          onMouseOut={(e) => {
+                            e.target.style.backgroundColor = "#007BFF";
+                            e.target.style.transform = "scale(1.0)";
+                          }}
+                        >
+                          Reschedule
+                        </Link>
+
+
+                          <div>
+                          <button
+                            onClick={() => {
+                              setformId(formm._id);
+                              handleDelete(formm._id); // Pass formId to handleDelete
+                            }}
+                            className="hidden sm:inline text-white font-serif py-2 px-6 rounded-xl cursor-pointer"
+                            style={{
+                              backgroundColor: "#A91D3A",
+                              fontWeight: "bold",
+                
+                            boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              textTransform: "uppercase",
+                            }}
+                            onMouseOver={(e) => {
+                              e.target.style.backgroundColor = "#C73659";
+                              e.target.style.transform = "scale(1.1)";
+                            }}
+                            onMouseOut={(e) => {
+                              e.target.style.backgroundColor = "#A91D3A";
+                              e.target.style.transform = "scale(1.0)";
+                            }}
+                          >
+                            Cancel
+                          </button>
+
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 ))}
                 {!showMore && schedul.length > 2 && (
                   <div className="mt-4 md:hidden sm:hidden lg:block mb-4 ml-[60px]">
                     <button
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold rounded"
+                      className="text-white font-serif py-2 px-4 rounded-full cursor-pointer"
                       onClick={() => setShowMore(true)}
+                      style={{
+                        backgroundColor: "#ff5555",
+                        fontWeight: "bold",
+                        
+                        boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.3)",
+                        transition: "all 0.3s ease",
+                        textTransform: "uppercase",
+                      }}
+                      onMouseOver={(e) => {
+                        e.target.style.backgroundColor = "#ff6b6b";
+                        e.target.style.transform = "scale(1.1)";
+                      }}
+                      onMouseOut={(e) => {
+                        e.target.style.backgroundColor = "#ff5555";
+                        e.target.style.transform = "scale(1.0)";
+                      }}
                     >
                       Show More
                     </button>
+
                   </div>
                 )}
               </>
@@ -239,4 +311,5 @@ export default function ViewSchedule() {
       </div>
     </div>
   );
+  
 }
