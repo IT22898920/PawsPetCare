@@ -5,6 +5,7 @@ import { getUser } from "../../services/authService";
 import "./checkout.css";
 import jsPDF from 'jspdf';
 import Swal from 'sweetalert2';
+import petLogo from './petLogo.png';  
 
 const ViewCartItems = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -105,47 +106,95 @@ const ViewCartItems = () => {
     }
   };
 
-  const generatePDF = (formData) => {
+  const generatePDF = async (formData) => {
     const pdfDoc = new jsPDF();
-
-    // Company details
-    const companyName = "Paws Petcare";
-    const companyDetails = `
-    ${companyName}
-    Email: info@pawspetcare.com
-    Phone: +123456789`;
-
-    // Customer details
-    const customerDetails = `
-    Customer Name: ${formData.Name}
-    Email: ${formData.email}
-    Phone: ${formData.PNumber}
-    Address: ${formData.Address}`;
-
-    pdfDoc.setFontSize(16);
     
-    pdfDoc.text(companyDetails, 10, 10);
-    pdfDoc.text(customerDetails, 10, 40);
-
-    // Items details
-    pdfDoc.setFontSize(14);
-    let startY = 80;
-    formData.items.forEach((item, index) => {
-      const itemDetails = `
-      Item ${index + 1}:
-      Name: ${item.ItemsN}
-      Price: ${item.price}
-      Quantity: ${item.quantity}`;
-      pdfDoc.text(itemDetails, 10, startY);
-      startY += 40; // Increase Y position for next item
+    // Load the image and generate the PDF
+    const loadImage = src => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    };
+    
+    // Load the logo image
+    const logoImg = await loadImage(petLogo);
+    
+    // Start by adding the logo
+    pdfDoc.addImage(logoImg, 'PNG', 150, 10, 40, 40); // Adjust size and position as needed
+    
+    // Define initial Y position for the text under the logo
+    let yPos = 60; // Adjust this value based on the size of your logo
+    
+    // Pet Care Address
+    const petCareAddressLines = [
+      "E3, Isurupura",
+      "Malabe",
+      "Sri Lanka",
+    ];
+    pdfDoc.setFontSize(10);
+    petCareAddressLines.forEach(line => {
+      pdfDoc.text(line, 10, yPos);
+      yPos += 10; // Increment yPos for each line
     });
-
+    
+    // Add a space before adding the title
+    yPos += 10;
+    
+    // Setting the title
+    const title = "Invoice Report";
+    pdfDoc.setFontSize(14);
+    const titleWidth = pdfDoc.getStringUnitWidth(title) * pdfDoc.internal.getFontSize() / pdfDoc.internal.scaleFactor;
+    const titleX = (pdfDoc.internal.pageSize.width - titleWidth) / 2; 
+    pdfDoc.text(title, titleX, yPos); 
+  
+    // Increment yPos before adding customer details
+    yPos += 20;
+    
+    // Customer details
+    pdfDoc.setFontSize(12);
+    const customerDetails = `Customer Name: ${formData.Name}\nEmail: ${formData.email}\nPhone: ${formData.PNumber}\nAddress: ${formData.Address}`;
+    pdfDoc.text(customerDetails, 10, yPos);
+    
+    // Increment yPos for date and items list
+    yPos += 20;
+    
+    // Add date
+    const currentDate = new Date().toLocaleDateString();
+    pdfDoc.text(`Date: ${currentDate}`, 10, yPos);
+    yPos += 10;
+    
+    // Items details
+    formData.items.forEach((item, index) => {
+      const itemDetails = `Item ${index + 1}:\nName: ${item.ItemsN}\nPrice: ${item.price}\nQuantity: ${item.quantity}`;
+      pdfDoc.text(itemDetails, 10, yPos);
+      yPos += 20; // Adjust space between items as needed
+    });
+    
     // Total price
-    pdfDoc.text(`Total Price: ${formData.totalPrice}`, 10, startY);
-
+    pdfDoc.text(`Total Price: ${formData.totalPrice}`, 10, yPos);
+    
+    // Manager's signature
+    yPos += 20;
+    pdfDoc.text("Manager's Signature:", 10, yPos);
+    pdfDoc.line(60, yPos, 150, yPos); // Draw a line for the signature
+    
+    // Add current date and time under the signature
+    yPos += 10;
+    const currentDateTime = new Date().toLocaleString();  // This includes both date and time
+    pdfDoc.text(`Date and Time: ${currentDateTime}`, 10, yPos);
+    
     // Save the PDF document
     pdfDoc.save('checkout_details.pdf');
   };
+  
+  
+  
+  
+  
+  
 
   const validateForm = (formData) => {
     const { Name, email, Address, PNumber } = formData;
@@ -191,6 +240,11 @@ const ViewCartItems = () => {
 
   const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
+
+
+
+
+
   return (
     <div className="cart-items-container" style={{padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'}}>
       <h2 style={{textAlign: 'center', marginBottom: '20px'}}>Cart Items</h2>
@@ -208,6 +262,8 @@ const ViewCartItems = () => {
                     <h3>{item.ItemsN}</h3>
                     <p>Price: {item.price}</p>
                     <p>Quantity: {item.quantity}</p>
+                    
+
                   </div>
                 </div>
               </div>
