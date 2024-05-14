@@ -14,6 +14,9 @@ const EventForm = ({
     handleImageChange, 
     saveEvent,
 }) => {
+    //Get today's date in the format YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0];
+
     return (
     <div className="add-event">
         <Card cardClass={"card"}>
@@ -55,7 +58,7 @@ const EventForm = ({
 
                 <label>Event Date:</label>
                 <input type="date" placeholder="Event date" 
-                name="date" value={event?.date} onChange={handleInputChange} />
+                name="date" value={event?.date} min={today} onChange={handleInputChange} />
 
                 <label>Event Venue:</label>
                 <input type="text" placeholder="Event venue" 

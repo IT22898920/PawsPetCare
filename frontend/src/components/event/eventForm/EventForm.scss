@@ -38,6 +38,7 @@
         border: 1px solid #ccc; // Subtle border color
         border-radius: 5px; // Smoothed corners
         outline: none;
+        height: auto;
   
         &:focus {
           border-color: #3498db; // Highlight focus with a blue border
@@ -47,6 +48,10 @@
   
       .quill {
         background: #f7f7f7; // Light background for the editor
+      }
+
+      select {
+
       }
   
       .group {
