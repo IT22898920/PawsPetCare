@@ -11,6 +11,8 @@ import ReactPaginate from 'react-paginate';
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { deleteBlog, getBlogs } from "../../../redux/features/blog/blogSlice";
+import jsPDF from "jspdf";
+import "jspdf-autotable"
 
 const BlogList = ({ blog, isLoading }) => {
     const [searchBlog, setSearchBlog] = useState(""); 
@@ -78,8 +80,26 @@ const BlogList = ({ blog, isLoading }) => {
         return <p>-- No blog found, please add a blog --</p>;
     }
 
+
+
+    // PDF generation function
+    const generatePDFReport = () => {
+        const doc = new jsPDF();
+
+        // Define columns and prepare rows data
+        const tableColumn = ["Title", "Description"];
+        const tableRows = currentItems.map(blog => [blog.title, blog.description]);
+
+        // Add table to PDF
+        doc.autoTable(tableColumn, tableRows, { startY: 20 });
+
+        // Save PDF
+        doc.save("blogs_report.pdf");
+    };
     return (
         <div className="blog-list">
+                      <button onClick={generatePDFReport} className="generate-pdf-button">Generate PDF Report</button>
+
             <hr />
             <div className="table">
                 <div className="--flex-between --flex-dir-column">

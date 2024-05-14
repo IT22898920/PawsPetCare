@@ -12,7 +12,6 @@ import Layout from "./components/layout/Layout";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
 import { getLoginStatus } from "./services/authService";
 import { SET_LOGIN } from "./redux/features/auth/authSlice";
 import AddProduct from "./pages/addProduct/AddProduct";
@@ -59,6 +58,10 @@ import AdoptScheduleUpdate from "./components/pet/AdoptSchedule/AdoptScheduleUpd
 import ViewSchedule from "./components/pet/AdoptSchedule/ViewSchedule";
 import Reschedule from "./components/pet/AdoptSchedule/Reschedule";
 import RegisterUserHome from "./pages/registerUserHome/RegisterUserHome";
+import EditEvent from "./pages/editEvent/EditEvent";
+import EventDetail from "./components/event/eventDetail/EventDetail";
+import AllEventList from "./components/event/eventDetail/AllEventList";
+import { useDispatch, useSelector } from "react-redux";
 
 axios.defaults.withCredentials = true;
 
@@ -73,17 +76,19 @@ function App() {
     loginStatus();
   }, [dispatch]);
 
-  const ProtectedRoute = ({ children }) => {
+  const ProtectedRoute = ({ children, allowedRoles }) => {
     const location = useLocation();
-    
-    // Check if the navigation state has `allowed` set to true
-    if (location.state?.allowed) {
-      return children;
+    const role = useSelector(state => state.auth.role || "guest");
+
+    if (allowedRoles.includes(role)) {
+        return children;
     } else {
-      // Redirect to home or any other page if the condition is not met
-      return <Navigate to="/" />;
+        // Optionally, you might want to log the failed attempt for debugging.
+        console.log("Access denied. Current role:", role, "Required roles:", allowedRoles);
+        return <Navigate to="/" replace />;
     }
-  };
+};
+
 
 
   return (
@@ -221,7 +226,18 @@ function App() {
           }
         />
 
-<Route
+        <Route
+          path="/event-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EventDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+
+        <Route
           path="/pet-detail/:id"
           element={
             <Sidebar>
@@ -247,6 +263,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <EditBlog />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-event/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditEvent />
               </Layout>
             </Sidebar>
           }
@@ -282,13 +308,21 @@ function App() {
           }
         />
         <Route
-          path="/contact-us"
+          path="admin/contact-us"
           element={
             <Sidebar>
               <Layout>
                 <Contact />
               </Layout>
             </Sidebar>
+          }
+        />
+        <Route
+          path="/contact-us"
+          element={
+            <UserSidebar>
+                <Contact />
+            </UserSidebar>
           }
         />
         <Route
@@ -327,23 +361,48 @@ function App() {
           }
         />
         <Route
+          path="/AllEventList"
+          element={
+            <UserSidebar>
+            <AllEventList />
+            </UserSidebar>
+          }
+        />
+        <Route
           path="/viewcart"
           element={
-           
+            <UserSidebar>
+                <ViewCartItems />
+            </UserSidebar>
+          }
+        />
+        <Route
+          path="admin/viewcart"
+          element={
+            <Sidebar>
               <Layout>
                 <ViewCartItems />
               </Layout>
-            
+            </Sidebar>
           }
         />
         <Route
           path="/vieworders"
           element={
-           
+            <UserSidebar>
+              <ViewOrders />
+            </UserSidebar>
+
+          }
+        />
+        <Route
+          path="admin/vieworders"
+          element={
+            <Sidebar>
               <Layout>
                 <ViewOrders />
               </Layout>
-            
+            </Sidebar>
           }
         />
          <Route
@@ -384,6 +443,36 @@ function App() {
             <Sidebar>
               <Layout>
               <AllProductList />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/admin/AllEventList"
+          element={
+            <Sidebar>
+              <Layout>
+              <AllEventList />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/admin/AllBlogList"
+          element={
+            <Sidebar>
+              <Layout>
+              <AllBlogList />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/admin/AllPetList"
+          element={
+            <Sidebar>
+              <Layout>
+              <AllPetList />
               </Layout>
             </Sidebar>
           }
@@ -514,11 +603,17 @@ function App() {
         />
      
 
-<Route path="/cout" element={
-          <ProtectedRoute>
-            <ClintOutOfStock/>
-          </ProtectedRoute>
-        }/>
+     <Route 
+  path="/cout" 
+  element={
+    <ProtectedRoute allowedRoles={['admin', 'user', 'owner', 'doctor']}>
+      <Layout>
+        <ClintOutOfStock/>
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
         <Route path="/out" element={<OutOfStock/>}/>
         <Route path="/total" element={<ChartPage />}/>
 
