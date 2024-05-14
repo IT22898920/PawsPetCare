@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './petAdoptionForm.scss'; // Import your SCSS file
 
 const PetAdoptionForm = () => {
   const [formData, setFormData] = useState({
@@ -33,10 +34,10 @@ const PetAdoptionForm = () => {
   };
 
   return (
-    <div>
+    <div className="pet-adoption-form">
       <h2>Submit Adoption Details</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label>Name:</label>
           <input
             type="text"
@@ -46,7 +47,7 @@ const PetAdoptionForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Address:</label>
           <input
             type="text"
@@ -56,7 +57,7 @@ const PetAdoptionForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Phone Number:</label>
           <input
             type="text"
@@ -66,7 +67,7 @@ const PetAdoptionForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Description:</label>
           <textarea
             name="description"

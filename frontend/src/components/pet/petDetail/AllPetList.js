@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { getPets } from '../../../redux/features/Pets/petsSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './AllPetList.scss'
+import DOMPurify from 'dompurify';
 
 const AllPetList = () => {
     const dispatch = useDispatch();
     const { pets, isLoading, isError, message } = useSelector(state => state.pet);
-    console.log('Pets from state:', pets); 
-    
+    const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(getPets());
     }, [dispatch])
@@ -34,12 +36,13 @@ const AllPetList = () => {
 
     return (
         <div className="pet-grid">
+            <h2>Adopt Pet</h2>
             {pets.map(pet => (
                 <div key={pet.id} className="pet-card">
                     <h3>{pet.title}</h3>
-                    <img src={pet.image?.filePath} alt={pet.name} />
-                    <p>{pet.description}</p>
-                    <button className="adopt-now-btn">Adopt now</button> {/* Added button here */}
+                    <img src={pet.image?.filePath} alt={pet.title} />
+                    <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(pet.description) }} />
+                    <button onClick={() => navigate('/PetAdoptionForm')} className="adopt-now-btn">Adopt now</button>
                 </div>
             ))}
             <ToastContainer position="bottom-right" />

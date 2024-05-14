@@ -11,7 +11,9 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import { deletepets, getPets } from '../../../redux/features/Pets/petsSlice';
 import { Link } from 'react-router-dom';
-
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import petLogo from './petLogo.png';
 
 const PetList = ({ pets = [], isLoading }) => {
   const [SearchPet, setSearchPet] = useState('');
@@ -78,12 +80,45 @@ const handlePageClick = (event) => {
 };
 
     
- // End pagination
+  // Report generation
+  const generatePDFReport = () => {
+    const doc = new jsPDF();
 
+    // Define columns and prepare rows data
+    const tableColumn = ['Name', 'Category', 'Price'];
+    const tableRows = filteredPets.map((pet) => [pet.name, pet.category, pet.price]);
+
+    // Load the image and generate the PDF
+    const loadImage = (src) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    };
+
+    loadImage(petLogo)
+      .then((img) => {
+        // Add image to PDF
+        doc.addImage(img, 'JPEG', 10, 10, 30, 30);
+
+        // Add table
+        doc.autoTable(tableColumn, tableRows, { startY: 50 });
+
+        // Save PDF
+        doc.save('pets_report.pdf');
+      })
+      .catch((error) => {
+        console.error('Failed to load image for PDF', error);
+      });
+  };
  
 
   return (
     <div className='pet-list'>
+            <button onClick={generatePDFReport} className='report-button'>Generate PDF Report</button>
+
       <hr />
       <div className='table'>
         <div className='--flex-between --flex-dir-column'>
