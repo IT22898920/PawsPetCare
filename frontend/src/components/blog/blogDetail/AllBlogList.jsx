@@ -3,29 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBlogs } from '../../../redux/features/blog/blogSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './AllBlogList.css'; 
+import './AllBlogList.css';
+import DOMPurify from 'dompurify';
 
 const AllBlogList = () => {
     const dispatch = useDispatch();
     const { blogs, isLoading, isError, message } = useSelector(state => state.blog);
-    console.log('Blogs from state:', blogs); 
-    
-    
+    console.log('Blogs from state:', blogs);
+
     useEffect(() => {
         dispatch(getBlogs());
     }, [dispatch])
 
     useEffect(() => {
-        dispatch(getBlogs());
         if (isError) {
             toast.error(message);
         }
-    }, [dispatch, isError, message]);
-    
-    useEffect(() => {
-        console.log(blogs); 
-    }, [blogs]);
-    
+    }, [isError, message]);
 
     if (isLoading) {
         return <p>Loading...</p>;
@@ -36,14 +30,17 @@ const AllBlogList = () => {
     }
 
     return (
-        <div className="blog-grid">
-            {blogs.map(blog => (
-                <div key={blog.id} className="blog-card">
-                    <h3>{blog.title}</h3>
-                    <img src={blog.image.filePath} alt={blog.title} />
-                    <p>{blog.description}</p>
-                </div>
-            ))}
+        <div>
+            <h1>Blog Page</h1>
+            <div className="blog-grid">
+                {blogs.map(blog => (
+                    <div key={blog.id} className="blog-card">
+                        <img src={blog.image.filePath} alt={blog.title} />
+                        <h3>{blog.title}</h3>
+                        <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.description) }} />
+                    </div>
+                ))}
+            </div>
             <ToastContainer position="bottom-right" />
         </div>
     );

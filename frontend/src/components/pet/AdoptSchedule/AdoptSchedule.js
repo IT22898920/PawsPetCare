@@ -6,19 +6,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import TimezoneSelect from "react-timezone-select";
 import { getUser } from "../../../services/authService";
 import { useParams } from 'react-router-dom';
-// import Dog from "../img/dog.jpg";
 
 export default function AdoptSchedule() {
-
-    const { petId } = useParams();
-  console.log(petId); // Check if petId is defined
-
+  const { petId } = useParams();
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
+  const [notification, setNotification] = useState(null); // Add this line
   const navigate = useNavigate();
-  console.log(formData);
-  
-
 
   const handlchange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -26,12 +20,12 @@ export default function AdoptSchedule() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(null);
+
     try {
-      setErrorMessage(null);
       
       // Fetch user data
       const userdata = await getUser();
-      console.log(userdata);
   
       // Construct data object including user's ID
       const Data = {
@@ -48,12 +42,17 @@ export default function AdoptSchedule() {
         },
         body: JSON.stringify(Data)
       });
-   
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message);
+      }
+      setNotification('Reservation placed!');
+
     } catch (error) {
       setErrorMessage(error.message);
     }
   };
-  
 
 
   return (
@@ -119,21 +118,28 @@ export default function AdoptSchedule() {
                 >
                   <option value="">Select Time</option>
                   <option value="08AM-10AM">08AM-10AM</option>
-                  <option value="10PM-11PM">08AM-10AM</option>
-                  <option value="10AM-01AM">10AM-11AM</option>
-                  <option value="11AM-12PM">11AM-12PM</option>
-                  <option value="02PM-04PM">02PM-04PM</option>
-                  <option value="02PM-04PM">05PM-06PM</option>
+                  <option value="10PM-12PM">10AM-12AM</option>
+                  <option value="12AM-01AM">12AM-02PM</option>
+                  <option value="02AM-04PM">02AM-04PM</option>
+                  <option value="04PM-06PM">04PM-06PM</option>
+                  <option value="06PM-08PM">06PM-08PM</option>
                 </select>
               </div>
 
               <button
-                className=" bg-gray-600 text-white p-3 rounded-lg w-[460px] h-11 hover:opacity-90"
-                type="submit"
-              >
-                schedule
-              </button>
+  className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-3 px-6 rounded-lg w-[460px] h-11 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+  type="submit"
+>
+  Schedule
+</button>
+
             </form>
+
+            {notification && (
+        <p className="mt-5 text-green-600 bg-green-300 w-300 h-7 rounded-lg text-center ">
+          {notification}
+        </p>
+      )}
 
             {errorMessage && (
               <p className="mt-5 text-red-600 bg-red-300 w-300 h-7 rounded-lg text-center ">

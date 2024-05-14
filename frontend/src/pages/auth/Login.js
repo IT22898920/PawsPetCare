@@ -60,6 +60,10 @@ const Login = () => {
       else if(data.role === 'user') {
         navigate("/registeruserHome");
       }
+      else if(data.role === 'owner') {
+        navigate("/cout");
+      }
+      
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-import "./EventForm.scss"
+import "./EventForm.scss";
 import Card from "../../card/Card";
 
 const EventForm = ({
@@ -23,7 +23,7 @@ const EventForm = ({
                     <code className="--color-dark">Supported Formats: jpg, jpeg, png </code>
                     <input type="file" 
                            name="image"
-                        onChange={(e) => handleImageChange (e)}/>
+                           onChange={handleImageChange}/>
 
                     {imagePreview != null ? (
                         <div className="image-preview">
@@ -55,8 +55,16 @@ const EventForm = ({
                 name="time" value={event?.time} onChange={handleInputChange} />
 
                 <label>Event Trainer:</label>
-                <input type="text" placeholder="Event trainer" 
-                name="trainer" value={event?.trainer} onChange={handleInputChange} />
+                <select
+                    name="trainer"
+                    value={event?.trainer || ''}
+                    onChange={handleInputChange}
+                    className="custom-select">
+                    <option value="">Select Trainer</option>
+                    <option value="ET01 Ranugi">ET01 Ranugi</option>
+                    <option value="ET02 Thilina">ET02 Thilina</option>
+                    <option value="ET03 Chalana">ET03 Chalana</option>
+                </select>
 
                 <label>Event Description:</label>
                 <ReactQuill theme="snow" 
@@ -69,13 +77,12 @@ const EventForm = ({
                     <button type="submit" className="--btn --btn-primary">
                         Save Event
                     </button>
-                    </div> 
+                </div> 
             </form>
         </Card>
     </div>
     );
 };
-
 
 EventForm.modules = {
     toolbar: [
@@ -93,7 +100,7 @@ EventForm.modules = {
       ["clean"],
     ],
   };
-  EventForm.formats = [
+EventForm.formats = [
     "header",
     "font",
     "size",
