@@ -61,6 +61,26 @@ const menu = [
       },
     ],
   },
+  {
+    title: "All Products",
+    icon: <BiImageAdd />,
+    path: "/AllProductList",
+  },
+  {
+    title: "All Events",
+    icon: <BiImageAdd />,
+    path: "/AllEventList",
+  },
+  {
+    title: "All Blogs",
+    icon: <BiImageAdd />,
+    path: "/AllBlogList",
+  },
+  {
+    title: "All Pets",
+    icon: <BiImageAdd />,
+    path: "/AllPetList",
+  },
 ];
 
 export default menu;

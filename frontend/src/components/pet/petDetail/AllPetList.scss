@@ -1,27 +1,31 @@
-.pet-grid-container {
-    display: flex;
-    justify-content: center; // Horizontally center the grid
-    align-items: center; // Vertically center the grid
-    height: 100vh; // Take full viewport height
-    padding: 20px; // Optional: Padding to prevent content touching edges
-}
-
 .pet-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); // Reduced min size from 250px to 200px
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    text-align: center; /* Align text center */
+}
+
+.pet-grid h2 {
+    grid-column: 1 / -1; /* Span across all columns */
 }
 
 .pet-card {
-    padding: 1.5rem; // Reduced padding from 2rem to 1.5rem
-    background-color: #ffffff;
+    padding: 1.5rem;
+    background: rgb(243,219,241);
+    background: linear-gradient(90deg, rgba(243,219,241,1) 0%, rgba(226,232,255,1) 67%, rgba(236,235,251,1) 100%);
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pet-card:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-5px);
 }
 
 .pet-card img {
@@ -50,8 +54,30 @@
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
+}
 
-    &:hover {
-        background-color: #45a049;
-    }
+.adopt-now-btn:hover {
+    background-color: #45a049;
+}
+
+/* Toast Container */
+.ReactToastify__toast-container {
+    z-index: 9999;
+}
+
+/* Toast Message */
+.ReactToastify__toast--error {
+    background-color: #ff6961;
+    color: #ffffff;
+}
+
+/* Toast Message Icon */
+.ReactToastify__toast-body:before {
+    content: "\1F6A8"; /* Unicode character for warning sign */
+    margin-right: 10px;
+}
+
+/* Toast Message Close Button */
+.ReactToastify__close-button {
+    color: #ffffff;
 }
