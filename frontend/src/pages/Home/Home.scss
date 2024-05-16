@@ -57,7 +57,6 @@ section{
     font-size: 1.2rem;
     border: .2rem solid var(--red);
     border-radius: .5rem;
-   // position: relative;
     overflow: hidden;
     z-index: 0;
     margin-top: 1rem;
@@ -162,13 +161,13 @@ header .navbar a:hover{
 
 .home .content h3{
     font-size: 5rem;
-    color: #ca0000;
+    color: #fefefe;
 
 }
 
 .home .content p{
     font-size: 1.5rem;
-    color: rgb(97, 0, 0);
+    color: rgb(253, 253, 253);
 
 }
 
@@ -389,9 +388,8 @@ header .navbar a:hover{
     padding: .5rem 0;
 }
 .review .box-container .box .stars i{
-    font-size: 2rem;
-    color: var(--red);
-    padding: .5rem 0;
+    color: gold; /* or any color you prefer */
+    margin: 0 2px;
 }
 .review .box-container .box p{
     font-size: 1.5rem;
@@ -409,6 +407,15 @@ header .navbar a:hover{
     border-radius: .5rem;
 
 }
+.order .row form p {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    color: #16a973;
+    margin-bottom: 1.5rem;
+    padding: 5rem;
+    font-style: italic;
+}
+
 
 .order .row .image{
     flex: 1 1 30rem;
@@ -434,22 +441,9 @@ header .navbar a:hover{
     flex-wrap: wrap;
 }
 
-.order .row form .inputbox input, .order .row form textarea{
-     padding: 1rem;
-     margin: 1rem 0;
-     font-size: 1.7rem;
-     color: #333;
-     text-transform: none;
-     border: .1rem solid rgba(0, 0, 0, .3);
-     border-radius: .5rem;
-     width: 49%;
-}
 
-.order .row form textarea{
-    width: 100%;
-    resize: none;
-    height: 15rem;
-}
+
+
 .order .row form .btn{
     background: none;
 

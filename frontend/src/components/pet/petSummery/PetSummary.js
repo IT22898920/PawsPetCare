@@ -25,7 +25,6 @@ const PetSummary = ({pets}) => {
      <div className='info-summary'>
 
        <InfoBox icon={petIcon} title={"Total Pets"} count={pets.length} bgColor="card1"></InfoBox>
-       <InfoBox icon={outOfStock} title={"out of stock"} count={"0"} bgColor="card3"></InfoBox>
        <InfoBox icon={categoryIcon} title={"All categories"} count={"0"} bgColor="card2"></InfoBox>
     
 

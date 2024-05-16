@@ -39,8 +39,19 @@ const EventForm = ({
                 name="name" value={event?.name} onChange={handleInputChange} />
 
                 <label>Event Category:</label>
-                <input type="text" placeholder="Event category" 
-                name="category" value={event?.category} onChange={handleInputChange} />
+                <select
+                    name="category"
+                    value={event?.category || ''}
+                    onChange={handleInputChange}
+                    className="custom-select">
+                    <option value="">Select Category</option>
+                    <option value="Dog Fetch Context">Dog Fetch Context</option>
+                    <option value="Cat Fetch Context">Cat Fetch Context</option>
+                    <option value="Dog Agility Course">Dog Agility Course</option>
+                    <option value="Cat Agility Course">Cat Agility Course</option>
+                    <option value="Dog Parade">Dog Parade</option>
+                    <option value="Cat Parade">Cat Parade</option>
+                </select>
 
                 <label>Event Date:</label>
                 <input type="date" placeholder="Event date" 
